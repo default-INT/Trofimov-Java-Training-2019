@@ -4,6 +4,15 @@
 	font-style: normal; 
 	font-weight: normal;
  }
+/*
+  Цвета: #02bff6 - голубой
+
+*/
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
 ::-moz-focus-outer, ::-moz-focus-inner {
     border: 0;
@@ -19,11 +28,104 @@
 header {
   display: block;
   width: 100%;
-  height: 80px;
+  height: auto;
   text-align: center;
   background: #6ACAB4;
   color: white;
   font-size: 21pt;
+}
+
+header hr {
+  border: none;
+  background: whitesmoke;
+  margin-left: auto;
+  margin-right: auto;
+  height: 2px;
+  
+}
+
+header h1 {
+  padding-bottom: 10px;
+}
+
+nav {
+  height: 46px;
+  /*! text-orientation: sideways-right; */
+}
+
+header nav * {
+  display: block;
+  /*! float: left; */
+  /*! vertical-align: top; */
+  height: 100%;
+  
+  /*! margin-left: auto; */
+}
+
+header nav ul {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav li {
+  float: left;
+  /*! height: 100%; */
+}
+
+nav ul li {
+  width: 32%;
+  /*! padding-top: 9px; */
+  font-size: 18pt;
+  line-height: 36px;
+  /*! vertical-align: middle; */
+  /*! display: inline-block; */
+  transition: .5s ease-in-out;
+  height: 100%;
+  top: 0px;
+}
+
+nav ul li:hover {
+  background: #5fb09e;
+}
+
+nav .submenu {
+  position: block;
+  background: inherit;
+  width: 100%;
+  padding-left: 0px;
+  transform: scaleY(0);
+  transform-origin: 0 0;
+  transition: .5s ease-in-out;
+  list-style-type: none;
+}
+
+nav .submenu li {
+  position: block;
+  width: 100%;
+  background: #6ACAB4;
+}
+
+nav li:hover .submenu {
+  transform: scaleY(1);
+}
+
+footer {
+  background: #6ACAB4;
+  height: 80px;
+  margin-top: -80px;
+}
+
+/*background: #52a491;*/
+
+.wrapper-content {
+  height: 500px;
 }
 
 content {
@@ -33,37 +135,6 @@ content {
   margin-top: 20px;
   background: whitesmoke;
   width: 400px;
-}
-
-.calculator #header{
-  display: table-cell;
-  width: 100%;
-  height: 70px;
-  padding-top: 5px;
-  padding-bottom: 10px;
-  margin: 0;
-  vertical-align: middle;
-}
-
-.calculator #header * {
-  display: inline-block;
-  height: 100%;
-  
-}
-
-.calculator #header input {
-  width: 100%;
-  border: 0;
-}
-
-.calculator #header #value-data {
-  width: 290px;
-  padding-left: 3px;  
-}
-
-.calculator #header #submit-button {
-  width: 95px;
-  margin-left: 5px;
 }
 
 input {
@@ -90,21 +161,4 @@ input[type = "submit"]:hover{
 input[type = "text"]:focus{
   box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
   border: none;
-}
-
-.calculator #number {
-  display: grid;
-  margin-left: 3px;
-  margin-right: 3px;
-  padding-bottom: 3px;
-  grid-template-columns: 	1fr 1fr 1fr 1fr;
-	grid-template-rows: repeat(4, 80px);
-	transition: 0.3s ease;
-  text-decoration: none;
-	grid-gap: 5px;
-}
-
-.calculator #number * {
-  width: 100%;
-  height: 100%;
 }
