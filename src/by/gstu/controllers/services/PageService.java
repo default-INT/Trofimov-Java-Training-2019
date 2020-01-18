@@ -10,7 +10,7 @@ import java.util.*;
  * The class routes the client request and returns the corresponding response.
  *
  * @author Evgeniy Trofimov
- * @version 1.0
+ * @version 1.1
  */
 public class PageService {
     private final static String LAYOUT_PATH = "/layout.html";
@@ -34,6 +34,7 @@ public class PageService {
     private final static Collection<String> PAGES;
     private final static Map<String, String> PAGE_PATH;
 
+    //add read form file
     static {
         PAGES = Arrays.asList(MAIN_PAGE, CAR_LIST_PAGE, ABOUT_PAGE, FREE_CAR_PAGE, RENTAL_CAR_PAGE, USER_CAR_PAGE);
 
@@ -51,23 +52,28 @@ public class PageService {
     private PageService() {
     }
 
-    public static void routeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static boolean routeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
-        if (!servletPath.contains("/resources") && !servletPath.contains("/route") && !servletPath.contains("/favicon.ico")) {
+        if (!servletPath.contains("/resources") && !servletPath.contains("/route") && !servletPath.contains("/favicon.ico")
+            && !servletPath.contains("/account")) {
             for (String page : PAGES) {
-                if (servletPath.contains(page)) {
+                if (servletPath.equals(page)) {
                     request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
-                    return;
+                    return true;
                 }
             }
-            if (servletPath.contains(NOT_FOUND_PAGE)) {
+            if (servletPath.equals(NOT_FOUND_PAGE)) {
                 request.getRequestDispatcher(NOT_FOUND_PATH).forward(request, response);
-            } else if (servletPath.contains(INDEX_PATH)) {
-                response.sendRedirect(request.getContextPath() + MAIN_PAGE);
+                return false;
+            } else if (servletPath.equals("/")) {
+                response.sendRedirect(MAIN_PAGE);
+                return false;
             } else {
-                response.sendRedirect(request.getContextPath() + NOT_FOUND_PAGE);
+                response.sendRedirect(NOT_FOUND_PAGE);
+                return false;
             }
         }
+        return true;
     }
 
     public static void servletRoute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

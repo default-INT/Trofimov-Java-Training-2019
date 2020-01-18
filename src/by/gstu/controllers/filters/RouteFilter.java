@@ -21,17 +21,12 @@ public class RouteFilter implements Filter {
             throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
-        PageService.routeRequest(request, response);
-        chain.doFilter(req, resp);
+        if (PageService.routeRequest(request, response))
+            chain.doFilter(request, response);
     }
 
     public void init(FilterConfig config) throws ServletException {
-
     }
 
-    private Cookie searchCookie(String key, HttpServletRequest request) {
-        
-        return null;
-    }
 
 }

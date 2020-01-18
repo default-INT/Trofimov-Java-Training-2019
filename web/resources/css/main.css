@@ -49,7 +49,7 @@ header hr {
 }
 
 header h1 {
-  padding-bottom: 10px;
+  height: 70px;
 }
 
 nav {
@@ -59,11 +59,7 @@ nav {
 
 header nav * {
   display: block;
-  /*! float: left; */
-  /*! vertical-align: top; */
   height: 100%;
-  
-  /*! margin-left: auto; */
 }
 
 header nav ul {
@@ -80,8 +76,6 @@ a {
 
 nav li {
   float: left;
-  
-  /*! height: 100%; */
 }
 
 nav ul li {
@@ -100,7 +94,7 @@ nav ul li:hover {
   background: #5fb09e;
 }
 
-nav .submenu {
+.submenu {
   position: block;
   background: inherit;
   width: 100%;
@@ -111,19 +105,14 @@ nav .submenu {
   list-style-type: none;
 }
 
-nav .submenu li {
+.submenu li {
   position: block;
   width: 100%;
   background: #6ACAB4; 
 }
 
-nav li .submenu {
+li .submenu {
   z-index: 2;
-}
-
-nav li:hover .submenu {
-  
-  transform: scaleY(1);
 }
 
 footer {
@@ -133,6 +122,53 @@ footer {
   background: #6ACAB4;
   height: 120px;
   width: 100%;
+}
+
+header #user {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+  text-align: center;
+  cursor: pointer;
+  height: inherit;
+  transform-origin: 0 0;
+  transition: .5s ease-in-out;
+  border-left: whitesmoke solid 2px;
+}
+
+header #user:hover {
+  background: #5fb09e;
+}
+
+#login {
+  height: inherit;
+}
+
+header #user .submenu {
+  font-size: 18pt;
+  margin-top: 2px;
+  border-radius: 20px;
+  font-weight: none;
+  z-index: 2;
+}
+
+header #user .submenu li {
+  padding-top: 10px;
+  background: #5fb09e;
+  border-bottom: 2px solid whitesmoke;
+  transform-origin: 0 0;
+  transition: .5s ease-in-out;
+  
+  height: 40px;
+}
+
+header #user .submenu li:hover {
+  background: #408e7d;
+}
+
+#sidebar.active {
+  transform: scaleY(1);
 }
 
 /*background: #52a491;*/
@@ -155,13 +191,21 @@ content {
 }
 
 content h1 {
-  height: 1000px;
+  height: 50px;
   text-align: center;
+}
+
+#welcome-user {
+  border-top: 6px white dotted;
+  height: 600px;
+  padding-left: 20px;
+  padding-top: 20px;
+  font-size: 19pt;
 }
 
 .wrapper-content .empty-line {
   width: 100%;
-  background: whitesmoke;
+  background: white;
   height: 50px;
 }
 
@@ -173,9 +217,8 @@ input {
   transition: .4s ease;
 }
 
-input[type = "text"] {
-  text-align: right;
-  padding-right: 5px;
+input[type = "text"], input[type = "password"] {
+  padding-left: 5px;
 }
 
 input[type = "submit"] {
@@ -186,7 +229,7 @@ input[type = "submit"]:hover{
   box-shadow: inset 0 0 30px 50px rgba(0,0,0,.2);
 }
 
-input[type = "text"]:focus{
+input[type = "text"]:focus, input[type = "password"]:focus {
   box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
   border: none;
 }
