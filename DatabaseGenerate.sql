@@ -35,9 +35,9 @@ create table cars
 create table accounts
 (
     id int auto_increment primary key,
-    login varchar(16) not null,
+    login varchar(16) not null unique,
     password varchar(50) not null,
-    email varchar(60) not null,
+    email varchar(60) not null unique,
     role boolean not null, -- true - администратор, false - клиент
     full_name varchar(30) null,
     birthday_year int null
@@ -336,6 +336,39 @@ CREATE PROCEDURE read_return_request(
 BEGIN
     SELECT * FROM return_requests WHERE id = var_return_req_id;
 END //
+
+-- STORAGE PROCEDURE FROM transmission
+
+CREATE PROCEDURE read_all_transmissions()
+BEGIN
+	SELECT * FROM transmissions;
+END //
+
+CREATE PROCEDURE read_transmission(
+	var_id INT
+)
+BEGIN
+	SELECT * FROM transmissions WHERE id = var_id;
+END //
+
+-- STORAGE PROCEDURE FROM fuel_types
+
+CREATE PROCEDURE read_all_fuel_types()
+BEGIN
+	SELECT * FROM fuel_types;
+END //
+
+CREATE PROCEDURE read_fuel_type(
+	var_id INT
+)
+BEGIN
+	SELECT * FROM fuel_types WHERE id = var_id;
+END //
+
+
+
+
+-- INSERT TEMPLATE
 
 -- add transmission
 

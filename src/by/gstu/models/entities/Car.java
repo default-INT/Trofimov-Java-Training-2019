@@ -23,16 +23,16 @@ public class Car extends Entity {
 	private int fuelTypeId;
 	private FuelType fuelType;
 
-	public Car(int id, String model, int mileage, int yearOfIssue, double priceHour,
-			   Transmission transmission, String number, FuelType fuelType) {
+	public Car(int id, String model, int mileage, int yearOfIssue, double priceHour, int transmissionId,
+			   String number, int fuelTypeId) {
 		super(id);
 		this.model = model;
 		this.mileage = mileage;
 		this.yearOfIssue = yearOfIssue;
 		this.priceHour = priceHour;
-		this.transmission = transmission;
+		this.transmissionId = transmissionId;
 		this.number = number;
-		this.fuelType = fuelType;
+		this.fuelTypeId = fuelTypeId;
 	}
 
 	public Car(int id) {
@@ -92,11 +92,21 @@ public class Car extends Entity {
 		//TODO: get from database. Support DAO
 		return transmission;
 	}
-
+	public int getTransmissionId() {
+		return transmissionId;
+	}
+	public void setTransmissionId(int transmissionId) {
+		this.transmissionId = transmissionId;
+	}
+	public int getFuelTypeId() {
+		return fuelTypeId;
+	}
+	public void setFuelTypeId(int fuelTypeId) {
+		this.fuelTypeId = fuelTypeId;
+	}
 	public void setTransmission(Transmission transmission) {
 		this.transmission = transmission;
 	}
-
 	public String getNumber() {
 		return number;
 	}
@@ -132,7 +142,7 @@ public class Car extends Entity {
 		return getId() + "_" + getModel() + "_" + getMileage() + "_" + getYearOfIssue() + "_" + getPriceHour();
 	}
 
-	public abstract class CarEntity extends Entity {
+	public abstract static class CarEntity extends Entity {
 		protected String name;
 
 		public CarEntity(int id, String name) {
@@ -166,7 +176,7 @@ public class Car extends Entity {
 		}
 	}
 
-	public class FuelType extends CarEntity {
+	public static class FuelType extends CarEntity {
 		public FuelType(int id, String name) {
 			super(id, name);
 		}
@@ -179,7 +189,7 @@ public class Car extends Entity {
 		}
 	}
 
-	public class Transmission extends CarEntity {
+	public static class Transmission extends CarEntity {
 
 		public Transmission(int id, String name) {
 			super(id, name);

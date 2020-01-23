@@ -19,7 +19,7 @@ import java.util.concurrent.BlockingQueue;
  * @author Evgeni Trofimov
  * @version 1.0
  */
-class ConnectionPool {
+public class ConnectionPool {
 
     private static final Logger logger = Logger.getLogger(ConnectionPool.class);
 
