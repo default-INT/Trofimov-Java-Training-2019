@@ -184,19 +184,21 @@ public class MySqlCarDAO implements CarDAO {
         return false;
     }
 
-    private static final String DEFAULT_READ_TRANSMISSION = "CALL read_transmission(?)";
-    private static final String DEFAULT_READ_ALL_TRANSMISSION = "CALL read_all_transmissions()";
+    public static class MySqlTransmissionDAO implements CarDAO.CarEntityDAO<Car.Transmission> {
 
-    private static final String READ_TRANSMISSION;
-    private static final String READ_ALL_TRANSMISSION;
+        private static final String DEFAULT_READ_TRANSMISSION = "CALL read_transmission(?)";
+        private static final String DEFAULT_READ_ALL_TRANSMISSION = "CALL read_all_transmissions()";
 
-    static {
-        ConfigurationManager configurateManager = ConfigurationManager.getInstance();
-        READ_TRANSMISSION = configurateManager.getProperty("sql.Transmissions.read", DEFAULT_READ, "mysql");
-        READ_ALL_TRANSMISSION = configurateManager.getProperty("sql.Transmissions.readAll", DEFAULT_READ_ALL, "mysql");
-    }
+        private static final String READ_TRANSMISSION;
+        private static final String READ_ALL_TRANSMISSION;
 
-    public class MySqlTransmissionDAO implements CarDAO.CarEntityDAO<Car.Transmission> {
+        static {
+            ConfigurationManager configurateManager = ConfigurationManager.getInstance();
+            READ_TRANSMISSION = configurateManager.getProperty("sql.Transmissions.read", DEFAULT_READ_TRANSMISSION,
+                    "mysql");
+            READ_ALL_TRANSMISSION = configurateManager.getProperty("sql.Transmissions.readAll",
+                    DEFAULT_READ_ALL_TRANSMISSION, "mysql");
+        }
 
         @Override
         public Collection<Car.Transmission> readAll() {
@@ -205,7 +207,7 @@ public class MySqlCarDAO implements CarDAO {
             PreparedStatement statement = null;
             try {
                 connection = connectionPool.getConnection();
-                statement = connection.prepareStatement(READ_ALL);
+                statement = connection.prepareStatement(READ_ALL_TRANSMISSION);
                 ResultSet resultSet = statement.executeQuery();
                 Collection<Car.Transmission> transmissions = new ArrayList<>();
                 while (resultSet.next()) {
@@ -224,20 +226,92 @@ public class MySqlCarDAO implements CarDAO {
         }
 
         @Override
-        public Car.Transmission read() {
+        public Car.Transmission read(int id) {
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            Connection connection = null;
+            PreparedStatement statement = null;
+            try {
+                connection = connectionPool.getConnection();
+                statement = connection.prepareStatement(READ_TRANSMISSION);
+                statement.setInt(1, id);
+
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    String name = resultSet.getString("name");
+
+                    return new Car.Transmission(id, name);
+                }
+            } catch (SQLException | InterruptedException e) {
+                logger.error(e.getMessage(), e);
+            } finally {
+                connectionPool.closeConnection(connection);
+            }
             return null;
         }
     }
 
-    public class MySqlFuelTypeDAO implements CarDAO.CarEntityDAO<Car.FuelType> {
+    public static class MySqlFuelTypeDAO implements CarDAO.CarEntityDAO<Car.FuelType> {
+
+        private static final String DEFAULT_READ_FUEL_TYPE = "CALL read_all_fuel_types()";
+        private static final String DEFAULT_READ_ALL_FUEL_TYPE = "CALL read_fuel_type(?)";
+
+        private static final String READ_FUEL_TYPE;
+        private static final String READ_ALL_FUEL_TYPE;
+
+        static {
+            ConfigurationManager configurateManager = ConfigurationManager.getInstance();
+            READ_FUEL_TYPE = configurateManager.getProperty("sql.FuelTypes.read", DEFAULT_READ_FUEL_TYPE,
+                    "mysql");
+            READ_ALL_FUEL_TYPE = configurateManager.getProperty("sql.FuelTypes.readAll",
+                    DEFAULT_READ_ALL_FUEL_TYPE, "mysql");
+        }
 
         @Override
         public Collection<Car.FuelType> readAll() {
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            Connection connection = null;
+            PreparedStatement statement = null;
+            try {
+                connection = connectionPool.getConnection();
+                statement = connection.prepareStatement(READ_ALL_FUEL_TYPE);
+                ResultSet resultSet = statement.executeQuery();
+                Collection<Car.FuelType> fuelTypes = new ArrayList<>();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+
+                    fuelTypes.add(new Car.FuelType(id, name));
+                }
+                return fuelTypes;
+            } catch (SQLException | InterruptedException e) {
+                logger.error(e.getMessage(), e);
+            } finally {
+                connectionPool.closeConnection(connection);
+            }
             return null;
         }
 
         @Override
-        public Car.FuelType read() {
+        public Car.FuelType read(int id) {
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            Connection connection = null;
+            PreparedStatement statement = null;
+            try {
+                connection = connectionPool.getConnection();
+                statement = connection.prepareStatement(READ_ALL_FUEL_TYPE);
+                statement.setInt(1, id);
+
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    String name = resultSet.getString("name");
+
+                    return new Car.FuelType(id, name);
+                }
+            } catch (SQLException | InterruptedException e) {
+                logger.error(e.getMessage(), e);
+            } finally {
+                connectionPool.closeConnection(connection);
+            }
             return null;
         }
     }

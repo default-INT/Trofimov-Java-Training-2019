@@ -25,6 +25,6 @@ public interface CarDAO {
      */
     interface CarEntityDAO<T extends Car.CarEntity> {
         Collection<T> readAll();
-        T read();
+        T read(int id);
     }
 }

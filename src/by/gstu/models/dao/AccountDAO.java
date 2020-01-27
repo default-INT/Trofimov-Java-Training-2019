@@ -12,5 +12,5 @@ public interface AccountDAO {
     boolean delete(int id);
 
     Account logIn(String login, String password);
-    boolean checkLogin(String login);
+    boolean availableLogin(String login);
 }
