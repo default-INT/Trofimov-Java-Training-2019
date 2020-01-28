@@ -21,7 +21,7 @@ import java.util.Collection;
  * @author Evgeniy Trofimov
  * @version 2.0
  */
-public class MySqlAccountDAO implements AccountDAO {
+class MySqlAccountDAO implements AccountDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlAccountDAO.class);
 

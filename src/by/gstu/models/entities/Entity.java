@@ -1,6 +1,7 @@
 package by.gstu.models.entities;
 
 import by.gstu.models.untils.ParserJSON;
+import org.json.JSONObject;
 
 /**
  * Entity class.
@@ -27,5 +28,14 @@ public abstract class Entity implements ParserJSON {
 
 	public void setId(int id) {
 		id = id;
-	} 
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject returnReqJson = new JSONObject();
+
+		returnReqJson.put("id", id);
+
+		return returnReqJson;
+	}
 }

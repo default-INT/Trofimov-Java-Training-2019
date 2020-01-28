@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
  * @author Evgeniy Trofimov
  * @version 1.0
  */
-public class MySqlReturnRequestDAO implements ReturnRequestDAO {
+class MySqlReturnRequestDAO implements ReturnRequestDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlOrderDAO.class);
 

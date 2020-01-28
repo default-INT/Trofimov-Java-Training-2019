@@ -19,7 +19,7 @@ import java.util.Collection;
  * @author Evgeniy Trofimov
  * @version 2.0
  */
-public class MySqlCarDAO implements CarDAO {
+class MySqlCarDAO implements CarDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlCarDAO.class);
 

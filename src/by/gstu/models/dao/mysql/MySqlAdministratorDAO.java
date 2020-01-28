@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  * @author Evgeniy Trofimov
  * @version 2.0
  */
-public class MySqlAdministratorDAO implements AdministratorDAO {
+class MySqlAdministratorDAO implements AdministratorDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlAdministratorDAO.class);
 

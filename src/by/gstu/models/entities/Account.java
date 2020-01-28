@@ -25,18 +25,6 @@ public abstract class Account extends Entity {
     public Account() {
     }
 
-    @Override
-    public JSONObject toJSON() {
-        JSONObject accountJson = new JSONObject();
-
-        accountJson.put("id", id);
-        accountJson.put("login", login);
-        accountJson.put("email", email);
-        accountJson.put("fullName", fullName);
-
-        return accountJson;
-    }
-
     public String getLogin() {
         return login;
     }
@@ -60,5 +48,16 @@ public abstract class Account extends Entity {
     }
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        JSONObject accountJson = super.toJSON();
+
+        accountJson.put("login", login);
+        accountJson.put("email", email);
+        accountJson.put("fullName", fullName);
+
+        return accountJson;
     }
 }

@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
  * @author Evgeniy Trofimov
  * @version 2.0
  */
-public class MySqlOrderDAO implements OrderDAO {
+class MySqlOrderDAO implements OrderDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlOrderDAO.class);
 

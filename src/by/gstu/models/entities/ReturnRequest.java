@@ -1,5 +1,6 @@
 package by.gstu.models.entities;
 
+import by.gstu.models.dao.DAOFactory;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -18,7 +19,10 @@ public class ReturnRequest extends Entity {
     private boolean returnMark;
     private double repairCost;
 
-    public ReturnRequest(int id, Calendar returnDate, int orderId, String description, boolean returnMark, double repairCost) {
+    private Order order;
+
+    public ReturnRequest(int id, Calendar returnDate, int orderId, String description, boolean returnMark,
+                         double repairCost) {
         super(id);
         this.returnDate = returnDate;
         this.orderId = orderId;
@@ -57,9 +61,24 @@ public class ReturnRequest extends Entity {
     public void setReturnDate(Calendar returnDate) {
         this.returnDate = returnDate;
     }
+    public Order getOrder() {
+        if (order == null) {
+            DAOFactory dao = DAOFactory.getDAOFactory();
+            order = dao.getOrderDAO().read(orderId);
+        }
+        return order;
+    }
 
     @Override
     public JSONObject toJSON() {
-        return null;
+        JSONObject returnReqJson = super.toJSON();
+
+        returnReqJson.put("returnDate", returnDate);
+        returnReqJson.put("order", getOrder().toJSON());
+        returnReqJson.put("description", description);
+        returnReqJson.put("returnMark", returnMark);
+        returnReqJson.put("repairCost", repairCost);
+
+        return returnReqJson;
     }
 }

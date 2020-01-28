@@ -1,5 +1,7 @@
 package by.gstu.models.entities;
 
+import org.json.JSONObject;
+
 /**
  * Entity class.
  * Extends Account.

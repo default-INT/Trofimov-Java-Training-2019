@@ -19,7 +19,7 @@ import java.util.Collection;
  * @author Evgeniy Trofimov
  * @version 2.0
  */
-public class MySqlClientDAO implements ClientDAO {
+class MySqlClientDAO implements ClientDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlClientDAO.class);
 

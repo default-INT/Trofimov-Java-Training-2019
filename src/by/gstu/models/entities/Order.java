@@ -1,5 +1,6 @@
 package by.gstu.models.entities;
 
+import by.gstu.models.dao.DAOFactory;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -100,17 +101,33 @@ public class Order extends Entity {
 	}
 
 	public Car getCar() {
-		//TODO: get from DAO
+		if (car == null) {
+			DAOFactory dao = DAOFactory.getDAOFactory();
+			car = dao.getCarDAO().read(carId);
+		}
 		return car;
 	}
 
 	public Client getClient() {
-		//TODO: get from DAO
+		if (client == null) {
+			DAOFactory dao = DAOFactory.getDAOFactory();
+			client = (Client) dao.getAccountDAO().read(clientId);
+		}
 		return client;
 	}
 
 	@Override
 	public JSONObject toJSON() {
-		return null;
+		JSONObject orderJson = super.toJSON();
+
+		orderJson.put("orderDate", orderDate);
+		orderJson.put("period", period);
+		orderJson.put("returnDate", returnDate);
+		orderJson.put("car", getCar().toJSON());
+		orderJson.put("client", getClient().toJSON());
+		orderJson.put("passportData", getClient().toJSON());
+		orderJson.put("price", price);
+
+		return orderJson;
 	}
 }
