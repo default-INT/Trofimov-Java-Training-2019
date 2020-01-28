@@ -2,6 +2,8 @@ package by.gstu.models.entities;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
 /**
  * Entity class. TODO: Add description
  *
@@ -10,13 +12,15 @@ import org.json.JSONObject;
  */
 public class ReturnRequest extends Entity {
 
+    private Calendar returnDate;
     private int orderId;
     private String description;
     private boolean returnMark;
     private double repairCost;
 
-    public ReturnRequest(int id, int orderId, String description, boolean returnMark, double repairCost) {
+    public ReturnRequest(int id, Calendar returnDate, int orderId, String description, boolean returnMark, double repairCost) {
         super(id);
+        this.returnDate = returnDate;
         this.orderId = orderId;
         this.description = description;
         this.returnMark = returnMark;
@@ -46,6 +50,12 @@ public class ReturnRequest extends Entity {
     }
     public void setRepairCost(double repairCost) {
         this.repairCost = repairCost;
+    }
+    public Calendar getReturnDate() {
+        return returnDate;
+    }
+    public void setReturnDate(Calendar returnDate) {
+        this.returnDate = returnDate;
     }
 
     @Override

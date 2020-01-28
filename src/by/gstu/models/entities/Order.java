@@ -17,31 +17,33 @@ public class Order extends Entity {
 	private Calendar returnDate;
 	private int carId;
 	private int clientId;
-	private String phoneNumber;
+	private String passportData;
 	private double price;
 
 	private Car car;
 	private Client client;
 
-	public Order(int id, Calendar orderDate, int period, Calendar returnDate, String phoneNumber, double price, Car car, Client client) {
+	public Order(int id, Calendar orderDate, int period, Calendar returnDate, String phoneNumber, double price,
+				 Car car, Client client) {
 		super(id);
 		this.orderDate = orderDate;
 		this.period = period;
 		this.returnDate = returnDate;
-		this.phoneNumber = phoneNumber;
+		this.passportData = phoneNumber;
 		this.price = price;
 		this.car = car;
 		this.client = client;
 	}
 
-	public Order(int id, Calendar orderDate, int period, Calendar returnDate, int carId, int clientId, String phoneNumber, double price) {
+	public Order(int id, Calendar orderDate, int period, Calendar returnDate, int clientId, int carId,
+				 String passportData, double price) {
 		super(id);
 		this.orderDate = orderDate;
 		this.period = period;
 		this.returnDate = returnDate;
 		this.carId = carId;
 		this.clientId = clientId;
-		this.phoneNumber = phoneNumber;
+		this.passportData = passportData;
 		this.price = price;
 	}
 
@@ -78,31 +80,33 @@ public class Order extends Entity {
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
 	public double getPrice() {
 		return price;
 	}
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public Car getCar() {
-		//TODO: get from DAO
-		return car;
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	public String getPassportData() {
+		return passportData;
+	}
+	public void setPassportData(String passportData) {
+		this.passportData = passportData;
 	}
 	public void setCar(Car car) {
 		this.car = car;
 	}
+
+	public Car getCar() {
+		//TODO: get from DAO
+		return car;
+	}
+
 	public Client getClient() {
 		//TODO: get from DAO
 		return client;
-	}
-	public void setClient(Client client) {
-		this.client = client;
 	}
 
 	@Override

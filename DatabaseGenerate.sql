@@ -60,6 +60,7 @@ CREATE TABLE orders (
 CREATE TABLE return_requests
 (
     id int auto_increment not null primary key,
+	return_date DATETIME not null,
     order_id int not null,
     description varchar(200) not null,
     return_mark boolean,
@@ -183,6 +184,7 @@ CREATE PROCEDURE edit_client(
     var_id INT,
     var_login VARCHAR(16),
     var_password VARCHAR(50),
+	var_email VARCHAR(50),
     var_full_name VARCHAR(30),
     var_birthday_year INT
 )
@@ -190,6 +192,7 @@ BEGIN
     UPDATE accounts SET
                         login = var_login,
                         password = var_password,
+						email = var_email,
                         full_name = var_full_name,
                         birthday_year = var_birthday_year
     WHERE id = var_id;
@@ -292,18 +295,20 @@ END //
 -- STORAGE PROCEDURE FROM return_requests
 
 CREATE PROCEDURE add_return_request(
+	var_return_date DATETIME,
     var_order_id INT,
     var_description VARCHAR(200),
     var_return_mark BOOLEAN,
     var_repair_cost DOUBLE
 )
 BEGIN
-    INSERT INTO return_requests(order_id, description, return_mark, repair_cost)
-    VALUES (var_order_id, var_description, var_return_mark, var_repair_cost);
+    INSERT INTO return_requests(return_date, order_id, description, return_mark, repair_cost)
+    VALUES (var_return_date, var_order_id, var_description, var_return_mark, var_repair_cost);
 END //
 
 CREATE PROCEDURE edit_return_request(
     var_return_req_id INT,
+	var_return_date DATETIME,
     var_order_id INT,
     var_description VARCHAR(200),
     var_return_mark BOOLEAN,
@@ -311,6 +316,7 @@ CREATE PROCEDURE edit_return_request(
 )
 BEGIN
     UPDATE return_requests SET
+	   return_date = var_return_date,
        order_id = var_order_id,
        description = var_description,
        return_mark = var_return_mark,
