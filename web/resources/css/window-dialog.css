@@ -10,8 +10,8 @@ form .msg {
 }
 
 /* Set a style for all buttons */
-button {
-    background-color: #6ACAB4;
+.modal button {
+    background-color: #9F3ED5;
     font-size: 16pt;
     color: white;
     padding: 14px 20px;
@@ -19,7 +19,7 @@ button {
     border: none;
     cursor: pointer;
     width: 90%;
-    border-radius: 10px;
+    
 }
 
 .container h1 {
@@ -67,7 +67,7 @@ button:hover {
     padding-top: 30px;
 }
 
-input {
+input, select {
     width: 90%;
     margin-top: 15px;
     height: 60px;

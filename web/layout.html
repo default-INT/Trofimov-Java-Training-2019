@@ -5,6 +5,7 @@
     <title>Прокат автомобилей</title>
     <link rel="stylesheet" href="resources/css/main.css">
     <link rel="stylesheet" href="resources/css/window-dialog.css">
+    <link rel="stylesheet" href="resources/css/catalog-list.css">
 </head>
 <body>
 <header>
@@ -22,12 +23,10 @@
     <nav>
         <ul>
             <li><a class="link" name="/main" href="javascript: loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
-            <li class="menu"><a class="link" name="/car-list">АВТОМОБИЛИ</a>
-
+            <li class="menu"><a class="link" name="/car-list">СПИСОК АВТОМОБИЛЕЙ</a>
                 <ul class="submenu">
-                    <li><a class="link" name="/user-car" href="javascript: loadPageToUrl('/user-car')">Мои автомобили</a></li>
                     <li><a class="link" name="/free-car" href="javascript: loadPageToUrl('/free-car')">Свободные автомобили</a></li>
-                    <li><a class="link" name="/rental-car" href="javascript: loadPageToUrl('/rental-car')">Автомобили в прокате</a></li>
+                    <li><a class="link" name="/cars" href="javascript: loadPageToUrl('/cars')">Все автомобили</a></li>
                 </ul>
 
             </li>
@@ -65,7 +64,7 @@ class="close" title="Close Modal">&times;</span>
 
         <input type="text" placeholder="Введите логин" name="login" required><br>
         <input type="password" placeholder="Введите пароль" name="password" required><br>
-        <input type="password" placeholder="Повторите пароль" name="retryPasswrod" required><br>
+        <input type="password" placeholder="Повторите пароль" name="retryPassword" required><br>
         <input type="text" placeholder="Введите электронную почту" name="email" required><br>
         <label class="msg"></label>
         <button type="button"  id="reg-button" onclick="signUpUser()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
@@ -77,7 +76,6 @@ class="close" title="Close Modal">&times;</span>
 
     </div>
     <div class="empty-line">
-        
     </div>
     <footer>
         <div class="footer-content">
@@ -85,12 +83,12 @@ class="close" title="Close Modal">&times;</span>
                 © Евгений Трофимов ИТП-31<br>2020 г. gstu.by
             </div>
             <div id="time">
-                
+
             </div>
         </div>
     </footer>
 </div>
-
+<script type="text/javascript" src="resources/js/untils.js"></script>
 <script type="text/javascript" src="resources/js/main.js">
 </script>
 </body>

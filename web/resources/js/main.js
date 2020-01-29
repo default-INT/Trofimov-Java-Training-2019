@@ -95,12 +95,12 @@ function signUpUser() {
     let regForm = document.getElementById("registration-form");
     let msgLabel = regForm.querySelector(".msg");
 
-    let loginEnrty = regForm.querySelector("input[name='login']");
+    let loginEntry = regForm.querySelector("input[name='login']");
     let passEntry = regForm.querySelector("input[name='password']");
-    let retryPassEntry = regForm.querySelector("input[name='retryPasswrod']");
+    let retryPassEntry = regForm.querySelector("input[name='retryPassword']");
     let emailEntry = regForm.querySelector("input[name='email']");
 
-    if (isLoginValidation(loginEnrty.value) && isPassValidation(passEntry.value)
+    if (isLoginValidation(loginEntry.value) && isPassValidation(passEntry.value)
         && isEmailValidation(emailEntry.value) && isPassValidation(retryPassEntry.value)) {
         if (passEntry.value != retryPassEntry.value) {
 
@@ -172,7 +172,7 @@ function setUser(xhr) {
 
 function openMenu() {
     let submenu = this.getElementsByClassName("submenu")[0];
-    if (submenu.style.transform == "scaleY(1)") {
+    if (submenu.style.transform === "scaleY(1)") {
         submenu.style.transform = "scaleY(0)";
     } else {
         submenu.style.transform = "scaleY(1)";
@@ -199,12 +199,21 @@ function loadPageToUrl(path) {
     httpRequest.send();
 
     httpRequest.onload = function () {
-        if (httpRequest.status == 200) {
+        if (httpRequest.status === 200) {
 
             let content = httpRequest.response;
             document.getElementById("wrapper").innerHTML = content;
             history.pushState(null, null, path);
-            printWelcome();
+            if (path.includes("/main")) {
+                printWelcome();
+            } else if (path.includes("/cars")) {
+                try {
+                    getCarsAjax();
+                } catch (e) {
+                    include("resources/js/filter-catalog.js");
+                }
+            }
+
         } 
     };
 }

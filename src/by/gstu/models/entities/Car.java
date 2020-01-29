@@ -1,5 +1,7 @@
 package by.gstu.models.entities;
 
+import by.gstu.models.dao.DAOFactory;
+import by.gstu.models.dao.mysql.MySqlDAOFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -88,10 +90,6 @@ public class Car extends Entity {
 	public void setPriceHour(double priceHour) {
 		this.priceHour = priceHour;
 	}
-	public Transmission getTransmission() {
-		//TODO: get from database. Support DAO
-		return transmission;
-	}
 	public int getTransmissionId() {
 		return transmissionId;
 	}
@@ -113,12 +111,24 @@ public class Car extends Entity {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	public FuelType getFuelType() {
-		//TODO: get from database. Support DAO
-		return fuelType;
-	}
 	public void setFuelType(FuelType fuelType) {
 		this.fuelType = fuelType;
+	}
+
+	public FuelType getFuelType() {
+		if (fuelType == null) {
+			DAOFactory dao = new MySqlDAOFactory();
+			fuelType = dao.getFuelTypeDAO().read(fuelTypeId);
+		}
+		return fuelType;
+	}
+
+	public Transmission getTransmission() {
+		if (transmission == null) {
+			DAOFactory dao = new MySqlDAOFactory();
+			transmission = dao.getTransmissionDAO().read(transmissionId);
+		}
+		return transmission;
 	}
 
 	@Override

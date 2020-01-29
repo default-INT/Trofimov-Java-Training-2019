@@ -6,7 +6,8 @@
  }
 /*
   Цвета: #02bff6 - голубой
-
+         #7109AA - фиолетовый
+         #6ACAB4 - зелёный (default)
 */
 
 html, body {
@@ -29,12 +30,20 @@ a {
   cursor: pointer;
 }
 
+button {
+  background-color: #9F3ED5;
+  color: white;
+  border: 0;
+  transition: .8s ease;
+  cursor: pointer;
+}
+
 header {
   display: block;
   width: 100%;
   height: auto;
   text-align: center;
-  background: #6ACAB4;
+  background: #9F3ED5;
   color: white;
   font-size: 21pt;
 }
@@ -50,11 +59,14 @@ header hr {
 
 header h1 {
   height: 70px;
+  z-index: 2;
+  box-shadow: 0 0 10px 5px rgba(0,0,0,.2);
 }
 
 nav {
   height: 46px;
   /*! text-orientation: sideways-right; */
+  
 }
 
 header nav * {
@@ -91,7 +103,8 @@ nav ul li {
 }
 
 nav ul li:hover {
-  background: #5fb09e;
+  background: #AD66D5;
+  box-shadow: inset 0 0 5px 2px rgba(0,0,0,.2);
 }
 
 .submenu {
@@ -103,12 +116,13 @@ nav ul li:hover {
   transform-origin: 0 0;
   transition: .5s ease-in-out;
   list-style-type: none;
+
 }
 
 .submenu li {
   position: block;
   width: 100%;
-  background: #6ACAB4; 
+  background: #7109AA; 
 }
 
 li .submenu {
@@ -119,7 +133,7 @@ footer {
   position: absolute;
   bottom: 0;
   left: 0;
-  background: #6ACAB4;
+  background: #9F3ED5;
   height: 120px;
   width: 100%;
 }
@@ -135,10 +149,12 @@ header #user {
   transform-origin: 0 0;
   transition: .5s ease-in-out;
   border-left: whitesmoke solid 2px;
+
 }
 
 header #user:hover {
-  background: #5fb09e;
+  background: #AD66D5;
+  box-shadow: inset 0 0 5px 2px rgba(0,0,0,.2);
 }
 
 #login {
@@ -155,7 +171,7 @@ header #user .submenu {
 
 header #user .submenu li {
   padding-top: 10px;
-  background: #5fb09e;
+  background: #AD66D5;
   border-bottom: 2px solid whitesmoke;
   transform-origin: 0 0;
   transition: .5s ease-in-out;
@@ -164,7 +180,8 @@ header #user .submenu li {
 }
 
 header #user .submenu li:hover {
-  background: #408e7d;
+  background: #7109AA;
+  box-shadow: 0 0 5px 2px rgba(0,0,0,.2);
 }
 
 #sidebar.active {
@@ -177,22 +194,27 @@ header #user .submenu li:hover {
   position: relative;
   width: 100%;
   min-height: 100%;
+  background: whitesmoke;
 }
 
 content {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  /*! margin-top: 20px; */
   margin-bottom: 80px;
-  background: whitesmoke;
+  background: white;
   width: 1100px;
-  border-radius: 5px;
+  border-radius: 8px;
+  overflow: hidden;
+  padding-bottom: 10px;
+  box-shadow: 0 0 5px 2px rgba(0,0,0,.2);
 }
 
 content h1 {
   height: 50px;
   text-align: center;
+  cursor: pointer;
 }
 
 #welcome-user {
@@ -205,11 +227,11 @@ content h1 {
 
 .wrapper-content .empty-line {
   width: 100%;
-  background: white;
+  background: whitesmoke;
   height: 50px;
 }
 
-input {
+input, select, textarea {
   font-size: 24pt;
   border-width: 0;
   background: #e6e6e6;
@@ -217,21 +239,45 @@ input {
   transition: .4s ease;
 }
 
-input[type = "text"], input[type = "password"] {
+input[type = "text"], input[type = "password"], select, textarea {
   padding-left: 5px;
 }
 
-input[type = "submit"] {
+input[type = "submit"], select{
   cursor: pointer;
 }
 
-input[type = "submit"]:hover{
+input[type = "submit"]:hover, select:hover{
   box-shadow: inset 0 0 30px 50px rgba(0,0,0,.2);
 }
 
-input[type = "text"]:focus, input[type = "password"]:focus {
+input[type = "text"]:focus, input[type = "password"]:focus, select:hover, textarea:focus {
   box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
   border: none;
+}
+#wrapper {
+  padding-top: 20px;  
+}
+
+.wrapper-content {
+  
+}
+
+.wrapper-content .title-block h1 {
+  border-bottom: 2px solid whitesmoke;
+}
+
+.wrapper-content .filter-block {
+  text-align: centesr;
+  /*! height: 40px; */
+  border-bottom: 2px solid whitesmoke;
+  /*! cursor: pointer; */
+  transition: .4s ease;
+}
+
+.wrapper-content .filter-block h1:hover {
+  background: #7109AA;
+  color: white;
 }
 
 /*

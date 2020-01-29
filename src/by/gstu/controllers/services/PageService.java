@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -20,23 +21,27 @@ public class PageService {
     private final static String CAR_LIST_PATH = "/pages/car_list.html";
     private final static String ABOUT_PATH = "/pages/about.html";
     private final static String FREE_CAR_PATH = "/pages/free_car.html";
-    private final static String RENTAL_CAR_PATH = "/pages/rental_car.html";
+    private final static String RENTAL_CAR_PATH = "/pages/cars.html";
     private final static String USER_CAR_PATH = "/pages/user_car.html";
 
     private final static String MAIN_PAGE = "/main";
     private final static String CAR_LIST_PAGE = "/car-list";
     private final static String ABOUT_PAGE = "/about";
     private final static String FREE_CAR_PAGE = "/free-car";
-    private final static String RENTAL_CAR_PAGE = "/rental-car";
+    private final static String RENTAL_CAR_PAGE = "/cars";
     private final static String USER_CAR_PAGE = "/user-car";
     private final static String NOT_FOUND_PAGE = "/not-found";
 
     private final static Collection<String> PAGES;
     private final static Map<String, String> PAGE_PATH;
 
+    private final static Collection<String> RESOURCES_PAGE;
+
     //add read form file
     static {
         PAGES = Arrays.asList(MAIN_PAGE, CAR_LIST_PAGE, ABOUT_PAGE, FREE_CAR_PAGE, RENTAL_CAR_PAGE, USER_CAR_PAGE);
+
+        RESOURCES_PAGE = Arrays.asList("/resources", "/route", "/favicon.ico", "/account", "/service");
 
         PAGE_PATH = new HashMap<>();
 
@@ -54,29 +59,31 @@ public class PageService {
 
     public static boolean routeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
-        if (!servletPath.contains("/resources") && !servletPath.contains("/route") && !servletPath.contains("/favicon.ico")
-            && !servletPath.contains("/account")) {
-            for (String page : PAGES) {
-                if (servletPath.equals(page)) {
-                    request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
-                    return true;
-                }
-            }
-            if (servletPath.equals(NOT_FOUND_PAGE)) {
-                request.getRequestDispatcher(NOT_FOUND_PATH).forward(request, response);
-                return false;
-            } else if (servletPath.equals("/")) {
-                response.sendRedirect(MAIN_PAGE);
-                return false;
-            } else {
-                response.sendRedirect(NOT_FOUND_PAGE);
-                return false;
+
+        for (String page : RESOURCES_PAGE) {
+            if (servletPath.contains(page)) return true;
+        }
+
+        for (String page : PAGES) {
+            if (servletPath.equals(page)) {
+                request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
+                return true;
             }
         }
-        return true;
+        if (servletPath.equals(NOT_FOUND_PAGE)) {
+            request.getRequestDispatcher(NOT_FOUND_PATH).forward(request, response);
+            return false;
+        } else if (servletPath.equals("/")) {
+            response.sendRedirect(MAIN_PAGE);
+            return false;
+        } else {
+            response.sendRedirect(NOT_FOUND_PAGE);
+            return false;
+        }
     }
 
-    public static void servletRoute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static void servletRoute(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
         String pathInfo = request.getPathInfo();
         ArrayList<HashMap.Entry> pageInPath = new ArrayList<>(PAGE_PATH.entrySet());
 
