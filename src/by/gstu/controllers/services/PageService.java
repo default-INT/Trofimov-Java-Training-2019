@@ -1,21 +1,25 @@
 package by.gstu.controllers.services;
 
+import by.gstu.models.untils.ConfigurationManager;
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * The class routes the client request and returns the corresponding response.
  *
  * @author Evgeniy Trofimov
- * @version 1.1
+ * @version 1.3
  */
 public class PageService {
+
+    private static final Logger logger = Logger.getLogger(PageService.class);
+
     private final static String LAYOUT_PATH = "/layout.html";
-    private final static String INDEX_PATH = "/index.html";
     private final static String NOT_FOUND_PATH = "/notfound.html";
     private final static String MAIN_PATH = "/pages/main_content.html";
     private final static String CAR_LIST_PATH = "/pages/car_list.html";
@@ -32,26 +36,26 @@ public class PageService {
     private final static String USER_CAR_PAGE = "/user-car";
     private final static String NOT_FOUND_PAGE = "/not-found";
 
-    private final static Collection<String> PAGES;
-    private final static Map<String, String> PAGE_PATH;
+    private static Map<String, String> pagePath;
 
     private final static Collection<String> RESOURCES_PAGE;
 
-    //add read form file
     static {
-        PAGES = Arrays.asList(MAIN_PAGE, CAR_LIST_PAGE, ABOUT_PAGE, FREE_CAR_PAGE, RENTAL_CAR_PAGE, USER_CAR_PAGE);
-
         RESOURCES_PAGE = Arrays.asList("/resources", "/route", "/favicon.ico", "/account", "/service");
+        ConfigurationManager configurationManager = ConfigurationManager.getInstance();
 
-        PAGE_PATH = new HashMap<>();
-
-        PAGE_PATH.put(MAIN_PAGE, MAIN_PATH);
-        PAGE_PATH.put(NOT_FOUND_PAGE, NOT_FOUND_PATH);
-        PAGE_PATH.put(CAR_LIST_PAGE, CAR_LIST_PATH);
-        PAGE_PATH.put(ABOUT_PAGE, ABOUT_PATH);
-        PAGE_PATH.put(FREE_CAR_PAGE, FREE_CAR_PATH);
-        PAGE_PATH.put(RENTAL_CAR_PAGE, RENTAL_CAR_PATH);
-        PAGE_PATH.put(USER_CAR_PAGE, USER_CAR_PATH);
+        try {
+            pagePath = configurationManager.getUrlsPath("urls");
+        } catch (Exception ex) {
+            pagePath = new HashMap<>();
+            pagePath.put(MAIN_PAGE, MAIN_PATH);
+            pagePath.put(NOT_FOUND_PAGE, NOT_FOUND_PATH);
+            pagePath.put(CAR_LIST_PAGE, CAR_LIST_PATH);
+            pagePath.put(ABOUT_PAGE, ABOUT_PATH);
+            pagePath.put(FREE_CAR_PAGE, FREE_CAR_PATH);
+            pagePath.put(RENTAL_CAR_PAGE, RENTAL_CAR_PATH);
+            pagePath.put(USER_CAR_PAGE, USER_CAR_PATH);
+        }
     }
 
     private PageService() {
@@ -64,7 +68,9 @@ public class PageService {
             if (servletPath.contains(page)) return true;
         }
 
-        for (String page : PAGES) {
+        Collection<String> accessPages = pagePath.keySet();
+
+        for (String page : accessPages) {
             if (servletPath.equals(page)) {
                 request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
                 return true;
@@ -85,7 +91,7 @@ public class PageService {
     public static void servletRoute(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         String pathInfo = request.getPathInfo();
-        ArrayList<HashMap.Entry> pageInPath = new ArrayList<>(PAGE_PATH.entrySet());
+        ArrayList<HashMap.Entry> pageInPath = new ArrayList<>(pagePath.entrySet());
 
         for (HashMap.Entry element : pageInPath) {
             if (pathInfo.contains(element.getKey().toString())) {

@@ -1,53 +1,68 @@
-"use strict"
+"use strict";
 
-let links = Array.from(document.getElementsByClassName("link"));
+//let links = Array.from(document.getElementsByClassName("link"));
+
+let links = ["/main", "/cars", "/free-car", "/about", "/car-list"];
 
 let loginRegEx = /^[a-zA-z]{1}[a-zA-Z1-9_]{3,20}$/i;
 let passRegEx = /^[a-zA-z]{1}[a-zA-Z0-9_/!/@/#/$/%/&]{3,20}$/i;
 let emailRegEx = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/
 
 let msgColor = document.getElementsByClassName("msg")[0].style.color;
-
-/*
-for (let i = 0; i < links.length; i++) {
-    links[i].addEventListener("click", function() {
-    loadPageToUrl(this.name)
-    });
-}
-*/
-
-let user;
-
-setValidation();
-loadPageOnStart();
-
 let submenus = Array.from(document.getElementsByClassName("menu"));
 
-submenus.forEach(function(submenu, index, submenus) {
-    submenu.addEventListener("click", openMenu)
-});
+let user;
 
 // Get the modal
 let modals = Array.from(document.getElementsByClassName("modal"));
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    modals.forEach(function(modal, index, modals) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            clearForms();
-        }
+init();
+
+
+/**
+ * Initialize variable and run start method.
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
+function init() {
+    setValidation();
+    loadPageOnStart();
+
+    submenus.forEach(function(submenu, index, submenus) {
+        submenu.addEventListener("click", openMenu)
     });
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        modals.forEach(function(modal, index, modals) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+                clearForms();
+            }
+        });
+    };
+
+    setInterval(function () {
+        document.getElementById('time').innerHTML = getDateTime();
+    }, 1000);
 }
 
+/**
+ * Authorization in system
+ *
+ * TODO: Need refactoring and change logic!
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
 function logInUser() {
     let loginForm = document.getElementById("login-form");
     let msgLabel = loginForm.querySelector(".msg");
 
-    let loginEnrty = loginForm.querySelector("input[name='login']");
+    let loginEntry = loginForm.querySelector("input[name='login']");
     let passEntry = loginForm.querySelector("input[name='password']");
 
-    if (isLoginValidation(loginEnrty.value) && isPassValidation(passEntry.value)) {
+    if (isLoginValidation(loginEntry.value) && isPassValidation(passEntry.value)) {
         msgLabel.style.color = msgColor;
         msgLabel.innerHTML = "Идет проверка данных...";
         //ajax
@@ -72,8 +87,8 @@ function logInUser() {
         httpRequest.send(json);
 
         httpRequest.onload = () => {
-            if (httpRequest.status == 200) {
-                if (httpRequest == undefined) {
+            if (httpRequest.status === 200) {
+                if (httpRequest.response === undefined) {
                     msgLabel.style.color = "red";
                     msgLabel.innerHTML = "Неверный логин, либо пароль";
                     return;
@@ -84,13 +99,19 @@ function logInUser() {
                 loadPageOnStart();
             }
         }
-        
     } else {
         msgLabel.style.color = "red";
         msgLabel.innerHTML = "Данные некорректного формата";
     }
 }
 
+/**
+ * Registration in system
+ *
+ * TODO: Need refactoring and change logic!
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
 function signUpUser() {
     let regForm = document.getElementById("registration-form");
     let msgLabel = regForm.querySelector(".msg");
@@ -102,7 +123,7 @@ function signUpUser() {
 
     if (isLoginValidation(loginEntry.value) && isPassValidation(passEntry.value)
         && isEmailValidation(emailEntry.value) && isPassValidation(retryPassEntry.value)) {
-        if (passEntry.value != retryPassEntry.value) {
+        if (passEntry.value !== retryPassEntry.value) {
 
             passEntry.style.color = "red";
             retryPassEntry.style.color = "red";
@@ -129,8 +150,8 @@ function signUpUser() {
         httpRequest.send(json);
 
         httpRequest.onload = () => {
-            if (httpRequest.status == 200) {
-                if (httpRequest.response == undefined) {
+            if (httpRequest.status === 200) {
+                if (httpRequest.response === undefined) {
                     msgLabel.style.color = "red";
                     msgLabel.innerHTML = "Пользователь с таким логином, или почтой уже существует!";
                     return;
@@ -147,6 +168,15 @@ function signUpUser() {
     }
 }
 
+/**
+ * Set user data in portal
+ *
+ * TODO: Need refactoring and change logic!
+ *
+ * @param xhr - XMLHttpRequest
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
 function setUser(xhr) {
     user = xhr.response;
 
@@ -170,6 +200,12 @@ function setUser(xhr) {
     }
 }
 
+/**
+ * Open inner menu. Class - .submenu
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
 function openMenu() {
     let submenu = this.getElementsByClassName("submenu")[0];
     if (submenu.style.transform === "scaleY(1)") {
@@ -179,46 +215,65 @@ function openMenu() {
     }
 }
 
+/**
+ * Defines loaded page on url and get content with support Ajax request.
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
 function loadPageOnStart() {
     let url = document.location.href;
 
-    //Временное решение, ибо не все ссылки сайта могут быть на странице
     links.forEach(function(link, index, links) {
-        if (url.includes(link.name)) {
-            loadPageToUrl(link.name);
+        if (url.includes(link)) {
+            loadPageToUrl(link);
         }
     });
 }
 
+/**
+ * Loaded page in main content on context path.
+ *
+ * @param path - page url
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
 function loadPageToUrl(path) {
-    if (path == "") return;
+    if (path === "") return;
     let httpRequest = new XMLHttpRequest();
 
     httpRequest.open("GET", "/route" + path);
-    httpRequest.responseType = 'text/html';
+    httpRequest.responseType = "text/html";
     httpRequest.send();
 
     httpRequest.onload = function () {
         if (httpRequest.status === 200) {
-
             let content = httpRequest.response;
             document.getElementById("wrapper").innerHTML = content;
             history.pushState(null, null, path);
-            if (path.includes("/main")) {
-                printWelcome();
-            } else if (path.includes("/cars")) {
-                try {
-                    getCarsAjax();
-                } catch (e) {
-                    include("resources/js/filter-catalog.js");
-                }
-            }
-
+            definePage();
         } 
     };
+
+    function definePage() {
+        if (path.includes("/main")) {
+            printWelcome();
+        } else if (path.includes("/cars")) {
+            try {
+                getCarsAjax();
+            } catch (e) {
+                include("resources/js/filter-catalog.js");
+            }
+        }
+    }
 }
 
-
+/**
+ * Function Load content for "/main" url.
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
 function printWelcome() {
     let welcome = document.getElementById("welcome-user");
 
@@ -229,8 +284,11 @@ function printWelcome() {
     }
 }
 
-/*
+/**
  * Adding zeros in start to numbers
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
  */
 function setZeroFirstFormat(value)
 {
@@ -241,6 +299,13 @@ function setZeroFirstFormat(value)
     return value;
 }
 
+/**
+ * Function return now date and time in string format.
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ * @returns {string} date in format: dd.mm.yyyy hh.mm.ss
+ */
 function getDateTime() {
     let currentDateTime = new Date();
     let day = setZeroFirstFormat(currentDateTime.getDate());
@@ -253,10 +318,12 @@ function getDateTime() {
     return day + "." + month + "." + year + " " + hours + ":" + minutes + ":" + seconds;
 }
 
-setInterval(function () {
-    document.getElementById('time').innerHTML = getDateTime();
-}, 1000);
-
+/**
+ * Function for logOut user.
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
 function exit() {
     user = undefined;
     document.getElementById("login").innerHTML = "Гость";
@@ -345,4 +412,8 @@ function setValidation() {
             }
         });
     });    
+}
+
+class AjaxSender {
+    
 }

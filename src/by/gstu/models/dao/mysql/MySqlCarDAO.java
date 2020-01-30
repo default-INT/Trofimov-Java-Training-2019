@@ -298,7 +298,7 @@ class MySqlCarDAO implements CarDAO {
             PreparedStatement statement = null;
             try {
                 connection = connectionPool.getConnection();
-                statement = connection.prepareStatement(READ_ALL_FUEL_TYPE);
+                statement = connection.prepareStatement(READ_FUEL_TYPE);
                 statement.setInt(1, id);
 
                 ResultSet resultSet = statement.executeQuery();

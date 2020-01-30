@@ -1,8 +1,13 @@
 package by.gstu.models.untils;
 
 import org.apache.log4j.Logger;
+
+import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -10,7 +15,7 @@ import java.util.Properties;
  * Implemented singelton pattern.
  *
  * @author Evgeniy Trofimov
- * @version 1.3
+ * @version 1.5
  */
 public class ConfigurationManager {
 
@@ -51,6 +56,41 @@ public class ConfigurationManager {
     }
 
     /**
+     *  <h1>Read all urls from .properties file. Value including: url path - file path.</h1>
+     *
+     * @param filePath - path to properties file who include key - value (url path - file path)
+     * @return HashMap<String, String> - <url, filePath>
+     */
+    public Map<String, String> getUrlsPath(String filePath) {
+        filePath = filePath.toLowerCase();
+        try(InputStream inputStream = getClass()
+                .getClassLoader().getResourceAsStream(filePath +".properties")) {
+            Properties prop = new Properties();
+            prop.load(inputStream);
+            Map<String, String> urlsPath = new HashMap<>();
+            prop.stringPropertyNames().forEach((name) -> urlsPath.put(name, prop.getProperty(name)));
+            return urlsPath;
+        } catch (FileNotFoundException e) {
+            logger.warn("Not found " + filePath + ".property file in resources, try search in config.property. " +
+                    "Exception: " + e.getMessage());
+            try(InputStream inputStream = getClass()
+                    .getClassLoader().getResourceAsStream("urls.properties")) {
+                Properties prop = new Properties();
+                prop.load(inputStream);
+                Map<String, String> urlsPath = new HashMap<>();
+                prop.stringPropertyNames().forEach((name) -> urlsPath.put(name, prop.getProperty(name)));
+                return urlsPath;
+            } catch (Exception ex) {
+                logger.warn( "Not found property file in config.property, give default value. Error: "
+                        + e.getMessage(), e);
+            }
+        }catch (Exception e) {
+            logger.warn( "Not found property file, give default value. Error: " + e.getMessage(), e);
+        }
+        return null;
+    }
+
+    /**
      * Read data from (filePart).property file on key. If (filePart).property not found, then try founded key in
      * config.property and if failed find this key, then get default value.
      *
@@ -61,22 +101,24 @@ public class ConfigurationManager {
      */
     public String getProperty(String key, String defaultValue, String filePart) {
         filePart = filePart.toLowerCase();
-        try(FileInputStream fileInputStream = new FileInputStream("/resources/" + filePart +".properties")) {
+        try(InputStream inputStream = getClass()
+                .getClassLoader().getResourceAsStream(filePart +".properties")) {
             Properties prop = new Properties();
-            prop.load(fileInputStream);
+            prop.load(inputStream);
             return prop.getProperty(key, defaultValue);
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.warn("Not found " + filePart + ".property file in resources, try search in config.property. " +
                     "Exception: " + e.getMessage());
-            try(FileInputStream fileInputStream = new FileInputStream("/resources/config.properties")) {
+            try(InputStream inputStream = getClass()
+                    .getClassLoader().getResourceAsStream("config.properties")) {
                 Properties prop = new Properties();
-                prop.load(fileInputStream);
+                prop.load(inputStream);
                 return prop.getProperty(key, defaultValue);
             } catch (Exception ex) {
                 logger.warn( "Not found property file in config.property, give default value. Error: "
                         + e.getMessage(), e);
             }
-        }catch (Exception e){
+        }catch (Exception e) {
             logger.warn( "Not found property file, give default value. Error: " + e.getMessage(), e);
         }
         return defaultValue;
