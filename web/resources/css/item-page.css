@@ -1,0 +1,73 @@
+#carId {
+  display: none;
+}
+
+#carTitle {
+  font-size: 26pt;
+  border-bottom: 3px solid whitesmoke;
+}
+
+.item-content {
+  display: grid;
+  width: 98%;
+  height: 350px;
+  grid-template-columns: 340px auto;
+  grid-gap: 10px;
+  padding-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.item-content * {
+  overflow: hidden;
+}
+
+.item-content #imgBlock {
+  padding-top: 80px;
+}
+
+.car-item .item-content #imgBlock img {
+  width: 340px;
+}
+
+.car-item .item-content #description {
+  padding-left: 20px;
+}
+
+.car-item .item-content #description label {
+  display: block;
+  font-size: 20pt;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.car-item #description label * {
+  display: inline;
+}
+
+.car-item #formTitle {
+  border-top: 3px solid whitesmoke;
+}
+
+.car-item #orderForm {
+  border-top: 3px solid whitesmoke;
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 22pt;
+}
+
+.car-item #orderForm button {
+  width: 300px;
+  height: 60px;
+  border-radius: 10px;
+  font-size: 20pt;
+  padding: 0;
+  margin-top: 20px;
+  display: block;
+}
+
+.car-item #orderForm input {
+  width: 400px;
+}

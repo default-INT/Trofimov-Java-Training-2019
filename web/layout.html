@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="resources/css/main.css">
     <link rel="stylesheet" href="resources/css/window-dialog.css">
     <link rel="stylesheet" href="resources/css/catalog-list.css">
+    <link rel="stylesheet" href="resources/css/item-page.css">
 </head>
 <body>
 <header>
@@ -14,19 +15,19 @@
         <div id="user" class="menu">
             <div id="login">Гость</div>
             <ul class="submenu" id="user-sidebar">
-                <li onclick="document.getElementById('login-form').style.display='block'"><a class="link"  >Войти</a></li>
-                <li onclick="document.getElementById('registration-form').style.display='block'"><a class="link" >Зарегистрироваться</a></li>
+                <li onclick="document.getElementById('login-form').style.display='block'">Войти</li>
+                <li onclick="document.getElementById('registration-form').style.display='block'">Зарегистрироваться</li>
             </ul>
         </div>
     </h1>
     <hr>
     <nav>
         <ul>
-            <li><a class="link" name="/main" href="javascript: loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
-            <li class="menu"><a class="link" name="/car-list">СПИСОК АВТОМОБИЛЕЙ</a>
+            <li><a class="link" href="javascript: loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
+            <li class="menu"><a class="link">СПИСОК АВТОМОБИЛЕЙ</a>
                 <ul class="submenu">
-                    <li><a class="link" name="/free-car" href="javascript: loadPageToUrl('/free-car')">Свободные автомобили</a></li>
-                    <li><a class="link" name="/cars" href="javascript: loadPageToUrl('/cars')">Все автомобили</a></li>
+                    <li><a class="link" href="javascript: loadPageToUrl('/free-car')">Свободные автомобили</a></li>
+                    <li><a class="link" href="javascript: loadPageToUrl('/cars')">Все автомобили</a></li>
                 </ul>
 
             </li>
@@ -73,14 +74,44 @@ class="close" title="Close Modal">&times;</span>
 </div> 
 <div class="wrapper-content">
     <div id="wrapper">
-
+        <content class="car-item">
+            <span id="carId">1</span>
+            <h1 id="carTitle">
+                Ford Mustang
+            </h1>
+            <div class="item-content">
+                <div id="imgBlock">
+                    <img src="resources/img/ford-mustang.png" alt="">
+                </div>
+                <div id="description">
+                    <label>Номер автомобиля: <div id="number">4323 AE-3</div></label>
+                    <label>Коробка передач: <div id="transmission">Механика</div></label>
+                    <label>Тип двигателя: <div id="fuelType">Дизель</div></label>
+                    <label>Год выпуска: <div id="yearOfIssue">2010</div></label>
+                    <label>Пробег: <div id="mileage">432 324</div> км.</label>
+                    <label>Цена в час: <div id="priceHour">3</div>$</label>
+                    <label>Статус: <div id="status">Доступна для аренды</div></label>
+                </div>
+            </div>
+            <h1 id="formTitle">Форма для аренды</h1>
+            <form id="orderForm">
+                <label>Введите дату возврата</label><br>
+                <input type="date" name="dateReturn">
+                <input type="time" name="timeReturn"><br>
+                <label>Введите номер паспорта</label><br>
+                <input type="text" name="passportData" onchange="passportDataChange(this)" placeholder="HB3325143"><br>
+                <label>Стоимость аренды: <span id="rentalPrice">0</span>$</label><br>
+                <label id="msg"></label><br>
+                <button type="button" id="createOrderBtn" onclick="createOrder()">Взять в аренду</button>
+            </form>
+        </content>
     </div>
     <div class="empty-line">
     </div>
     <footer>
         <div class="footer-content">
             <div id="about">
-                © Евгений Трофимов ИТП-31<br>2020 г. gstu.by
+                © Евгений Трофимов ИТП-31<br>2020 г. <a href="https://www.gstu.by/">gstu.by</a>
             </div>
             <div id="time">
 
@@ -90,7 +121,7 @@ class="close" title="Close Modal">&times;</span>
 </div>
 <script type="text/javascript" src="resources/js/entities.js"></script>
 <script type="text/javascript" src="resources/js/untils.js"></script>
-<script type="text/javascript" src="resources/js/main.js">
-</script>
+<script type="text/javascript" src="resources/js/main.js"></script>
+<script type="text/javascript" src="resources/js/car-item.js"></script>
 </body>
 </html>

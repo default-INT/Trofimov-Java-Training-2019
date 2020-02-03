@@ -1,14 +1,33 @@
 let div = () => document.createElement("div");
 let divClass = (className) => {
-    let el = document.createElement("div");
+    let el = div();
     el.classList.add(className);
+    return el;
+};
+let divId = (id) => {
+    let el = div();
+    el.id = id;
+    return el;
+};
+let divIdContent = (id, content) => {
+    let el = divId(id);
+    el.innerHTML = content;
     return el;
 };
 let element = (tagName) => document.createElement(tagName);
 let elementClass = (tagName, className) => {
-    let el = document.createElement(tagName);
+    let el = element(tagName);
     el.classList.add(className);
-
+    return el;
+};
+let elementId = (tagName, id) => {
+    let el = element(tagName);
+    el.id = id;
+    return el;
+};
+let elementClassId = (tagName, id, className) => {
+    let el = elementClass(tagName, className);
+    el.id = id;
     return el;
 };
 let column = function () {
@@ -25,7 +44,18 @@ let column = function () {
 function include(url) {
     let script = document.createElement('script');
     script.type='text/javascript';
-    document.body.appendChild(script);
     script.src = url;
+    document.body.appendChild(script);
+
+    script.onload = function () {
+        if (!!this.init) {
+            this.init();
+        }
+    };
+    script.onerror = function() {
+        alert("Error loading " + this.src);
+    };
     //setTimeout('modules.sound.start();',5000);
 }
+
+let init;

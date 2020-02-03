@@ -4,20 +4,23 @@
 
 let links = ["/main", "/cars", "/free-car", "/about", "/car-list"];
 
-let loginRegEx = /^[a-zA-z]{1}[a-zA-Z1-9_]{3,20}$/i;
-let passRegEx = /^[a-zA-z]{1}[a-zA-Z0-9_/!/@/#/$/%/&]{3,20}$/i;
-let emailRegEx = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/
+const loginRegEx = /^[a-zA-z]{1}[a-zA-Z1-9_]{3,20}$/i;
+const passRegEx = /^[a-zA-z]{1}[a-zA-Z0-9_/!/@/#/$/%/&]{3,20}$/i;
+const emailRegEx = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
 
 let msgColor = document.getElementsByClassName("msg")[0].style.color;
 let submenus = Array.from(document.getElementsByClassName("menu"));
 
 let user;
+let userData = {
+    id: null,
+    login: null,
+    email: null,
+    status: null
+};
 
 // Get the modal
-let modals = Array.from(document.getElementsByClassName("modal"));
-
-init();
-
+let modals;
 
 /**
  * Initialize variable and run start method.
@@ -25,7 +28,9 @@ init();
  * @author Evgeniy Trofimov
  * @version 1.0
  */
-function init() {
+init = function init() {
+    modals = Array.from(document.getElementsByClassName("modal"));
+
     setValidation();
     loadPageOnStart();
 
@@ -46,6 +51,50 @@ function init() {
     setInterval(function () {
         document.getElementById('time').innerHTML = getDateTime();
     }, 1000);
+};
+
+init();
+
+/**
+ *
+ */
+class ContentManager {
+    /**
+     * Loaded page in main content on context path.
+     *
+     * @param path - page url
+     * @author Evgeniy Trofimov
+     * @version 1.0
+     */
+    static loadPageToUrl(path) {
+        if (path === "") return;
+        let httpRequest = new XMLHttpRequest();
+
+        httpRequest.open("GET", "/route" + path);
+        httpRequest.responseType = "text/html";
+        httpRequest.send();
+
+        httpRequest.onload = function () {
+            if (httpRequest.status === 200) {
+                let content = httpRequest.response;
+                document.getElementById("wrapper").innerHTML = content;
+                history.pushState(null, null, path);
+                ContentManager._definePage(path);
+            }
+        };
+    }
+
+    static _definePage(path) {
+        if (path.includes("/main")) {
+            printWelcome();
+        } else if (path.includes("/cars")) {
+            try {
+                getCarsAjax();
+            } catch (e) {
+                include("resources/js/filter-catalog.js");
+            }
+        }
+    }
 }
 
 /**
@@ -103,6 +152,34 @@ function logInUser() {
         msgLabel.style.color = "red";
         msgLabel.innerHTML = "Данные некорректного формата";
     }
+}
+
+/**
+ * Function will check been session on server. If user logIn early, then function set in
+ * userData information about user. If session empty function will setting null in userData.
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ */
+function getSessionAccount() {
+    let httpRequest = new XMLHttpRequest();
+    let urlPath = "/accounts/auth";
+    httpRequest.open("GET", urlPath);
+    httpRequest.response = "json";
+    httpRequest.send();
+
+    httpRequest.onload(function () {
+        if (httpRequest.status === 200) {
+            userData = httpRequest.response;
+            if (!userData) {
+                let user = document.getElementById("user");
+                user.login.innerHTML = "Гость";
+            }
+        } else {
+            console.log("Error send AJAX request to '" + urlPath + "'. " +
+                "Response status: " + httpRequest.status);
+        }
+    })
 }
 
 /**
@@ -180,7 +257,7 @@ function signUpUser() {
 function setUser(xhr) {
     user = xhr.response;
 
-    if (user != undefined) {
+    if (user !== undefined) {
         document.getElementById("login").innerHTML = user.login;
         let userSidebar = document.getElementById("user-sidebar");
 
@@ -382,7 +459,7 @@ function setValidation() {
     let loginForms = Array.from(document.getElementsByName("login"));
     let passForms = Array.from(document.querySelectorAll("input[type='password']"));
     let emailForms = Array.from(document.getElementsByName("email"));
-
+    //TODO: update logic! Concat inputs and check names.
     emailForms.forEach((form, index, emailForms) => {
         form.addEventListener("change", function() {
             if (!emailRegEx.test(this.value)) {

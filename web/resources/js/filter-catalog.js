@@ -1,14 +1,12 @@
 "use strict";
 
-init();
-
 /**
  * Initialize variable and run start method.
  *
  * @author Evgeniy Trofimov
  * @version 1.0
  */
-function init() {
+init = function init() {
     if (document.getElementById("filter-title") !== undefined) {
         document.getElementById("filter-title").addEventListener("click", () => {
             let form = document.getElementById("form-filter");
@@ -19,9 +17,11 @@ function init() {
             }
         });
     }
-
     getCarsAjax();
-}
+};
+
+init();
+
 
 /**
  * Sends AJAX request on ServiceServlet by url "/service/cars" and get all cars from database.

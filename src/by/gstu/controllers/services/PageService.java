@@ -46,7 +46,9 @@ public class PageService {
 
         try {
             pagePath = configurationManager.getUrlsPath("urls");
+            logger.info("Get urls from .properties file.");
         } catch (Exception ex) {
+            logger.warn("Get default urls.\n" + ex.getMessage());
             pagePath = new HashMap<>();
             pagePath.put(MAIN_PAGE, MAIN_PATH);
             pagePath.put(NOT_FOUND_PAGE, NOT_FOUND_PATH);
@@ -72,6 +74,7 @@ public class PageService {
 
         for (String page : accessPages) {
             if (servletPath.equals(page)) {
+                logger.info("Forward address '" + page +"' to '" + LAYOUT_PATH + "'.");
                 request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
                 return true;
             }
@@ -80,9 +83,11 @@ public class PageService {
             request.getRequestDispatcher(NOT_FOUND_PATH).forward(request, response);
             return false;
         } else if (servletPath.equals("/")) {
+            logger.info("Root url '/', send redirect to " + MAIN_PAGE);
             response.sendRedirect(MAIN_PAGE);
             return false;
         } else {
+            logger.info("Not found page, send redirect to " + NOT_FOUND_PATH);
             response.sendRedirect(NOT_FOUND_PAGE);
             return false;
         }

@@ -2,13 +2,11 @@ package by.gstu.controllers.services;
 
 import by.gstu.models.dao.CarDAO;
 import by.gstu.models.dao.DAOFactory;
-import by.gstu.models.entities.Car;
-import by.gstu.models.entities.Entity;
 import by.gstu.models.untils.ParserJSON;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * @author Evgeniy Trofimov
@@ -31,8 +29,10 @@ public class CarService {
     }
 
     public JSONArray getAllCars() {
-        var cars = carDAO.readAll();
-        Collection<Entity> entities = new ArrayList<>(cars);
-        return ParserJSON.toJSONArray(entities);
+        return ParserJSON.toJSONArray(new ArrayList<>(carDAO.readAll()));
+    }
+
+    public JSONObject getCar(int id) {
+        return carDAO.read(id).toJSON();
     }
 }

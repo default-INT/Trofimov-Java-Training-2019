@@ -214,7 +214,6 @@ content {
 content h1 {
   height: 50px;
   text-align: center;
-  cursor: pointer;
 }
 
 #welcome-user {
