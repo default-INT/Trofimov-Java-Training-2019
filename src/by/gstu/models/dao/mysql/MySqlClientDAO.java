@@ -79,12 +79,11 @@ class MySqlClientDAO implements ClientDAO {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String login = resultSet.getString("login");
-                String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
                 String fullName = resultSet.getString("full_name");
                 int birthdayYear = resultSet.getInt("birthday_year");
 
-                clients.add(new Client(id, login, password, email, fullName, birthdayYear));
+                clients.add(new Client(id, login, email, fullName, birthdayYear));
             }
             return clients;
         } catch (SQLException | InterruptedException e) {

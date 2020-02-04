@@ -22,6 +22,20 @@ public abstract class Account extends Entity {
         this.fullName = fullName;
     }
 
+    public Account(String login, String password, String email, String fullName) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.fullName = fullName;
+    }
+
+    public Account(int id, String login, String email, String fullName) {
+        super(id);
+        this.login = login;
+        this.email = email;
+        this.fullName = fullName;
+    }
+
     public Account() {
     }
 

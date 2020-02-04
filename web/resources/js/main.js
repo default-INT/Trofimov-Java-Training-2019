@@ -47,24 +47,22 @@ init = function init() {
             }
         });
     };
-
+    Account.authorizationAJAX();
     setInterval(function () {
         document.getElementById('time').innerHTML = getDateTime();
     }, 1000);
 };
 
-init();
-
 /**
  *
+ * @author Evgeniy Trofimov
+ * @version 1.0
  */
 class ContentManager {
     /**
      * Loaded page in main content on context path.
      *
      * @param path - page url
-     * @author Evgeniy Trofimov
-     * @version 1.0
      */
     static loadPageToUrl(path) {
         if (path === "") return;
@@ -86,7 +84,7 @@ class ContentManager {
 
     static _definePage(path) {
         if (path.includes("/main")) {
-            printWelcome();
+            ContentManager._printWelcome();
         } else if (path.includes("/cars")) {
             try {
                 getCarsAjax();
@@ -95,7 +93,16 @@ class ContentManager {
             }
         }
     }
+
+    static _printWelcome() {
+        let welcome = document.getElementById("welcome-user");
+        welcome.innerHTML = "Авторизуйтесь в системе.";
+    }
 }
+
+init();
+
+
 
 /**
  * Authorization in system
@@ -116,41 +123,28 @@ function logInUser() {
         msgLabel.innerHTML = "Идет проверка данных...";
         //ajax
         let authFormData = new FormData(document.getElementById("auth-form"));
+        Account.logInAJAX(authFormData.get("login"), authFormData.get("password"));
 
-        let httpRequest = new XMLHttpRequest();
-
-        let siteUrl = new URL(document.URL);
-        let url = new URL("/account", siteUrl.origin);
-        url.searchParams.set('login', authFormData.get("login"));
-        url.searchParams.set('password', authFormData.get("password"));
-
-        httpRequest.open("GET", url);
-        httpRequest.responseType = "json";
-        httpRequest.setRequestHeader('Content-Type', 'application/json');
-        let json = JSON.stringify({
-            login: authFormData.get("login"),
-            password: authFormData.get("password"),
-            email: null
-        });
-
-        httpRequest.send(json);
-
-        httpRequest.onload = () => {
-            if (httpRequest.status === 200) {
-                if (httpRequest.response === undefined) {
-                    msgLabel.style.color = "red";
-                    msgLabel.innerHTML = "Неверный логин, либо пароль";
-                    return;
-                }
-                setUser(httpRequest);
-                document.getElementById("login-form").style.display = "none";
-                clearForms();
-                loadPageOnStart();
-            }
-        }
     } else {
         msgLabel.style.color = "red";
         msgLabel.innerHTML = "Данные некорректного формата";
+    }
+}
+
+function setUserMenu(authUser) {
+    let loginForm = document.getElementById("login-form");
+    let msgLabel = loginForm.querySelector(".msg");
+    if (!authUser) {
+        msgLabel.style.color = "red";
+        msgLabel.innerHTML = "Неверный логин, либо пароль";
+    } else {
+        let userElement = document.getElementById("user");
+        userElement.remove();
+        let h1 = document.querySelector("header > h1");
+        h1.appendChild(authUser.getMenu());
+        document.getElementById("login-form").style.display = "none";
+        clearForms();
+        loadPageOnStart();
     }
 }
 
@@ -303,46 +297,9 @@ function loadPageOnStart() {
 
     links.forEach(function(link, index, links) {
         if (url.includes(link)) {
-            loadPageToUrl(link);
+            ContentManager.loadPageToUrl(link);
         }
     });
-}
-
-/**
- * Loaded page in main content on context path.
- *
- * @param path - page url
- * @author Evgeniy Trofimov
- * @version 1.0
- */
-function loadPageToUrl(path) {
-    if (path === "") return;
-    let httpRequest = new XMLHttpRequest();
-
-    httpRequest.open("GET", "/route" + path);
-    httpRequest.responseType = "text/html";
-    httpRequest.send();
-
-    httpRequest.onload = function () {
-        if (httpRequest.status === 200) {
-            let content = httpRequest.response;
-            document.getElementById("wrapper").innerHTML = content;
-            history.pushState(null, null, path);
-            definePage();
-        } 
-    };
-
-    function definePage() {
-        if (path.includes("/main")) {
-            printWelcome();
-        } else if (path.includes("/cars")) {
-            try {
-                getCarsAjax();
-            } catch (e) {
-                include("resources/js/filter-catalog.js");
-            }
-        }
-    }
 }
 
 /**

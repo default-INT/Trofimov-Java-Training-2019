@@ -23,15 +23,15 @@
     <hr>
     <nav>
         <ul>
-            <li><a class="link" href="javascript: loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
+            <li><a class="link" href="javascript: ContentManager.loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
             <li class="menu"><a class="link">СПИСОК АВТОМОБИЛЕЙ</a>
                 <ul class="submenu">
-                    <li><a class="link" href="javascript: loadPageToUrl('/free-car')">Свободные автомобили</a></li>
-                    <li><a class="link" href="javascript: loadPageToUrl('/cars')">Все автомобили</a></li>
+                    <li><a class="link" href="javascript: ContentManager.loadPageToUrl('/free-car')">Свободные автомобили</a></li>
+                    <li><a class="link" href="javascript: ContentManager.loadPageToUrl('/cars')">Все автомобили</a></li>
                 </ul>
 
             </li>
-            <li><a class="link" name="/about" href="javascript: loadPageToUrl('/about')">ОБ АВТОРЕ</a>
+            <li><a class="link" name="/about" href="javascript: ContentManager. loadPageToUrl('/about')">ОБ АВТОРЕ</a>
 
             </li>
         </ul>
@@ -67,6 +67,7 @@ class="close" title="Close Modal">&times;</span>
         <input type="password" placeholder="Введите пароль" name="password" required><br>
         <input type="password" placeholder="Повторите пароль" name="retryPassword" required><br>
         <input type="text" placeholder="Введите электронную почту" name="email" required><br>
+        <input type="number" placeholder="Введите возраст" name="email" required><br>
         <label class="msg"></label>
         <button type="button"  id="reg-button" onclick="signUpUser()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
     </div>

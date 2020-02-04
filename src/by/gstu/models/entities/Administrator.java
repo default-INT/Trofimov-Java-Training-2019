@@ -16,4 +16,15 @@ public class Administrator extends Account {
 
     public Administrator() {
     }
+
+    public Administrator(int id, String login, String email, String fullName) {
+        super(id, login, email, fullName);
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        JSONObject adminJson = super.toJSON();
+        adminJson.put("status", "admin");
+        return adminJson;
+    }
 }

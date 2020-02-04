@@ -1,5 +1,8 @@
 package by.gstu.controllers.services;
 
+import by.gstu.models.dao.DAOFactory;
+import by.gstu.models.entities.Account;
+import by.gstu.models.entities.Client;
 import by.gstu.models.entities.User;
 
 import java.util.ArrayList;
@@ -13,14 +16,11 @@ import java.util.Optional;
  */
 public class UserService {
     private static UserService instance;
+    private DAOFactory dao;
     private Collection<User> users;
 
     private UserService() {
-        users = new ArrayList<>();
-
-        users.add(new User("admin", "admin@gmail.com", "a1806"));
-        users.add(new User("default", "default@gmail.com", "a1806"));
-        users.add(new User("Trofimov", "evgen.trofimov.2000@gmail.com", "a1806"));
+        dao = DAOFactory.getDAOFactory();
     }
 
     public static UserService getInstance() {
@@ -30,34 +30,22 @@ public class UserService {
         return instance;
     }
 
-    public User authorization(String login, String password) {
-        final User user = users.stream().filter(u -> u.getLogin().equals(login) && u.getPassword().equals(password))
-                                        .findFirst()
-                                        .get();
-        return user;
+    public Account authorization(String login, String password) {
+
+        return dao.getAccountDAO().logIn(login, password);
     }
 
-    public User authorization(User user) {
-        return authorization(user.getLogin(), user.getPassword());
+    public Account authorization(Account account) {
+        return authorization(account.getLogin(), account.getPassword());
     }
 
-    public User registration(String login, String email, String password) {
-        return registration(new User(login, email, password));
+    public Client registration(String login, String email, String password) {
+        return registration(login, email, password);
     }
 
-    public User registration(User user) {
-        Optional<User> findUser = users.stream()
-                                   .filter(u -> u.getLogin().equals(user.getLogin()) || u.getEmail().equals(user.getEmail()))
-                                   .findFirst();
-        if (findUser.isEmpty()) {
-            try {
-                users.add(user);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return new User(user.getLogin(), user.getEmail());
-        } else
-            return null;
+    public Client registration(Client client) {
+        Client newClient = null;
+        if (dao.getClientDAO().create(client)) newClient = (Client) authorization(client);
+        return newClient;
     }
 }

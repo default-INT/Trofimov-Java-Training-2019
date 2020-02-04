@@ -101,7 +101,7 @@ class Car {
         });
     }
 
-    static getAllCarsAjax() {
+    static getAllCarsAJAX() {
         let httpRequest = new XMLHttpRequest();
 
         httpRequest.open("GET", "/service/cars/");
@@ -202,10 +202,10 @@ class Account {
     _status = "guest";
 
     constructor(account) {
-        this._id = account.id;
-        this._login = account.login;
-        this._email = account.email;
-        this._status = account.status;
+        if (!!account.id) this._id = account.id;
+        if (!!account.login) this._login = account.login;
+        if (!!account.email) this._email = account.email;
+        //if (!!account.status) this._status = account.status;
     }
 
     get id() {
@@ -261,6 +261,7 @@ class Account {
 
         userMenu.appendChild(login);
         userMenu.appendChild(userSidebar);
+        userMenu.addEventListener("click", openMenu);
 
         return userMenu;
     }
@@ -284,6 +285,8 @@ class Account {
             status: "guest"
         });
 
+        let user;
+
         httpRequest.onload = function () {
             if (httpRequest.status === 200) {
                 let account = httpRequest.response;
@@ -292,11 +295,11 @@ class Account {
                 } else if (!account.status) {
                     console.log("Status define null or undefined.");
                 } else if (account.status === "client") {
-                    return new Client(account);
+                    user = new Client(account);
                 } else if (account.status === "admin") {
-                    return  new Administrator();
+                    user = new Administrator(account);
                 }
-                return guest;
+                setUserMenu(user);
             } else {
                 console.log("Error send AJAX request to '" + url +
                     "'. Request status: " + httpRequest.status);
@@ -328,6 +331,7 @@ class Account {
             login: "Гость",
             status: "guest"
         });
+        let user;
 
         httpRequest.onload = function () {
             if (httpRequest.status === 200) {
@@ -337,15 +341,14 @@ class Account {
                 } else if (!account.status) {
                     console.log("Status define null or undefined.");
                 } else if (account.status === "client") {
-                    return new Client(account);
+                    user = new Client(account);
                 } else if (account.status === "admin") {
-                    return  new Administrator();
+                    user =  new Administrator(account);
                 }
-                return guest;
+                setUserMenu(user);
             } else {
                 console.log("Error send AJAX request to '" + url +
                     "'. Request status: " + httpRequest.status);
-                return guest;
             }
         };
     }
@@ -353,7 +356,7 @@ class Account {
     static getSubMenuElement(name, fx) {
         let btn = element("li");
         btn.addEventListener("click", fx);
-        btn.innerHTML = "Мой профиль";
+        btn.innerHTML = name;
 
         return btn;
     }
@@ -382,9 +385,33 @@ class Account {
 
         userMenu.appendChild(login);
         userMenu.appendChild(userSidebar);
+        userMenu.addEventListener("click", openMenu);
 
         return userMenu;
     }
+}
+
+function logOut() {
+    let httpRequest = new XMLHttpRequest();
+    let url = "/account/exit";
+
+    httpRequest.open("PUT", url);
+    httpRequest.responseType = "json";
+    httpRequest.send();
+
+    httpRequest.onload = function () {
+        if (httpRequest.status === 200) {
+            console.log("LogOut from account successful.")
+        } else {
+            console.log("Error send AJAX request for log out to '" + url +
+                "'. Request status: " + httpRequest.status);
+        }
+    };
+
+    setUserMenu(new Account({
+        login: "Гость",
+        status: "guest"
+    }));
 }
 
 /**
@@ -400,7 +427,7 @@ class Client extends Account {
     constructor(account) {
         super(account);
         this._status = "client";
-        this._birthdayYear = account.birthdayYear;
+        if (!!account.birthdayYear) this._birthdayYear = account.birthdayYear;
     }
 
     getMenu() {
@@ -412,7 +439,7 @@ class Client extends Account {
 
         let profileBtn = Account.getSubMenuElement("Мой профиль", undefined);
         let myOrdersBtn = Account.getSubMenuElement("Мои аренды", undefined);
-        let exitBtn = Account.getSubMenuElement("Выход", undefined);
+        let exitBtn = Account.getSubMenuElement("Выход", logOut());
 
         userSidebar.appendChild(profileBtn);
         userSidebar.appendChild(myOrdersBtn);
@@ -420,6 +447,7 @@ class Client extends Account {
 
         userMenu.appendChild(login);
         userMenu.appendChild(userSidebar);
+        userMenu.addEventListener("click", openMenu);
 
         return userMenu;
     }
@@ -456,14 +484,17 @@ class Administrator extends Account {
 
         let profileBtn = Account.getSubMenuElement("Мой профиль", undefined);
         let returnRequestBtn = Account.getSubMenuElement("Заявки на возврат", undefined);
-        let exitBtn = Account.getSubMenuElement("Выход", undefined);
+        let exitBtn = Account.getSubMenuElement("Выход", logOut);
+
 
         userSidebar.appendChild(profileBtn);
         userSidebar.appendChild(returnRequestBtn);
         userSidebar.appendChild(exitBtn);
+        exitBtn.addEventListener("click", logOut);
 
         userMenu.appendChild(login);
         userMenu.appendChild(userSidebar);
+        userMenu.addEventListener("click", openMenu);
 
         return userMenu;
     }
