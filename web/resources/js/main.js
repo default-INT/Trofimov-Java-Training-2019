@@ -121,7 +121,7 @@ function openedForm() {
  *
  * TODO: Need refactoring and change logic!
  * @author Evgeniy Trofimov
- * @version 1.0
+ * @version 1.5
  */
 function logInUser() {
     let loginForm = document.getElementById("login-form");
@@ -260,12 +260,8 @@ function openMenu() {
  */
 function loadPageOnStart() {
     let url = document.location.href;
-
-    links.forEach(function(link, index, links) {
-        if (url.includes(link)) {
-            ContentManager.loadPageToUrl(link);
-        }
-    });
+    let originUrl = new URL(document.URL).origin;
+    ContentManager.loadPageToUrl(url.replace(originUrl, ""));
 }
 
 /**
@@ -300,44 +296,6 @@ function getDateTime() {
     let seconds = setZeroFirstFormat(currentDateTime.getSeconds());
 
     return day + "." + month + "." + year + " " + hours + ":" + minutes + ":" + seconds;
-}
-
-/**
- * Function for logOut user.
- *
- * @author Evgeniy Trofimov
- * @version 1.0
- */
-function exit() {
-    user = undefined;
-    document.getElementById("login").innerHTML = "Гость";
-    let userSidebar = document.getElementById("user-sidebar");
-
-    userSidebar.innerHTML = "";
-
-    let li = document.createElement("li");
-    li.addEventListener('click', () => {
-       document.getElementById('login-form').style.display='block';
-    });
-
-    let aLog = document.createElement("a");
-    aLog.class = "link";
-    aLog.innerHTML = "Войти";
-    li.appendChild(aLog);
-
-    userSidebar.appendChild(li);
-
-    li = document.createElement("li");
-    li.addEventListener('click', () => {
-       document.getElementById('registration-form').style.display='block';
-    });
-    let aReg = document.createElement("a");
-    aReg.class = "link";
-    aReg.innerHTML = "Зарегистрироваться";
-    li.appendChild(aReg);
-
-    userSidebar.appendChild(li);
-    loadPageOnStart();
 }
 
 function clearForms() {

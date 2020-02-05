@@ -94,8 +94,10 @@ class MySqlCarDAO implements CarDAO {
                 double priceHour = resultSet.getDouble("price_hour");
                 int transmissionId = resultSet.getInt("transmission_id");
                 int fuelTypeId = resultSet.getInt("fuel_type_id");
+                boolean available = resultSet.getBoolean("available");
 
-                cars.add(new Car(id, model, mileage, yearOfIssue, priceHour, transmissionId, number, fuelTypeId));
+                cars.add(new Car(id, model, mileage, yearOfIssue, priceHour, transmissionId, number, fuelTypeId,
+                        available));
             }
             return cars;
         } catch (SQLException | InterruptedException e) {
@@ -124,8 +126,10 @@ class MySqlCarDAO implements CarDAO {
                 double priceHour = resultSet.getDouble("price_hour");
                 int transmissionId = resultSet.getInt("transmission_id");
                 int fuelTypeId = resultSet.getInt("fuel_type_id");
+                boolean available = resultSet.getBoolean("available");
 
-                return new Car(id, model, mileage, yearOfIssue, priceHour, transmissionId, number, fuelTypeId);
+                return new Car(id, model, mileage, yearOfIssue, priceHour, transmissionId, number, fuelTypeId,
+                        available);
             }
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);

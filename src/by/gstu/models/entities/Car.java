@@ -24,9 +24,10 @@ public class Car extends Entity {
 	private String number;
 	private int fuelTypeId;
 	private FuelType fuelType;
+	private boolean available;
 
 	public Car(int id, String model, int mileage, int yearOfIssue, double priceHour, int transmissionId,
-			   String number, int fuelTypeId) {
+			   String number, int fuelTypeId, boolean available) {
 		super(id);
 		this.model = model;
 		this.mileage = mileage;
@@ -35,6 +36,7 @@ public class Car extends Entity {
 		this.transmissionId = transmissionId;
 		this.number = number;
 		this.fuelTypeId = fuelTypeId;
+		this.available = available;
 	}
 
 	public Car(int id) {
@@ -66,6 +68,12 @@ public class Car extends Entity {
 		return  jsonCars;
 	}
 
+	public boolean isAvailable() {
+		return available;
+	}
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
 	public String getModel() {
 		return model;
 	}
@@ -143,6 +151,7 @@ public class Car extends Entity {
 		carJson.put("transmission", getTransmission().getName());
 		carJson.put("number", number);
 		carJson.put("fuelType", getFuelType().getName());
+		carJson.put("available", available);
 
 		return carJson;
 	}

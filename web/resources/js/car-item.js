@@ -26,11 +26,23 @@ function loadCar(car) {
     getInnerElement(desc, "#yearOfIssue").innerText = car.yearOfIssue;
     getInnerElement(desc, "#mileage").innerText = car.mileage;
     getInnerElement(desc, "#priceHour").innerText = car.priceHour;
+    let status = getInnerElement(desc, "#status");
+    if (car.available) {
+        status.style.color = "green";
+        status.innerHTML = "Автомобиль доступен для аренды";
+    } else {
+        status.style.color = "red";
+        status.innerHTML = "Автомобиль занят";
+    }
     //desc.status.innerText = car.status;
 
     if (userStatus === "guest" || userStatus === "admin") {
         document.getElementById("formTitle").innerText
-            = "Данный пользователь не может брать автомобиль в аренду.";
+            = "Данный пользователь не может брать автомобиль в аренду";
+        document.getElementById("orderForm").style.display = "none";
+    } else if (!car.available) {
+        document.getElementById("formTitle").innerText
+            = "Данный автомобиль занят";
         document.getElementById("orderForm").style.display = "none";
     }
 
@@ -71,17 +83,17 @@ function createOrder() {
     msg.style.color = "black";
 
     let order = new Order({
-        orderDate: new Date(),
+        orderDate: orderDate,
         rentalPeriod: rentalPeriod,
         returnDate: null,
-        carId: parseInt(document.getElementById("id").innerText),
+        carId: parseInt(document.getElementById("carId").innerText),
         clientId: userData.id,
         passportData: formData.get("passportData"),
         price: null
     });
 
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open("POST", "/route/orders");
+    httpRequest.open("POST", "/service/orders");
     httpRequest.responseType = "json";
     httpRequest.send(order.toJSON());
 

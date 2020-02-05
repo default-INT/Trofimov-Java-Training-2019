@@ -48,7 +48,13 @@ public class Order extends Entity {
 		this.price = price;
 	}
 
-	public Order() {
+	public Order(Calendar orderDate, int rentalPeriod, int carId, int clientId, String passportData, double price) {
+		this.orderDate = orderDate;
+		this.period = rentalPeriod;
+		this.carId = carId;
+		this.clientId = clientId;
+		this.passportData = passportData;
+		this.price = price;
 	}
 
 	public Calendar getOrderDate() {

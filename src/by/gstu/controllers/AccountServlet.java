@@ -48,7 +48,6 @@ public class AccountServlet extends HttpServlet {
             String password = request.getParameter("password");
 
             if (login == null && password == null) {
-
                 logInAccount = (Account) session.getAttribute("authAccount");
             } else {
                 logInAccount = userService.authorization(login, password);
@@ -71,8 +70,8 @@ public class AccountServlet extends HttpServlet {
 
     private static Client getUserReq(HttpServletRequest request) {
         StringBuffer buffer = new StringBuffer();
-        String line = null;
-        BufferedReader reader = null;
+        String line;
+        BufferedReader reader;
         try {
             reader = request.getReader();
             while ((line = reader.readLine()) != null) {

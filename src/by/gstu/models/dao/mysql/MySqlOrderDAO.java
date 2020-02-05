@@ -37,11 +37,11 @@ class MySqlOrderDAO implements OrderDAO {
     static {
         ConfigurationManager configurateManager = ConfigurationManager.getInstance();
 
-        CREATE = configurateManager.getProperty("sql.Clients.create", DEFAULT_CREATE, "mysql");
-        READ = configurateManager.getProperty("sql.Clients.read", DEFAULT_READ, "mysql");
-        READ_ALL = configurateManager.getProperty("sql.Clients.readAll", DEFAULT_READ_ALL, "mysql");
-        UPDATE = configurateManager.getProperty("sql.Clients.update", DEFAULT_UPDATE, "mysql");
-        DELETE = configurateManager.getProperty("sql.Clients.delete", DEFAULT_DELETE, "mysql");
+        CREATE = configurateManager.getProperty("sql.Orders.create", DEFAULT_CREATE, "mysql");
+        READ = configurateManager.getProperty("sql.Orders.read", DEFAULT_READ, "mysql");
+        READ_ALL = configurateManager.getProperty("sql.Orders.readAll", DEFAULT_READ_ALL, "mysql");
+        UPDATE = configurateManager.getProperty("sql.Orders.update", DEFAULT_UPDATE, "mysql");
+        DELETE = configurateManager.getProperty("sql.Orders.delete", DEFAULT_DELETE, "mysql");
     }
 
     @Override

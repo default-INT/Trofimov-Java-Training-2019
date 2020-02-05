@@ -27,6 +27,7 @@ create table cars
     price_hour    int         not null,
     transmission_id  int not null,
     fuel_type_id int not null,
+	available       tinyint(1) not null,
     FOREIGN KEY (transmission_id) REFERENCES transmissions (id),
     FOREIGN KEY (fuel_type_id) REFERENCES transmissions (id)
 );
@@ -81,8 +82,8 @@ CREATE PROCEDURE add_car(
     var_fuel_type_id INT
 )
 BEGIN
-    INSERT INTO cars (number, model, mileage, year_of_issue, price_hour, transmission_id, fuel_type_id)
-    VALUES (var_number, var_model, var_mileage, var_year_of_issue, var_price_hour, var_transmission_id, var_fuel_type_id);
+    INSERT INTO cars (number, model, mileage, year_of_issue, price_hour, transmission_id, fuel_type_id, available)
+    VALUES (var_number, var_model, var_mileage, var_year_of_issue, var_price_hour, var_transmission_id, var_fuel_type_id, true);
 END //
 
 CREATE PROCEDURE edit_car(
@@ -248,8 +249,11 @@ CREATE PROCEDURE add_order(
     var_price DOUBLE
 )
 BEGIN
-    INSERT INTO orders(order_date, rental_period, return_date, client_id, car_id, passport_data, price)
-    VALUES (var_order_date, var_rental_period, DATE_ADD(var_order_date, INTERVAL var_rental_period HOUR), var_client_id, var_car_id, var_passport_data, var_price);
+    IF ((SELECT available FROM cars WHERE id = var_car_id) = true) THEN
+        INSERT INTO orders(order_date, rental_period, return_date, client_id, car_id, passport_data, price)
+        VALUES (var_order_date, var_rental_period, DATE_ADD(var_order_date, INTERVAL var_rental_period HOUR), var_client_id, var_car_id, var_passport_data, var_price);
+        UPDATE cars SET available = false WHERE id = var_car_id;
+    END IF;
 END //
 
 CREATE PROCEDURE edit_order(
@@ -308,7 +312,7 @@ END //
 
 CREATE PROCEDURE edit_return_request(
     var_return_req_id INT,
-	var_return_date DATETIME,
+    var_return_date DATETIME,
     var_order_id INT,
     var_description VARCHAR(200),
     var_return_mark BOOLEAN,
@@ -316,12 +320,16 @@ CREATE PROCEDURE edit_return_request(
 )
 BEGIN
     UPDATE return_requests SET
-	   return_date = var_return_date,
+       return_date = var_return_date,
        order_id = var_order_id,
        description = var_description,
        return_mark = var_return_mark,
        repair_cost = var_repair_cost
     WHERE id = var_return_req_id;
+    IF (var_return_mark = true) THEN
+        UPDATE cars SET available = true
+        WHERE id = (SELECT car_id FROM orders WHERE id = var_order_id);
+    END IF;
 END //
 
 CREATE PROCEDURE delete_return_request(

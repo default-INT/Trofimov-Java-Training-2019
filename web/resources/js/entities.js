@@ -19,6 +19,7 @@ class Car {
         this.fuelType = car.fuelType;
         this.priceHour = car.priceHour;
         this.imgUrl = "resources/img/ford-mustang.png";
+        this.available = car.available;
     }
 
     getCarItemNode() {
@@ -136,14 +137,14 @@ class Order {
      * @param order {Object}
      */
     constructor(order) {
-        this.id = order.id;
-        this.orderDate = order.orderDate;
-        this.rentalPeriod = order.rentalPeriod;
-        this.returnDate = order.returnDate;
-        this.carId = order.carId;
-        this.clientId = order.clientId;
-        this.passportData = order.passportData;
-        this.price = order.price;
+        if (!!order.id) this.id = order.id;
+        if (!!order.orderDate) this.orderDate = order.orderDate;
+        if (!!order.rentalPeriod) this.rentalPeriod = order.rentalPeriod;
+        if (!!order.returnDate) this.returnDate = order.returnDate;
+        if (!!order.carId) this.carId = order.carId;
+        if (!!order.clientId) this.clientId = order.clientId;
+        if (!!order.passportData) this.passportData = order.passportData;
+        if (!!order.price) this.price = order.price;
     }
 
     /**
@@ -183,7 +184,7 @@ class Order {
         httpRequest.responseType = "json";
         httpRequest.send(order.toJSON());
 
-        httpRequest.onload =function () {
+        httpRequest.onload = function () {
             if (httpRequest.status === 200) {
                 let msg = httpRequest.response;
             } else {
