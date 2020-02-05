@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * The class routes the client request and returns the corresponding response.
@@ -63,6 +64,15 @@ public class PageService {
     private PageService() {
     }
 
+    /**
+     * Page router (filter handler).
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
     public static boolean routeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
 
@@ -73,7 +83,7 @@ public class PageService {
         Collection<String> accessPages = pagePath.keySet();
 
         for (String page : accessPages) {
-            if (servletPath.equals(page)) {
+            if (servletPath.matches(page)) {
                 logger.info("Forward address '" + page +"' to '" + LAYOUT_PATH + "'.");
                 request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
                 return true;
@@ -93,13 +103,21 @@ public class PageService {
         }
     }
 
+    /**
+     * Servlet router. Find page content in '/pages/' and return http response with content type - text/html.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public static void servletRoute(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         String pathInfo = request.getPathInfo();
         ArrayList<HashMap.Entry> pageInPath = new ArrayList<>(pagePath.entrySet());
 
         for (HashMap.Entry element : pageInPath) {
-            if (pathInfo.contains(element.getKey().toString())) {
+            if (pathInfo.matches(element.getKey().toString())) {
                 request.getRequestDispatcher(element.getValue().toString()).forward(request, response);
                 return;
             }

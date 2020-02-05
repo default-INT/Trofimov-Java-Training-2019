@@ -43,8 +43,9 @@ let column = function () {
 
 function include(url) {
     let script = document.createElement('script');
+    let pageUrl = new URL(document.URL).origin;
     script.type='text/javascript';
-    script.src = url;
+    script.src = pageUrl + "/" + url;
     document.body.appendChild(script);
 
     script.onload = function () {
@@ -56,6 +57,10 @@ function include(url) {
         alert("Error loading " + this.src);
     };
     //setTimeout('modules.sound.start();',5000);
+}
+
+function getInnerElement(node, query) {
+    return node.querySelector(query);
 }
 
 let init;

@@ -53,6 +53,10 @@ class Car {
         carItem.appendChild(icon);
         carItem.appendChild(itemContent);
 
+        carItem.addEventListener("click", function () {
+            ContentManager.loadPageToUrl("/cars/" + this.querySelector("span").id);
+        });
+
         return carItem;
     }
 
@@ -85,7 +89,7 @@ class Car {
         httpRequest.responseType = "json";
         httpRequest.send();
 
-        httpRequest.onload(function () {
+        httpRequest.onload = function () {
             if (httpRequest.status === 200) {
                 let car = httpRequest.response;
                 if (!car) {
@@ -93,12 +97,12 @@ class Car {
                         "null or undefined");
                     return null;
                 }
-                return new Car(car);
+                loadCar(new Car(car));
             } else {
                 console.log("Error send AJAX request to '" + urlPath +
                     "'. Request status: " + httpRequest.status);
             }
-        });
+        };
     }
 
     static getAllCarsAJAX() {
@@ -292,18 +296,20 @@ class Account {
                 let account = httpRequest.response;
                 if (!account) {
                     console.log("HttpResponse define null or undefined.");
+                    return;
                 } else if (!account.status) {
                     console.log("Status define null or undefined.");
+                    return;
                 } else if (account.status === "client") {
                     user = new Client(account);
                 } else if (account.status === "admin") {
                     user = new Administrator(account);
                 }
                 setUserMenu(user);
+                userStatus = user._status;
             } else {
                 console.log("Error send AJAX request to '" + url +
                     "'. Request status: " + httpRequest.status);
-                return guest;
             }
         }
     }
@@ -346,6 +352,43 @@ class Account {
                     user =  new Administrator(account);
                 }
                 setUserMenu(user);
+                userStatus = user._status;
+            } else {
+                console.log("Error send AJAX request to '" + url +
+                    "'. Request status: " + httpRequest.status);
+            }
+        };
+    }
+
+    /**
+     *
+     * @param {JSON} client
+     */
+    static signUpAJAX(client) {
+        let httpRequest = new XMLHttpRequest();
+        let documentURI = new URL(document.documentURI);
+        let url = new URL("/account", documentURI.origin);
+
+        httpRequest.open("POST", url);
+        httpRequest.responseType = "json";
+        httpRequest.send(client);
+
+        let user;
+
+        httpRequest.onload = function () {
+            if (httpRequest.status === 200) {
+                let account = httpRequest.response;
+                if (!account) {
+                    console.log("HttpResponse define null or undefined.");
+                } else if (!account.status) {
+                    console.log("Status define null or undefined.");
+                } else if (account.status === "client") {
+                    user = new Client(account);
+                } else if (account.status === "admin") {
+                    user =  new Administrator(account);
+                }
+                setUserMenu(user);
+                userStatus = user._status;
             } else {
                 console.log("Error send AJAX request to '" + url +
                     "'. Request status: " + httpRequest.status);
@@ -408,6 +451,7 @@ function logOut() {
         }
     };
 
+    userStatus = "guest";
     setUserMenu(new Account({
         login: "Гость",
         status: "guest"
@@ -439,7 +483,7 @@ class Client extends Account {
 
         let profileBtn = Account.getSubMenuElement("Мой профиль", undefined);
         let myOrdersBtn = Account.getSubMenuElement("Мои аренды", undefined);
-        let exitBtn = Account.getSubMenuElement("Выход", logOut());
+        let exitBtn = Account.getSubMenuElement("Выход", logOut);
 
         userSidebar.appendChild(profileBtn);
         userSidebar.appendChild(myOrdersBtn);

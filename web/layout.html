@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <title>Прокат автомобилей</title>
-    <link rel="stylesheet" href="resources/css/main.css">
-    <link rel="stylesheet" href="resources/css/window-dialog.css">
-    <link rel="stylesheet" href="resources/css/catalog-list.css">
-    <link rel="stylesheet" href="resources/css/item-page.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
+    <link rel="stylesheet" href="/resources/css/window-dialog.css">
+    <link rel="stylesheet" href="/resources/css/catalog-list.css">
+    <link rel="stylesheet" href="/resources/css/item-page.css">
 </head>
 <body>
 <header>
@@ -67,7 +67,8 @@ class="close" title="Close Modal">&times;</span>
         <input type="password" placeholder="Введите пароль" name="password" required><br>
         <input type="password" placeholder="Повторите пароль" name="retryPassword" required><br>
         <input type="text" placeholder="Введите электронную почту" name="email" required><br>
-        <input type="number" placeholder="Введите возраст" name="email" required><br>
+        <input type="text" placeholder="Введите ФИО" name="fullName" required><br>
+        <input type="number" placeholder="Введите год рождения" name="birthdayYear" required><br>
         <label class="msg"></label>
         <button type="button"  id="reg-button" onclick="signUpUser()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
     </div>
@@ -75,37 +76,7 @@ class="close" title="Close Modal">&times;</span>
 </div> 
 <div class="wrapper-content">
     <div id="wrapper">
-        <content class="car-item">
-            <span id="carId">1</span>
-            <h1 id="carTitle">
-                Ford Mustang
-            </h1>
-            <div class="item-content">
-                <div id="imgBlock">
-                    <img src="resources/img/ford-mustang.png" alt="">
-                </div>
-                <div id="description">
-                    <label>Номер автомобиля: <div id="number">4323 AE-3</div></label>
-                    <label>Коробка передач: <div id="transmission">Механика</div></label>
-                    <label>Тип двигателя: <div id="fuelType">Дизель</div></label>
-                    <label>Год выпуска: <div id="yearOfIssue">2010</div></label>
-                    <label>Пробег: <div id="mileage">432 324</div> км.</label>
-                    <label>Цена в час: <div id="priceHour">3</div>$</label>
-                    <label>Статус: <div id="status">Доступна для аренды</div></label>
-                </div>
-            </div>
-            <h1 id="formTitle">Форма для аренды</h1>
-            <form id="orderForm">
-                <label>Введите дату возврата</label><br>
-                <input type="date" name="dateReturn">
-                <input type="time" name="timeReturn"><br>
-                <label>Введите номер паспорта</label><br>
-                <input type="text" name="passportData" onchange="passportDataChange(this)" placeholder="HB3325143"><br>
-                <label>Стоимость аренды: <span id="rentalPrice">0</span>$</label><br>
-                <label id="msg"></label><br>
-                <button type="button" id="createOrderBtn" onclick="createOrder()">Взять в аренду</button>
-            </form>
-        </content>
+
     </div>
     <div class="empty-line">
     </div>
@@ -120,9 +91,41 @@ class="close" title="Close Modal">&times;</span>
         </div>
     </footer>
 </div>
-<script type="text/javascript" src="resources/js/entities.js"></script>
-<script type="text/javascript" src="resources/js/untils.js"></script>
-<script type="text/javascript" src="resources/js/main.js"></script>
-<script type="text/javascript" src="resources/js/car-item.js"></script>
+<script type="text/javascript">
+    /*
+    function include(url) {
+        let script = document.createElement('script');
+        let pageUrl = new URL(document.URL).origin;
+        script.type='text/javascript';
+        script.src = pageUrl + "/" + url;
+        document.body.appendChild(script);
+
+        script.onload = function () {
+            if (!!this.init) {
+                this.init();
+            }
+        };
+        script.onerror = function() {
+            alert("Error loading " + this.src);
+        };
+        //setTimeout('modules.sound.start();',5000);
+    }
+
+    include("resources/css/main.css");
+    include("resources/css/window-dialog.css");
+    include("resources/css/catalog-list.css");
+    include("resources/css/item-page.css");
+
+    include("resources/js/entities.js");
+    include("resources/js/untils.js");
+    include("resources/js/main.js");
+    include("resources/js/car-item.js");
+
+     */
+</script>
+<script type="text/javascript" src="/resources/js/entities.js"></script>
+<script type="text/javascript" src="/resources/js/untils.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/car-item.js"></script>
 </body>
 </html>

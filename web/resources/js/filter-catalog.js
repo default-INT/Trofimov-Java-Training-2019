@@ -39,7 +39,7 @@ function getCarsAjax() {
     httpRequest.onload = () => {
         if (httpRequest.status === 200) {
             let cars = httpRequest.response;
-            if (cars === undefined || cars == null) {
+            if (!cars) {
                 return;
             }
 

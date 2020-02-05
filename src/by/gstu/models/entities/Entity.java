@@ -13,7 +13,7 @@ public abstract class Entity implements ParserJSON {
 
 	public Entity(int id) {
 		super();
-		id = id;
+		this.id = id;
 	}
 	
 	public Entity() {
@@ -27,7 +27,7 @@ public abstract class Entity implements ParserJSON {
 	}
 
 	public void setId(int id) {
-		id = id;
+		this.id = id;
 	}
 
 	@Override

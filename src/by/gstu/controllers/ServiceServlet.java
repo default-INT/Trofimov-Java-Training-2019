@@ -32,7 +32,13 @@ public class ServiceServlet extends HttpServlet {
 
             carService = CarService.getInstance();
 
-            resp.getWriter().write(carService.getAllCars().toString());
+            if (servletPath.matches("/cars/\\d+")) {
+                String[] partUrl = servletPath.split("/");
+                int id = Integer.parseInt(partUrl[partUrl.length - 1]);
+                resp.getWriter().write(carService.getCar(id).toString());
+            } else {
+                resp.getWriter().write(carService.getAllCars().toString());
+            }
         }
     }
 

@@ -11,7 +11,7 @@ const emailRegEx = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a
 let msgColor = document.getElementsByClassName("msg")[0].style.color;
 let submenus = Array.from(document.getElementsByClassName("menu"));
 
-let user;
+let userStatus = "guest";
 let userData = {
     id: null,
     login: null,
@@ -86,11 +86,17 @@ class ContentManager {
         if (path.includes("/main")) {
             ContentManager._printWelcome();
         } else if (path.includes("/cars")) {
-            try {
-                getCarsAjax();
-            } catch (e) {
-                include("resources/js/filter-catalog.js");
+            if (/\/cars\/\d+/.test(path)) {
+                let id = parseInt(path.split("/").pop());
+                Car.getCarAJAX(id);
+            } else {
+                try {
+                    getCarsAjax();
+                } catch (e) {
+                    include("resources/js/filter-catalog.js");
+                }
             }
+
         }
     }
 
@@ -102,7 +108,13 @@ class ContentManager {
 
 init();
 
-
+function openedForm() {
+    if (document.getElementById("login-form").style.display !== "none") {
+        return document.getElementById("login-form");
+    } else {
+        return document.getElementById("registration-form");
+    }
+}
 
 /**
  * Authorization in system
@@ -132,9 +144,9 @@ function logInUser() {
 }
 
 function setUserMenu(authUser) {
-    let loginForm = document.getElementById("login-form");
-    let msgLabel = loginForm.querySelector(".msg");
+    let form = openedForm();
     if (!authUser) {
+        let msgLabel = form.querySelector(".msg");
         msgLabel.style.color = "red";
         msgLabel.innerHTML = "Неверный логин, либо пароль";
     } else {
@@ -142,7 +154,7 @@ function setUserMenu(authUser) {
         userElement.remove();
         let h1 = document.querySelector("header > h1");
         h1.appendChild(authUser.getMenu());
-        document.getElementById("login-form").style.display = "none";
+        form.style.display = "none";
         clearForms();
         loadPageOnStart();
     }
@@ -209,65 +221,19 @@ function signUpUser() {
         //ajax
         let formData = new FormData(document.getElementById("reg-form"));
 
-        let httpRequest = new XMLHttpRequest();
-        let json =JSON.stringify({
+        let json = JSON.stringify({
             login: formData.get("login"),
             password: formData.get("password"),
-            email: formData.get("email")
+            email: formData.get("email"),
+            fullName: formData.get("fullName"),
+            birthdayYear: formData.get("birthdayYear")
         });
 
-        httpRequest.open("POST", "/account");
-        httpRequest.responseType = 'json';
-        httpRequest.send(json);
-
-        httpRequest.onload = () => {
-            if (httpRequest.status === 200) {
-                if (httpRequest.response === undefined) {
-                    msgLabel.style.color = "red";
-                    msgLabel.innerHTML = "Пользователь с таким логином, или почтой уже существует!";
-                    return;
-                }
-                setUser(httpRequest);
-                document.getElementById("registration-form").style.display = "none";
-                loadPageOnStart();
-            }
-        };
+        Account.signUpAJAX(json)
         //end ajax
     } else {
         msgLabel.style.color = "red";
         msgLabel.innerHTML = "Данные некорректного формата";
-    }
-}
-
-/**
- * Set user data in portal
- *
- * TODO: Need refactoring and change logic!
- *
- * @param xhr - XMLHttpRequest
- * @author Evgeniy Trofimov
- * @version 1.0
- */
-function setUser(xhr) {
-    user = xhr.response;
-
-    if (user !== undefined) {
-        document.getElementById("login").innerHTML = user.login;
-        let userSidebar = document.getElementById("user-sidebar");
-
-        userSidebar.innerHTML = "";
-
-        let li = document.createElement("li");
-        li.addEventListener('click', exit);
-
-        let a = document.createElement("a");
-        a.class = "link";
-        a.innerHTML = "Выход";
-
-        li.appendChild(a);
-
-        userSidebar.appendChild(li);
-        clearForms();
     }
 }
 
@@ -300,22 +266,6 @@ function loadPageOnStart() {
             ContentManager.loadPageToUrl(link);
         }
     });
-}
-
-/**
- * Function Load content for "/main" url.
- *
- * @author Evgeniy Trofimov
- * @version 1.0
- */
-function printWelcome() {
-    let welcome = document.getElementById("welcome-user");
-
-    if (!(user === undefined) && welcome != undefined) {
-        welcome.innerHTML = "Добро пожаловать, " + user.login + ". Ваша почта: " + user.email;
-    } else if (welcome != undefined) {
-        welcome.innerHTML = "Авторизуйтесь в системе.";
-    }
 }
 
 /**
@@ -446,8 +396,4 @@ function setValidation() {
             }
         });
     });    
-}
-
-class AjaxSender {
-    
 }
