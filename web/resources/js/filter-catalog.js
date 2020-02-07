@@ -17,41 +17,28 @@ init = function init() {
             }
         });
     }
-    getCarsAjax();
+    getCarsCatalog();
 };
 
 init();
 
 
 /**
- * Sends AJAX request on ServiceServlet by url "/service/cars" and get all cars from database.
+ * Get cars from server and generate item in catalog.
  *
  * @author Evgeniy Trofimov
- * @version 1.0
+ * @version 2.0
  */
-function getCarsAjax() {
-    let httpRequest = new XMLHttpRequest();
-
-    httpRequest.open("GET", "/service/cars");
-    httpRequest.responseType = "json";
-    httpRequest.send();
-
-    httpRequest.onload = () => {
-        if (httpRequest.status === 200) {
-            let cars = httpRequest.response;
+function getCarsCatalog() {
+    Car.getAllCarsAJAX()
+        .then(cars => {
             if (!cars) {
                 return;
             }
-
             let catalogAuto = document.getElementById("catalog-auto");
             catalogAuto.innerHTML = "";
-
-            cars.forEach((car, index, cars) => {
+            cars.forEach((car) => {
                 catalogAuto.appendChild(new Car(car).getCarItemNode());
             });
-        }
-    };
+    }).catch(reject => console.log(reject));
 }
-
-
-

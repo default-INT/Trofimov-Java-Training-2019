@@ -10,44 +10,57 @@ function passportDataChange(entry) {
     }
 }
 
-function loadCar(car) {
-    let carId = document.getElementById("carId");
-    let carTitle = document.getElementById("carTitle");
-    //img-block
-    let img = document.querySelector("#imgBlock > img");
-    let desc = document.getElementById("description");
+/**
+ *
+ * @param id
+ * @version 2.0
+ */
+function loadCar(id) {
+    Car.getCarAJAX(id)
+        .then(car => {
+            let carId = document.getElementById("carId");
+            let carTitle = document.getElementById("carTitle");
+            //img-block
+            let img = document.querySelector("#imgBlock > img");
+            let desc = document.getElementById("description");
 
-    carId.innerText = car.id;
-    carTitle.innerText = car.model;
+            carId.innerText = car.id;
+            carTitle.innerText = car.model;
 
-    getInnerElement(desc, "#number").innerText = car.number;
-    getInnerElement(desc, "#transmission").innerText = car.transmission;
-    getInnerElement(desc, "#fuelType").innerText = car.fuelType;
-    getInnerElement(desc, "#yearOfIssue").innerText = car.yearOfIssue;
-    getInnerElement(desc, "#mileage").innerText = car.mileage;
-    getInnerElement(desc, "#priceHour").innerText = car.priceHour;
-    let status = getInnerElement(desc, "#status");
-    if (car.available) {
-        status.style.color = "green";
-        status.innerHTML = "Автомобиль доступен для аренды";
-    } else {
-        status.style.color = "red";
-        status.innerHTML = "Автомобиль занят";
-    }
-    //desc.status.innerText = car.status;
+            getInnerElement(desc, "#number").innerText = car.number;
+            getInnerElement(desc, "#transmission").innerText = car.transmission;
+            getInnerElement(desc, "#fuelType").innerText = car.fuelType;
+            getInnerElement(desc, "#yearOfIssue").innerText = car.yearOfIssue;
+            getInnerElement(desc, "#mileage").innerText = car.mileage;
+            getInnerElement(desc, "#priceHour").innerText = car.priceHour;
+            let status = getInnerElement(desc, "#status");
+            if (car.available) {
+                status.style.color = "green";
+                status.innerHTML = "Автомобиль доступен для аренды";
+            } else {
+                status.style.color = "red";
+                status.innerHTML = "Автомобиль занят";
+            }
+            //desc.status.innerText = car.status;
 
-    if (userStatus === "guest" || userStatus === "admin") {
-        document.getElementById("formTitle").innerText
-            = "Данный пользователь не может брать автомобиль в аренду";
-        document.getElementById("orderForm").style.display = "none";
-    } else if (!car.available) {
-        document.getElementById("formTitle").innerText
-            = "Данный автомобиль занят";
-        document.getElementById("orderForm").style.display = "none";
-    }
-
+            if (userStatus === "guest" || userStatus === "admin") {
+                document.getElementById("formTitle").innerText
+                    = "Данный пользователь не может брать автомобиль в аренду";
+                document.getElementById("orderForm").style.display = "none";
+            } else if (!car.available) {
+                document.getElementById("formTitle").innerText
+                    = "Данный автомобиль занят";
+                document.getElementById("orderForm").style.display = "none";
+            }
+        }).catch(reject => console.log(reject));
 }
 
+/**
+ * TODO: Description
+ *
+ * @author Evgeniy Trofimov
+ * @version 2.0
+ */
 function createOrder() {
     let formData = new FormData(document.getElementById("orderForm"));
     let msg = document.getElementById("msg");
@@ -92,14 +105,8 @@ function createOrder() {
         price: null
     });
 
-    let httpRequest = new XMLHttpRequest();
-    httpRequest.open("POST", "/service/orders");
-    httpRequest.responseType = "json";
-    httpRequest.send(order.toJSON());
-
-    httpRequest.onload = function () {
-        if (httpRequest.status === 200) {
-            let resp = httpRequest.response;
+    Order.createOrderAJAX(order)
+        .then(resp => {
             if (resp.result) {
                 let formTitle = document.getElementById("formTitle");
                 document.getElementById("orderForm").innerHTML = "";
@@ -111,10 +118,8 @@ function createOrder() {
             } else {
                 msg.innerHTML = "Не удалось совершить заказ.";
             }
-        } else {
-            console.log();
-        }
-    };
+        });
+
 }
 
 function isEmptyOrderForm() {
@@ -151,9 +156,5 @@ function calculatePrice() {
             let rentalPrice = document.getElementById("rentalPrice");
             rentalPrice.innerText = (priceHour * rentalPeriod).toString();
         }
-
-
     }
-
-
 }

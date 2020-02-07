@@ -47,7 +47,9 @@ init = function init() {
             }
         });
     };
-    Account.authorizationAJAX();
+    Account.authorizationAJAX()
+        .then(user => setUserMenu(user))
+        .catch(reject => console.log(reject));
     setInterval(function () {
         document.getElementById('time').innerHTML = getDateTime();
     }, 1000);
@@ -66,20 +68,12 @@ class ContentManager {
      */
     static loadPageToUrl(path) {
         if (path === "") return;
-        let httpRequest = new XMLHttpRequest();
-
-        httpRequest.open("GET", "/route" + path);
-        httpRequest.responseType = "text/html";
-        httpRequest.send();
-
-        httpRequest.onload = function () {
-            if (httpRequest.status === 200) {
-                let content = httpRequest.response;
+        httpGetHtml("/route" + path)
+            .then(content => {
                 document.getElementById("wrapper").innerHTML = content;
                 history.pushState(null, null, path);
                 ContentManager._definePage(path);
-            }
-        };
+            });
     }
 
     static _definePage(path) {
@@ -88,10 +82,10 @@ class ContentManager {
         } else if (path.includes("/cars")) {
             if (/\/cars\/\d+/.test(path)) {
                 let id = parseInt(path.split("/").pop());
-                Car.getCarAJAX(id);
+                loadCar(id);
             } else {
                 try {
-                    getCarsAjax();
+                    getCarsCatalog();
                 } catch (e) {
                     include("resources/js/filter-catalog.js");
                 }
@@ -135,7 +129,9 @@ function logInUser() {
         msgLabel.innerHTML = "Идет проверка данных...";
         //ajax
         let authFormData = new FormData(document.getElementById("auth-form"));
-        Account.logInAJAX(authFormData.get("login"), authFormData.get("password"));
+        Account.logInAJAX(authFormData.get("login"), authFormData.get("password"))
+            .then(user => setUserMenu(user))
+            .catch(reject => console.log(reject));
 
     } else {
         msgLabel.style.color = "red";
@@ -230,6 +226,9 @@ function signUpUser() {
         });
 
         Account.signUpAJAX(json)
+            .then(user => {
+                setUserMenu(user);
+            }).catch(reject => console.log(reject));
         //end ajax
     } else {
         msgLabel.style.color = "red";

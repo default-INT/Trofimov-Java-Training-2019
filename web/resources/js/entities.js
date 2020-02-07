@@ -83,43 +83,25 @@ class Car {
     }
 
     static getCarAJAX(id) {
-        let httpRequest = new XMLHttpRequest();
-        let urlPath = "/service/cars/" + id;
-
-        httpRequest.open("GET", urlPath);
-        httpRequest.responseType = "json";
-        httpRequest.send();
-
-        httpRequest.onload = function () {
-            if (httpRequest.status === 200) {
-                let car = httpRequest.response;
-                if (!car) {
-                    console.log("Response from 'route/cars/" + id + "' is equal to " +
-                        "null or undefined");
-                    return null;
-                }
-                loadCar(new Car(car));
-            } else {
-                console.log("Error send AJAX request to '" + urlPath +
-                    "'. Request status: " + httpRequest.status);
-            }
-        };
+        //reject(new Error("Response to '" + url + "' undefined."));
+        return httpGetJson("/service/cars/" + id)
+            .then(response => {
+                if (!response) throw new Error("Response to '/service/cars/" + id + "' undefined.");
+                return new Car(response)
+            });
     }
 
+    /**
+     * Sends AJAX request on ServiceServlet by url "/service/cars" and get all cars from database.
+     *
+     * @return {Promise<Array<Object>>}
+     */
     static getAllCarsAJAX() {
-        let httpRequest = new XMLHttpRequest();
-
-        httpRequest.open("GET", "/service/cars/");
-        httpRequest.responseType = "json";
-        httpRequest.send();
-
-        httpRequest.onload = () => {
-            if (httpRequest.status === 200) {
-                return httpRequest.response;
-            } else {
-                return null;
-            }
-        };
+        return httpGetJson("/service/cars/")
+            .then(response => {
+                if (!response) throw new Error("Response to '/service/cars/' undefined.");
+                return response;
+            });
     }
 }
 
@@ -175,23 +157,10 @@ class Order {
     /**
      *
      * @param order {Order}
+     * @return Promise<Object>
      */
     static createOrderAJAX(order) {
-        let httpRequest = new XMLHttpRequest();
-        let url = "/service/orders/";
-
-        httpRequest.open("POST", url);
-        httpRequest.responseType = "json";
-        httpRequest.send(order.toJSON());
-
-        httpRequest.onload = function () {
-            if (httpRequest.status === 200) {
-                let msg = httpRequest.response;
-            } else {
-                console.log("Error send AJAX request to '" + url +
-                    "'. Request status: " + httpRequest.status);
-            }
-        };
+        return httpPostJson("/service/orders/", order.toJSON());
     }
 }
 
@@ -237,6 +206,14 @@ class Account {
         this._email = value;
     }
 
+    get status() {
+        return this._status;
+    }
+
+    set status(value) {
+        this._status = value;
+    }
+
     /**
      * Generate HTML elements and create submenu for logIn user or guest.
      *
@@ -275,44 +252,34 @@ class Account {
      * Function will check been session on server. If user logIn early, then function set in
      * userData information about user. If session empty function will setting null in userData.
      *
-     * @version 2.0
+     * @version 2.2
+     * @return Promise<Account>
      */
     static authorizationAJAX() {
-        let httpRequest = new XMLHttpRequest();
+        //let httpRequest = new XMLHttpRequest();
         let url = "/account/auth";
 
-        httpRequest.open("GET", url);
-        httpRequest.responseType = "json";
-        httpRequest.send();
-
-        let guest = new Account({
-            login: "Гость",
-            status: "guest"
-        });
-
-        let user;
-
-        httpRequest.onload = function () {
-            if (httpRequest.status === 200) {
-                let account = httpRequest.response;
+        return httpGetJson(url)
+            .then(account => {
+                let user;
                 if (!account) {
                     console.log("HttpResponse define null or undefined.");
-                    return;
+                    return ;
                 } else if (!account.status) {
-                    console.log("Status define null or undefined.");
-                    return;
+                    throw new Error("Status define null or undefined.");
                 } else if (account.status === "client") {
                     user = new Client(account);
                 } else if (account.status === "admin") {
                     user = new Administrator(account);
                 }
-                setUserMenu(user);
-                userStatus = user._status;
-            } else {
-                console.log("Error send AJAX request to '" + url +
-                    "'. Request status: " + httpRequest.status);
-            }
-        }
+                //setUserMenu(user);
+                userStatus = user.status;
+                return user;
+            })
+            .catch(reject => {
+                console.log(reject);
+                return null;
+            });
     }
 
     /**
@@ -323,78 +290,59 @@ class Account {
      * @return logIn user
      */
     static logInAJAX(login, password) {
-        let httpRequest = new XMLHttpRequest();
         let documentURI = new URL(document.documentURI);
         let url = new URL("/account/auth", documentURI.origin);
 
         url.searchParams.set("login", login);
         url.searchParams.set("password", password);
 
-        httpRequest.open("GET", url);
-        httpRequest.responseType = "json";
-        httpRequest.send();
-
-        let guest = new Account({
-            login: "Гость",
-            status: "guest"
-        });
-        let user;
-
-        httpRequest.onload = function () {
-            if (httpRequest.status === 200) {
-                let account = httpRequest.response;
+        return httpGetJson(url)
+            .then(account => {
+                let user;
                 if (!account) {
                     console.log("HttpResponse define null or undefined.");
                 } else if (!account.status) {
-                    console.log("Status define null or undefined.");
+                    throw new Error("Status define null or undefined.");
                 } else if (account.status === "client") {
                     user = new Client(account);
                 } else if (account.status === "admin") {
                     user =  new Administrator(account);
                 }
-                setUserMenu(user);
-                userStatus = user._status;
-            } else {
-                console.log("Error send AJAX request to '" + url +
-                    "'. Request status: " + httpRequest.status);
-            }
-        };
+                userStatus = user.status;
+                return user;
+            }).catch(reject => {
+                console.log(reject);
+                return null;
+            });
     }
 
     /**
      *
      * @param {JSON} client
+     * @return Promise<Account>
      */
     static signUpAJAX(client) {
-        let httpRequest = new XMLHttpRequest();
         let documentURI = new URL(document.documentURI);
         let url = new URL("/account", documentURI.origin);
 
-        httpRequest.open("POST", url);
-        httpRequest.responseType = "json";
-        httpRequest.send(client);
-
-        let user;
-
-        httpRequest.onload = function () {
-            if (httpRequest.status === 200) {
-                let account = httpRequest.response;
+        return httpPostJson(url, client)
+            .then(account => {
+                let user;
                 if (!account) {
                     console.log("HttpResponse define null or undefined.");
                 } else if (!account.status) {
-                    console.log("Status define null or undefined.");
+                    throw new Error("Status define null or undefined.");
                 } else if (account.status === "client") {
                     user = new Client(account);
                 } else if (account.status === "admin") {
                     user =  new Administrator(account);
                 }
-                setUserMenu(user);
-                userStatus = user._status;
-            } else {
-                console.log("Error send AJAX request to '" + url +
-                    "'. Request status: " + httpRequest.status);
-            }
-        };
+                userStatus = user.status;
+                return user;
+            }).catch(reject => {
+                console.log(reject);
+                return null;
+            });
     }
 
     static getSubMenuElement(name, fx) {
