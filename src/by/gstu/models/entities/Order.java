@@ -133,6 +133,7 @@ public class Order extends Entity {
 		orderJson.put("client", getClient().toJSON());
 		orderJson.put("passportData", getClient().toJSON());
 		orderJson.put("price", price);
+		orderJson.put("carName", getCar().getModel());
 
 		return orderJson;
 	}

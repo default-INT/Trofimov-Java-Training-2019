@@ -297,6 +297,23 @@ function getDateTime() {
     return day + "." + month + "." + year + " " + hours + ":" + minutes + ":" + seconds;
 }
 
+/**
+ * Function convert date to string.
+ *
+ * @author Evgeniy Trofimov
+ * @version 1.0
+ * @return {string}
+ */
+function dateFormat(currentDateTime) {
+    let day = setZeroFirstFormat(currentDateTime.getDate());
+    let month = setZeroFirstFormat(currentDateTime.getMonth()+1);
+    let year = currentDateTime.getFullYear();
+    let hours = setZeroFirstFormat(currentDateTime.getHours());
+    let minutes = setZeroFirstFormat(currentDateTime.getMinutes());
+
+    return day + "." + month + "." + year + " " + hours + ":" + minutes;
+}
+
 function clearForms() {
     let forms = Array.from(document.querySelectorAll('input'));
     let msgs = Array.from(document.querySelectorAll('.msg'));

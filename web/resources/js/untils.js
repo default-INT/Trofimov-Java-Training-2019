@@ -40,7 +40,6 @@ let column = function () {
     }
     return col;
 };
-
 function include(url) {
     let script = document.createElement('script');
     let pageUrl = new URL(document.URL).origin;
@@ -154,9 +153,71 @@ function httpGetHtml(url) {
 /**
  *
  * @param params {Object}
+ * @return Promise
  */
 function httpRequest(params) {
+    return new Promise(function (resolve, reject) {
+        let xhr = new XMLHttpRequest();
+        if (!!params.method) {
+            xhr.open(params.method, params.url,
+                !!params.type ? params.type : true);
+        } else {
+            xhr.open('GET', params.url,
+                !!params.type ? params.type : true);
+        }
+        if (!!params.responseType) {
+            xhr.responseType = params.responseType;
+        }
+        if (!!params.data) {
+            xhr.send(params.data);
+        } else {
+            xhr.send();
+        }
+        xhr.onload = function() {
+            if (this.status === 200) {
+                resolve(this.response);
+            } else {
+                let error = new Error(this.statusText);
+                error.code = this.status;
+                reject(error);
+            }
+        };
+        xhr.onerror = function() {
+            reject(new Error("Network Error"));
+        };
+    })
+}
 
+/**
+ * Create and return HTMLElement with object params {tag, id, classes, content (HTML)}.
+ *
+ * @param params {Object}
+ * @return HTMLElement
+ *
+ * @version 1.0
+ */
+function node(params) {
+    let element;
+    element = !!params.tag ? document.createElement(params.tag)
+        : document.createElement("div");
+    if (!!params.id) element.id = params.id;
+    if (!!params.classList) {
+        if (params.classList instanceof Array)
+            params.classList.forEach(c => element.classList.add(c));
+        else element.classList.add(params.classList);
+    }
+    if (!!params.content) element.innerHTML = params.content;
+    if (!!params.contentText) element.innerText = params.content;
+    if (!!params.childNodes) {
+        if (params.childNodes instanceof Array)
+            params.childNodes.forEach(node => element.appendChild(node));
+        else element.appendChild(params.childNodes);
+    }
+    if (!!params.src) element.src = params.src;
+    if (!!params.alt) element.alt = params.alt;
+    if (!!params.onclick) element.addEventListener("click", params.onclick);
+    if (!!params.onchange) element.addEventListener("change", params.onclick);
+    return element;
 }
 
 let init;

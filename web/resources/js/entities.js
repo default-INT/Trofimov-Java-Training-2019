@@ -119,14 +119,62 @@ class Order {
      * @param order {Object}
      */
     constructor(order) {
-        if (!!order.id) this.id = order.id;
-        if (!!order.orderDate) this.orderDate = order.orderDate;
-        if (!!order.rentalPeriod) this.rentalPeriod = order.rentalPeriod;
-        if (!!order.returnDate) this.returnDate = order.returnDate;
-        if (!!order.carId) this.carId = order.carId;
-        if (!!order.clientId) this.clientId = order.clientId;
-        if (!!order.passportData) this.passportData = order.passportData;
-        if (!!order.price) this.price = order.price;
+        if (!!order.id) this._id = order.id;
+        if (!!order.orderDate) this._orderDate = order.orderDate;
+        if (!!order.rentalPeriod) this._rentalPeriod = order.rentalPeriod;
+        if (!!order.returnDate) this._returnDate = order.returnDate;
+        if (!!order.carId) this._carId = order.carId;
+        if (!!order.clientId) this._clientId = order.clientId;
+        if (!!order.passportData) this._passportData = order.passportData;
+        if (!!order.price) this._price = order.price;
+        if (!!order.carName) this._carName = order.carName;
+        if (!!order.carImgUrl) this._carImgUrl = order.carImgUrl;
+    }
+
+    get id() {
+        return this._id;
+    }
+    get orderDate() {
+        return this._orderDate;
+    }
+    set orderDate(value) {
+        this._orderDate = value;
+    }
+    get rentalPeriod() {
+        return this._rentalPeriod;
+    }
+    set rentalPeriod(value) {
+        this._rentalPeriod = value;
+    }
+    get returnDate() {
+        return this._returnDate;
+    }
+    get carId() {
+        return this._carId;
+    }
+    set carId(value) {
+        this._carId = value;
+    }
+    get clientId() {
+        return this._clientId;
+    }
+    set clientId(value) {
+        this._clientId = value;
+    }
+    get passportData() {
+        return this._passportData;
+    }
+    set passportData(value) {
+        this._passportData = value;
+    }
+    get price() {
+        return this._price;
+    }
+    get carName() {
+        return this._carName;
+    }
+    get carImgUrl() {
+        return this._carImgUrl;
     }
 
     /**
@@ -147,11 +195,99 @@ class Order {
 
     /**
      *
+     * @return {HTMLElement}
+     */
+    getItemNode() {
+        let icon  = node({
+            classList: "icon",
+            childNodes: node({
+                tag: "img",
+                src: "resources/img/ford-mustang.png", //car image
+                alt: ""
+            })
+        });
+
+        let title = node({
+            classList: "title",
+            content: this.carName
+        });
+        let status = this._getStatus();
+        let description = this._getDescription();
+
+        let contentItem = node({
+            classList: "content-item",
+            childNodes: [title, status, description]
+        });
+
+        return node({
+            classList: "item",
+            childNodes: [icon, contentItem]
+        });
+    }
+
+    _getDescription() {
+        let orderDate = node({
+            tag: "label",
+            content: "Дата аренды: ",
+            childNodes: node({
+                classList: "order-date",
+                content: dateFormat(this.orderDate)
+            })
+        });
+        let returnDate = node({
+            tag: "label",
+            content: "Дата возврата: ",
+            childNodes: node({
+                classList: "return-date",
+                content: dateFormat(this.returnDate)
+            })
+        });
+        let returnBtn = node({
+            tag: "button",
+            classList: "return-date",
+            content: "Вернуть"
+        });
+        return node({
+            classList: "description",
+            childNodes: [orderDate, returnDate, returnBtn]
+        });
+    }
+
+    _getStatus() {
+        let nowDate = new Date();
+        nowDate.setMinutes(0);
+        nowDate.setSeconds(0);
+        nowDate.setMilliseconds(0);
+        let hourLeft = Math.round(
+            (this.returnDate.getTime() - nowDate.getTime()) / 3600 / 1000);
+        if (hourLeft < 0) {
+            return  node({
+               classList: "status",
+               content: "Вы просрочили аренду на " + (-hourLeft) + " ч."
+            });
+        }
+        return node({
+           classList: "status",
+           content: "Осталось " + hourLeft + " ч. до конца аренды"
+        });
+    }
+
+    /**
+     *
      * @param order {Object}
      * @return {string}
      */
     static toJSON(order) {
         return new Order(order).toJSON();
+    }
+
+    /**
+     *
+     * @param order {Order}
+     * @return {HTMLElement}
+     */
+    static getItemNode(order) {
+        return order.getItemNode();
     }
 
     /**
