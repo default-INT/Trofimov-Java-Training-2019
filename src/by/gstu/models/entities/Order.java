@@ -1,6 +1,7 @@
 package by.gstu.models.entities;
 
 import by.gstu.models.dao.DAOFactory;
+import by.gstu.models.untils.ParserJSON;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -168,9 +169,9 @@ public class Order extends Entity {
 	public JSONObject toJSON() {
 		JSONObject orderJson = super.toJSON();
 
-		orderJson.put("orderDate", orderDate);
+		orderJson.put("orderDate", ParserJSON.parseCalendar(orderDate));
 		orderJson.put("period", period);
-		orderJson.put("returnDate", returnDate);
+		orderJson.put("returnDate", ParserJSON.parseCalendar(returnDate));
 		orderJson.put("car", getCar().toJSON());
 		orderJson.put("client", getClient().toJSON());
 		orderJson.put("passportData", getClient().toJSON());

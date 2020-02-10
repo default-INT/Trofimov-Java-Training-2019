@@ -5,7 +5,9 @@ import by.gstu.models.dao.OrderDAO;
 import by.gstu.models.entities.Car;
 import by.gstu.models.entities.Entity;
 import by.gstu.models.entities.Order;
+import by.gstu.models.untils.ParserJSON;
 import org.apache.log4j.helpers.ISO8601DateFormat;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class OrderService {
 
@@ -41,6 +41,12 @@ public class OrderService {
             msg.put("result", false);
         }
         return msg;
+    }
+
+    public JSONArray clientOrders(int clientId) {
+        Collection<Order> orders = orderDAO.readAll(clientId);
+        if (orders == null) return null;
+        return ParserJSON.toJSONArray(new ArrayList<>(orders));
     }
 
     public static Order getOrderReq(HttpServletRequest request) {
@@ -79,7 +85,7 @@ public class OrderService {
 
     public static Date parse(String input) throws ParseException {
 
-        SimpleDateFormat df = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSS" );
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
         if (input.endsWith("Z")) {
             input = input.substring( 0, input.length() - 1) + "GMT-00:00";

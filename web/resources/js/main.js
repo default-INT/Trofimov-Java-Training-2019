@@ -119,9 +119,8 @@ function openedForm() {
 /**
  * Authorization in system
  *
- * TODO: Need refactoring and change logic!
  * @author Evgeniy Trofimov
- * @version 1.5
+ * @version 2.0
  */
 function logInUser() {
     let loginForm = document.getElementById("login-form");
@@ -148,6 +147,8 @@ function logInUser() {
 function setUserMenu(authUser) {
     let form = openedForm();
     if (!authUser) {
+        let formData = new FormData(form);
+        if (formData.get("login") === "" && formData.get("password") === "") return;
         let msgLabel = form.querySelector(".msg");
         msgLabel.style.color = "red";
         msgLabel.innerHTML = "Неверный логин, либо пароль";

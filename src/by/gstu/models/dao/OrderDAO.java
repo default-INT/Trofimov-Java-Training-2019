@@ -16,6 +16,6 @@ public interface OrderDAO {
     boolean update(Order order);
     boolean delete(int id);
 
-    Collection<Order> readAllForClient(int id);
+    Collection<Order> readAll(int clientId);
     boolean closeOrder(int orderId, Calendar returnDate);
 }

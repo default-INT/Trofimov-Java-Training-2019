@@ -4,9 +4,11 @@ import by.gstu.controllers.services.CarService;
 import by.gstu.controllers.services.OrderService;
 import by.gstu.controllers.services.UserService;
 import by.gstu.models.dao.CarDAO;
+import by.gstu.models.entities.Account;
 import by.gstu.models.entities.Client;
 import by.gstu.models.entities.Order;
 import by.gstu.models.untils.ConfigurationManager;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -20,10 +22,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Handel request
+ * Handel request.
  *
  * @author Evgeniy Trofimov
- * @version 1.0
+ * @version 1.5
  */
 @WebServlet(urlPatterns = "/service/*")
 public class ServiceServlet extends HttpServlet {
@@ -46,6 +48,14 @@ public class ServiceServlet extends HttpServlet {
                 resp.getWriter().write(carService.getCar(id).toString());
             } else {
                 resp.getWriter().write(carService.getAllCars().toString());
+            }
+        } else if (servletPath.contains("/orders")) {
+            HttpSession session = req.getSession();
+            Account authAccount = (Account) session.getAttribute("authAccount");
+            if (authAccount != null) {
+                orderService = OrderService.getInstance();
+                JSONArray orders = orderService.clientOrders(authAccount.getId());
+                if (orders != null) resp.getWriter().write(orders.toString());
             }
         }
     }

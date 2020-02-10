@@ -7,26 +7,27 @@ import by.gstu.models.untils.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.GregorianCalendar;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Implements OrderDAO.
  *
+ * TODO: Date and time!
+ *
  * @author Evgeniy Trofimov
- * @version 2.1
+ * @version 2.3
  */
 class MySqlOrderDAO implements OrderDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlOrderDAO.class);
 
-    private static final String DEFAULT_CREATE = "CALL add_order(?, ?, ?, ?, ?, ?)";
-    private static final String DEFAULT_READ = "CALL read_order(?)";
-    private static final String DEFAULT_READ_ALL = "CALL read_all_orders()";
-    private static final String DEFAULT_UPDATE = "CALL edit_order(?, ?, ?, ?, ?, ?, ?)";
-    private static final String DEFAULT_DELETE = "CALL delete_order(?)";
+    private static final String DEFAULT_CREATE = "{CALL add_order(?, ?, ?, ?, ?, ?)}";
+    private static final String DEFAULT_READ = "{CALL read_order(?)}";
+    private static final String DEFAULT_READ_ALL = "{CALL read_all_orders()}";
+    private static final String DEFAULT_UPDATE = "{CALL edit_order(?, ?, ?, ?, ?, ?, ?)}";
+    private static final String DEFAULT_DELETE = "{CALL delete_order(?)}";
     private static final String DEFAULT_READ_CLIENT_ORDERS = "{CALL read_client_orders(?)}";
     private static final String DEFAULT_CLOSE_ORDER = "{CALL close_order(?, ?)}";
 
@@ -49,28 +50,33 @@ class MySqlOrderDAO implements OrderDAO {
 
         READ_CLIENT_ORDERS = configurateManager.getProperty("sql.Orders.clientOrders",
                 DEFAULT_READ_CLIENT_ORDERS, "mysql");
-        CLOSE_ORDER = configurateManager.getProperty("sql.Orders.closeOrder", "mysql");
+        CLOSE_ORDER = configurateManager.getProperty("sql.Orders.closeOrder", DEFAULT_CLOSE_ORDER,"mysql");
     }
 
     @Override
     public boolean create(Order order) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(CREATE);
+            callStatement = connection.prepareCall(CREATE);
 
-            pStatement.setDate(1, new Date(order.getOrderDate().getTimeInMillis()),
-                    order.getOrderDate());
-            pStatement.setInt(2, order.getPeriod());
-            pStatement.setInt(3, order.getClientId());
-            pStatement.setInt(4, order.getCarId());
-            pStatement.setString(5, order.getPassportData());
-            pStatement.setDouble(6, order.getPrice());
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            int k = pStatement.executeUpdate();
+            //Date sqlDate = new Date(order.getOrderDate().getTime().getTime()); SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            //callStatement.setString("var_order_date", df.format(order.getOrderDate()));
+            //callStatement.setLong("var_order_date", order.getOrderDate().getTime().getTime());
+            callStatement.setTimestamp("var_order_date", new Timestamp(order.getOrderDate().getTime().getTime()));
+            //callStatement.setDate("var_order_date", new Date(order.getOrderDate().getTime().getTime()));
+            callStatement.setInt("var_rental_period", order.getPeriod());
+            callStatement.setInt("var_client_id", order.getClientId());
+            callStatement.setInt("var_car_id", order.getCarId());
+            callStatement.setString("var_passport_data", order.getPassportData());
+            callStatement.setDouble("var_price", order.getPrice());
+
+            int k = callStatement.executeUpdate();
             return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
@@ -84,10 +90,10 @@ class MySqlOrderDAO implements OrderDAO {
     public Collection<Order> readAll() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(READ_ALL);
+            statement = connection.prepareCall(READ_ALL);
             ResultSet resultSet = statement.executeQuery();
             Collection<Order> orders = new ArrayList<>();
             while (resultSet.next()) {
@@ -120,14 +126,14 @@ class MySqlOrderDAO implements OrderDAO {
     }
 
     @Override
-    public Collection<Order> readAllForClient(int clientId) {
+    public Collection<Order> readAll(int clientId) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
         CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareCall(READ_CLIENT_ORDERS);
-            statement.setInt("var_order_id", clientId);
+            statement.setInt("var_client_id", clientId);
 
             ResultSet resultSet = statement.executeQuery();
             Collection<Order> orders = new ArrayList<>();
@@ -169,8 +175,8 @@ class MySqlOrderDAO implements OrderDAO {
 
             callStatement = connection.prepareCall(CLOSE_ORDER);
 
-            callStatement.setDate("var_return_date", new Date(returnDate.getTimeInMillis()),
-                    returnDate);
+            callStatement.setTimestamp("var_return_date", new Timestamp(returnDate.getTime().getTime()));
+            //callStatement.setDate("var_return_date", new Date(returnDate.getTime().getTime()));
             callStatement.setInt("var_order_id", orderId);
 
             int k = callStatement.executeUpdate();
@@ -187,10 +193,11 @@ class MySqlOrderDAO implements OrderDAO {
     public Order read(int id) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(READ);
+            statement = connection.prepareCall(READ);
+            statement.setInt("var_order_id", id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Date orderDate = resultSet.getDate("order_date");
@@ -223,22 +230,23 @@ class MySqlOrderDAO implements OrderDAO {
     public boolean update(Order order) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(UPDATE);
+            callStatement = connection.prepareCall(UPDATE);
 
-            pStatement.setInt(1, order.getId());
-            pStatement.setDate(2, new Date(order.getOrderDate().getTimeInMillis()),
-                    order.getOrderDate());
-            pStatement.setInt(3, order.getPeriod());
-            pStatement.setInt(4, order.getClientId());
-            pStatement.setInt(5, order.getCarId());
-            pStatement.setString(6, order.getPassportData());
-            pStatement.setDouble(7, order.getPrice());
+            callStatement.setInt("var_order_id", order.getId());
+            callStatement.setTimestamp("var_order_date", new Timestamp(order.getOrderDate().getTime().getTime()));
+            //callStatement.setDate("var_order_date", new Date(order.getOrderDate().getTime().getTime()));
+            callStatement.setInt("var_rental_period", order.getPeriod());
+            callStatement.setInt("var_client_id", order.getClientId());
+            callStatement.setInt("var_car_id", order.getCarId());
+            callStatement.setString("var_passport_data", order.getPassportData());
+            callStatement.setDouble("var_price", order.getPrice());
+            callStatement.setBoolean("var_closed", order.isClosed());
 
-            int k = pStatement.executeUpdate();
+            int k = callStatement.executeUpdate();
             return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);

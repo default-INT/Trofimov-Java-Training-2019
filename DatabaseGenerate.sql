@@ -264,7 +264,8 @@ CREATE PROCEDURE edit_order(
     var_client_id INT,
     var_car_id INT,
     var_passport_data VARCHAR(40),
-    var_price DOUBLE
+    var_price DOUBLE,
+	var_closed BOOLEAN
 )
 BEGIN
     UPDATE orders SET
@@ -274,7 +275,8 @@ BEGIN
       client_id = var_client_id,
       car_id = var_car_id,
       passport_data = var_passport_data,
-      price = var_price
+      price = var_price,
+	  closed = var_closed
     WHERE id = var_order_id;
 END //
 
@@ -305,6 +307,13 @@ BEGIN
     UPDATE orders SET closed = true
     WHERE id = var_order_id;
     CALL add_return_request(var_return_date, var_order_id, null, false, 0);
+END //
+
+CREATE PROCEDURE read_client_orders(
+    var_client_id INT
+)
+BEGIN
+    SELECT * FROM orders WHERE client_id = var_client_id AND closed = false;
 END //
 
 -- STORAGE PROCEDURE FROM return_requests
