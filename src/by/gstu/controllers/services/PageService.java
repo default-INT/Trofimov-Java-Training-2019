@@ -84,6 +84,7 @@ public class PageService {
 
         for (String page : accessPages) {
             if (servletPath.matches(page)) {
+                if (servletPath.contains("/profile") && request.getSession().getAttribute("authAccount") == null) return false;
                 logger.info("Forward address '" + page +"' to '" + LAYOUT_PATH + "'.");
                 request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
                 return true;
@@ -118,6 +119,7 @@ public class PageService {
 
         for (HashMap.Entry element : pageInPath) {
             if (pathInfo.matches(element.getKey().toString())) {
+                if (pageInPath.contains("/profile") && request.getSession().getAttribute("authAccount") == null) return;
                 request.getRequestDispatcher(element.getValue().toString()).forward(request, response);
                 return;
             }

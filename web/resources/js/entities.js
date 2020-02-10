@@ -309,45 +309,46 @@ class Order {
  */
 class Account {
 
-    _status = "guest";
-
     constructor(account) {
+        this._status = "guest";
         if (!!account.id) this._id = account.id;
         if (!!account.login) this._login = account.login;
         if (!!account.email) this._email = account.email;
+        if (!!account.fullName) this._fullName = account.fullName;
         //if (!!account.status) this._status = account.status;
     }
 
     get id() {
         return this._id;
     }
-
     set id(value) {
         if (value < 0) throw new Error("Id cannot be negative.")
     }
-
     get login() {
         return this._login;
     }
-
     set login(value) {
         this._login = value;
     }
-
     get email() {
         return this._email;
     }
-
     set email(value) {
         this._email = value;
     }
-
     get status() {
         return this._status;
     }
-
-    set status(value) {
-        this._status = value;
+    get statusRus() {
+        if (this._status === "client") return "Клиент";
+        else if (this._status === "admin") return "Администратор";
+        else return "Гость";
+    }
+    get fullName() {
+        return this._fullName;
+    }
+    set fullName(value) {
+        this._fullName = value;
     }
 
     /**
@@ -566,7 +567,7 @@ class Client extends Account {
         let userSidebar = elementClassId("ul", "user-sidebar",
             "submenu");
 
-        let profileBtn = Account.getSubMenuElement("Мой профиль", undefined);
+        let profileBtn = Account.getSubMenuElement("Мой профиль", () => ContentManager.loadPageToUrl("/profile"));
         let myOrdersBtn = Account.getSubMenuElement("Мои аренды", undefined);
         let exitBtn = Account.getSubMenuElement("Выход", logOut);
 
@@ -611,7 +612,7 @@ class Administrator extends Account {
         let userSidebar = elementClassId("ul", "user-sidebar",
             "submenu");
 
-        let profileBtn = Account.getSubMenuElement("Мой профиль", undefined);
+        let profileBtn = Account.getSubMenuElement("Мой профиль", () => ContentManager.loadPageToUrl("/profile"));
         let returnRequestBtn = Account.getSubMenuElement("Заявки на возврат", undefined);
         let exitBtn = Account.getSubMenuElement("Выход", logOut);
 

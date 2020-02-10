@@ -73,7 +73,7 @@ class ContentManager {
                 document.getElementById("wrapper").innerHTML = content;
                 history.pushState(null, null, path);
                 ContentManager._definePage(path);
-            });
+            }).catch(() => ContentManager.loadPageToUrl("/not-found"));
     }
 
     static _definePage(path) {
@@ -91,6 +91,12 @@ class ContentManager {
                 }
             }
 
+        } else if (path.includes("/profile")) {
+            try {
+                loadProfile();
+            } catch (e) {
+                include("resources/js/profile.js");
+            }
         }
     }
 

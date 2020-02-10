@@ -53,6 +53,7 @@ CREATE TABLE orders (
     car_id int not null,
     passport_data varchar(40) not null ,
     price double not null,
+	closed boolean not null,
     PRIMARY KEY (id),
     foreign key (client_id) REFERENCES accounts (id),
     FOREIGN KEY (car_id) REFERENCES cars (id)
@@ -63,7 +64,7 @@ CREATE TABLE return_requests
     id int auto_increment not null primary key,
 	return_date DATETIME not null,
     order_id int not null,
-    description varchar(200) not null,
+    description varchar(200),
     return_mark boolean,
     repair_cost double not null,
     FOREIGN KEY (order_id) REFERENCES orders (id)
@@ -250,8 +251,8 @@ CREATE PROCEDURE add_order(
 )
 BEGIN
     IF ((SELECT available FROM cars WHERE id = var_car_id) = true) THEN
-        INSERT INTO orders(order_date, rental_period, return_date, client_id, car_id, passport_data, price)
-        VALUES (var_order_date, var_rental_period, DATE_ADD(var_order_date, INTERVAL var_rental_period HOUR), var_client_id, var_car_id, var_passport_data, var_price);
+        INSERT INTO orders(order_date, rental_period, return_date, client_id, car_id, passport_data, price, closed)
+        VALUES (var_order_date, var_rental_period, DATE_ADD(var_order_date, INTERVAL var_rental_period HOUR), var_client_id, var_car_id, var_passport_data, var_price, false);
         UPDATE cars SET available = false WHERE id = var_car_id;
     END IF;
 END //
@@ -294,6 +295,16 @@ CREATE PROCEDURE read_order(
 )
 BEGIN
     SELECT * FROM orders WHERE id = var_order_id;
+END //
+
+CREATE PROCEDURE close_order(
+    var_order_id INT,
+    var_return_date DATETIME
+)
+BEGIN
+    UPDATE orders SET closed = true
+    WHERE id = var_order_id;
+    CALL add_return_request(var_return_date, var_order_id, null, false, 0);
 END //
 
 -- STORAGE PROCEDURE FROM return_requests

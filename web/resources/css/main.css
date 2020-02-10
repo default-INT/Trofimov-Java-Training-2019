@@ -149,6 +149,7 @@ header #user {
   transform-origin: 0 0;
   transition: .5s ease-in-out;
   border-left: whitesmoke solid 2px;
+  z-index: 1;
 
 }
 
@@ -159,6 +160,7 @@ header #user:hover {
 
 #login {
   height: inherit;
+  z-index: 2;
 }
 
 header #user .submenu {

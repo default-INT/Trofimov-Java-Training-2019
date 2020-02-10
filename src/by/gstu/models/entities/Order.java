@@ -9,7 +9,7 @@ import java.util.Calendar;
  * Entity class.
  *
  * @author Evgeniy Trofimov
- * @version 2.0
+ * @version 2.1
  */
 public class Order extends Entity {
 
@@ -20,12 +20,25 @@ public class Order extends Entity {
 	private int clientId;
 	private String passportData;
 	private double price;
+	private boolean closed;
 
 	private Car car;
 	private Client client;
 
+	/**
+	 *
+	 * @param id
+	 * @param orderDate
+	 * @param period
+	 * @param returnDate
+	 * @param phoneNumber
+	 * @param price
+	 * @param car
+	 * @param client
+	 * @param closed
+	 */
 	public Order(int id, Calendar orderDate, int period, Calendar returnDate, String phoneNumber, double price,
-				 Car car, Client client) {
+				 Car car, Client client, boolean closed) {
 		super(id);
 		this.orderDate = orderDate;
 		this.period = period;
@@ -34,10 +47,23 @@ public class Order extends Entity {
 		this.price = price;
 		this.car = car;
 		this.client = client;
+		this.closed = closed;
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @param orderDate
+	 * @param period
+	 * @param returnDate
+	 * @param clientId
+	 * @param carId
+	 * @param passportData
+	 * @param price
+	 * @param closed
+	 */
 	public Order(int id, Calendar orderDate, int period, Calendar returnDate, int clientId, int carId,
-				 String passportData, double price) {
+				 String passportData, double price, boolean closed) {
 		super(id);
 		this.orderDate = orderDate;
 		this.period = period;
@@ -46,8 +72,18 @@ public class Order extends Entity {
 		this.clientId = clientId;
 		this.passportData = passportData;
 		this.price = price;
+		this.closed = closed;
 	}
 
+	/**
+	 *
+	 * @param orderDate
+	 * @param rentalPeriod
+	 * @param carId
+	 * @param clientId
+	 * @param passportData
+	 * @param price
+	 */
 	public Order(Calendar orderDate, int rentalPeriod, int carId, int clientId, String passportData, double price) {
 		this.orderDate = orderDate;
 		this.period = rentalPeriod;
@@ -105,6 +141,12 @@ public class Order extends Entity {
 	public void setCar(Car car) {
 		this.car = car;
 	}
+	public boolean isClosed() {
+		return closed;
+	}
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
 
 	public Car getCar() {
 		if (car == null) {
@@ -133,6 +175,7 @@ public class Order extends Entity {
 		orderJson.put("client", getClient().toJSON());
 		orderJson.put("passportData", getClient().toJSON());
 		orderJson.put("price", price);
+		orderJson.put("closed", closed);
 		orderJson.put("carName", getCar().getModel());
 
 		return orderJson;
