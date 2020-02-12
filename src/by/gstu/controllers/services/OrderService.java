@@ -49,6 +49,14 @@ public class OrderService {
         return ParserJSON.toJSONArray(new ArrayList<>(orders));
     }
 
+    public JSONObject closeOrder(int orderId, Date returnDate) {
+        JSONObject result = new JSONObject();
+        Calendar returnDateCal = new GregorianCalendar();
+        returnDateCal.setTime(returnDate);
+        result.put("result", orderDAO.closeOrder(orderId, returnDateCal));
+        return result;
+    }
+
     public static Order getOrderReq(HttpServletRequest request) {
         StringBuffer buffer = new StringBuffer();
         String line;

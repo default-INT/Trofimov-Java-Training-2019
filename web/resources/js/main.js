@@ -77,9 +77,7 @@ class ContentManager {
     }
 
     static _definePage(path) {
-        if (path.includes("/main")) {
-            ContentManager._printWelcome();
-        } else if (path.includes("/cars")) {
+        if (path.includes("/cars")) {
             if (/\/cars\/\d+/.test(path)) {
                 let id = parseInt(path.split("/").pop());
                 loadCar(id);
@@ -99,21 +97,18 @@ class ContentManager {
             }
         }
     }
-
-    static _printWelcome() {
-        let welcome = document.getElementById("welcome-user");
-        welcome.innerHTML = "Авторизуйтесь в системе.";
-    }
 }
 
 init();
 
 function openedForm() {
-    if (document.getElementById("login-form").style.display !== "none") {
+    if (document.getElementById("login-form").style.display !== "none" &&
+        document.getElementById("login-form").style.display !== "") {
         return document.getElementById("login-form");
-    } else {
+    } else if (document.getElementById("registration-form").style.display !== "none" &&
+        document.getElementById("registration-form").style.display !== "") {
         return document.getElementById("registration-form");
-    }
+    } else return null;
 }
 
 /**
@@ -147,8 +142,7 @@ function logInUser() {
 function setUserMenu(authUser) {
     let form = openedForm();
     if (!authUser) {
-        let formData = new FormData(form);
-        if (formData.get("login") === "" && formData.get("password") === "") return;
+        if (form == null) return;
         let msgLabel = form.querySelector(".msg");
         msgLabel.style.color = "red";
         msgLabel.innerHTML = "Неверный логин, либо пароль";
@@ -157,7 +151,7 @@ function setUserMenu(authUser) {
         userElement.remove();
         let h1 = document.querySelector("header > h1");
         h1.appendChild(authUser.getMenu());
-        form.style.display = "none";
+        if (!!form) form.style.display = "none";
         clearForms();
         loadPageOnStart();
     }

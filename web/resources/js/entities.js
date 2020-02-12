@@ -5,21 +5,21 @@
  * and parse to JSON,
  *
  * @author Evgeniy Trofimov
- * @version 1.1
+ * @version 1.2
  */
 class Car {
 
     constructor(car) {
-        this.id = car.id;
-        this.model = car.model;
-        this.number = car.number;
-        this.yearOfIssue = car.yearOfIssue;
-        this.mileage = car.mileage;
-        this.transmission = car.transmission;
-        this.fuelType = car.fuelType;
-        this.priceHour = car.priceHour;
+        if (!!car.id) this.id = car.id;
+        if (!!car.model)this.model = car.model;
+        if (!!car.number) this.number = car.number;
+        if (!!car.yearOfIssue) this.yearOfIssue = car.yearOfIssue;
+        if (!!car.mileage) this.mileage = car.mileage;
+        if (!!car.transmission) this.transmission = car.transmission;
+        if (!!car.fuelType) this.fuelType = car.fuelType;
+        if (!!car.priceHour) this.priceHour = car.priceHour;
         this.imgUrl = "resources/img/ford-mustang.png";
-        this.available = car.available;
+        if (!!car.available) this.available = car.available;
     }
 
     getCarItemNode() {
@@ -41,7 +41,8 @@ class Car {
         itemContent.appendChild(column(
             "КП: " + this.transmission,
             "Двигатель: " + this.fuelType,
-            "Цена в ч.: " + this.priceHour + " $"
+            "Цена в ч.: " + this.priceHour + " $",
+            "Статус: " + (this.available ? "Свободен" : "Занят")
         ));
         itemContent.appendChild(column(
             "Номер: " + this.number,
@@ -120,11 +121,13 @@ class Order {
      */
     constructor(order) {
         if (!!order.id) this._id = order.id;
-        if (!!order.orderDate) this._orderDate = order.orderDate;
+        if (!!order.orderDate) this._orderDate = new Date(order.orderDate);
         if (!!order.rentalPeriod) this._rentalPeriod = order.rentalPeriod;
-        if (!!order.returnDate) this._returnDate = order.returnDate;
+        if (!!order.returnDate) this._returnDate = new Date(order.returnDate);
         if (!!order.carId) this._carId = order.carId;
+        if (!!order.car) this._car = new Car(order.car);
         if (!!order.clientId) this._clientId = order.clientId;
+        if (!!order.client) this._client = new Client(order.client);
         if (!!order.passportData) this._passportData = order.passportData;
         if (!!order.price) this._price = order.price;
         if (!!order.carName) this._carName = order.carName;
@@ -176,6 +179,12 @@ class Order {
     get carImgUrl() {
         return this._carImgUrl;
     }
+    get client() {
+        return this._client;
+    }
+    get car() {
+        return this._car;
+    }
 
     /**
      * Convert order to JSON format.
@@ -202,7 +211,7 @@ class Order {
             classList: "icon",
             childNodes: node({
                 tag: "img",
-                src: "resources/img/ford-mustang.png", //car image
+                src: "/resources/img/ford-mustang.png", //car image
                 alt: ""
             })
         });
@@ -221,6 +230,7 @@ class Order {
 
         return node({
             classList: "item",
+            id: "order" + this.id,
             childNodes: [icon, contentItem]
         });
     }
@@ -245,7 +255,13 @@ class Order {
         let returnBtn = node({
             tag: "button",
             classList: "return-date",
-            content: "Вернуть"
+            content: "Вернуть",
+            onclick: () => {
+                let date = new Date();
+                date.setMilliseconds(0);
+                date.setSeconds(0);
+                closeOrder(this.id, date);
+            }
         });
         return node({
             classList: "description",
@@ -297,6 +313,325 @@ class Order {
      */
     static createOrderAJAX(order) {
         return httpPostJson("/service/orders/", order.toJSON());
+    }
+
+    /**
+     *
+     * @return {Promise<Array<Object>>}
+     */
+    static getProfileOrdersAJAX() {
+        return httpRequest({
+            url: "/service/orders",
+            method: "GET",
+            responseType: "json"
+        }).then(response => {
+            if (!response) return null;
+            return response;
+        });
+    }
+
+    /**
+     *
+     * @return {Promise<Boolean>}
+     */
+    static closeOrderAJAX(orderId, returnDate) {
+        return httpRequest({
+            url: "/service/orders",
+            method: "PUT",
+            responseType: "json",
+            data: JSON.stringify({
+                orderId: orderId,
+                returnDate: returnDate
+            })
+        }).then(response => {
+            if (!response) return false;
+            return response.result;
+        });
+    }
+}
+
+/**
+ * @version 1.0
+ * @author Evgeniy Trofimov
+ */
+class ReturnRequest {
+    /**
+     *
+     * @param returnRequest {Object}
+     */
+    constructor(returnRequest) {
+        if (!!returnRequest.id) this._id = returnRequest.id;
+        if (!!returnRequest.returnDate) this._returnDate = new Date(returnRequest.returnDate);
+        if (!!returnRequest.orderId) this._orderId = returnRequest.orderId;
+        if (!!returnRequest.order) this._order = new Order(returnRequest.order);
+        if (!!returnRequest.description) this._description = returnRequest.description;
+        if (!!returnRequest.returnMark) this._returnMark = returnRequest.returnMark;
+        if (!!returnRequest.repairCost) this._repairCost = returnRequest.repairCost;
+    }
+
+    get id() {
+        return this._id;
+    }
+    set id(value) {
+        this._id = value;
+    }
+    get orderId() {
+        return this._orderId;
+    }
+    set orderId(value) {
+        this._orderId = value;
+    }
+    get order() {
+        return this._order;
+    }
+    set order(value) {
+        this._order = value;
+    }
+    get description() {
+        return this._description;
+    }
+    set description(value) {
+        this._description = value;
+    }
+    get returnMark() {
+        return this._returnMark;
+    }
+    set returnMark(value) {
+        this._returnMark = value;
+    }
+    get repairCost() {
+        return this._repairCost;
+    }
+    set repairCost(value) {
+        this._repairCost = value;
+    }
+    get returnDate() {
+        return this._returnDate;
+    }
+    set returnDate(value) {
+        this._returnDate = value;
+    }
+
+    /**
+     *
+     * @return {HTMLElement}
+     */
+    getItemNode(statusUser) {
+        let icon  = node({
+            classList: "icon",
+            childNodes: node({
+                tag: "img",
+                src: "/resources/img/ford-mustang.png", //car image
+                alt: ""
+            })
+        });
+
+        let title = node({
+            classList: "title",
+            content: this.order.carName
+        });
+        let status = this._getStatus();
+        let description = this._getDescription();
+        let carInfo = this._getCarInfo();
+        let returnForm = this._getReturnForm(statusUser);
+
+        let contentItem = node({
+            classList: "content-item",
+            childNodes: [title, status, description]
+        });
+
+        return node({
+            classList: ["item", "return-request"],
+            childNodes: [icon, contentItem, carInfo, returnForm]
+        });
+    }
+
+    _getDescription() {
+        let orderDate = node({
+            tag: "label",
+            content: "Дата аренды: ",
+            childNodes: node({
+                classList: "order-date",
+                content: dateFormat(this.order.orderDate)
+            })
+        });
+        let returnDate = node({
+            tag: "label",
+            content: "Дата возврата: ",
+            childNodes: node({
+                classList: "return-date",
+                content: dateFormat(this.returnDate)
+            })
+        });
+        let client = node({
+            tag: "label",
+            content: "ФИО клиента: ",
+            childNodes: node({
+                classList: "return-date",
+                content: this.order.client.fullName
+            })
+        });
+        return node({
+            classList: "description",
+            childNodes: [orderDate, returnDate, client]
+        });
+    }
+
+    _getStatus() {
+
+        let hourLeft = Math.round(
+            (this.order.returnDate.getTime() - this.returnDate.getTime()) / 3600 / 1000);
+        if (hourLeft < 0) {
+            return  node({
+                classList: "status",
+                content: "Клиент просрочили аренду на " + (-hourLeft) + " ч."
+            });
+        }
+        return node({
+            classList: "status",
+            content: "Автомобиль возвращён раньше на " + hourLeft + " ч."
+        });
+    }
+
+    _getCarInfo() {
+        let title = node({
+            classList: "title",
+            content: "Информация об автомобиле"
+        });
+        let number = node({
+           tag: "label",
+           content: "Номер: " + this.order.car.number
+        });
+        let motor = node({
+            tag: "label",
+            content: "Двигатель: " + this.order.car.fuelType
+        });
+        let transmission = node({
+            tag: "label",
+            content: "КП: " + this.order.car.transmission
+        });
+        return node({
+            classList: "car-info",
+            childNodes: [title, number, motor, transmission]
+        });
+    }
+
+    _getReturnForm(statusUser) {
+        let title = node({
+            classList: "title",
+            content: "Оценка состояния"
+        });
+        //description
+        let form;
+        if (statusUser === "admin") {
+            form = this._adminForm();
+        } else if (statusUser === "client") {
+            form = this._clientForm();
+        }
+        return (node({
+            classList: "return-form",
+            childNodes: [title, form]
+        }));
+
+    }
+
+    /**
+     * Return form for client with description request.
+     *
+     * @return {HTMLElement}
+     * @private
+     */
+    _clientForm() {
+        let label = node({
+            tag: "label",
+            content: "Описание неисправновстей:"
+        });
+        let br = node({tag: "br"});
+        let desc = node({
+            classList: "field",
+            content: !!this.description ?
+                this.description : "Описание отсутствует"
+        });
+        let repairCost = node({
+            classList: "field",
+            content: !!this.repairCost ?
+                "Штраф: " + this.repairCost + "$" : "Заявка ещё не проверена администратором."
+        });
+        if (!!this.repairCost) {
+            let payFineBtn = node({
+                tag: "button",
+                content: "Оплатить штраф",
+                onclick: payFine
+            });
+            return node({
+                classList: "description",
+                childNodes: [label, br, desc, repairCost, payFineBtn]
+            });
+        }
+        //end description
+        return node({
+            classList: "description",
+            childNodes: [label, br, desc, repairCost]
+        });
+    }
+
+    /**
+     * Return form for administrator with entry field.
+     *
+     * @return {HTMLElement}
+     * @private
+     */
+    _adminForm() {
+        let label = node({
+            tag: "label",
+            content: "Описание неисправновстей:"
+        });
+        let br = node({tag: "br"});
+        let desc = node({
+            tag: "textarea",
+            name: "description",
+            cols: 40,
+            rows: 4,
+            placeholder: "Неисправности"
+        });
+        let repairCost = node({
+            tag: "input",
+            type: "number",
+            name: "repairCost",
+            placeholder: "Штраф в $"
+        });
+        let cancelBtn = node({
+            tag: "button",
+            content: "Отклонить заявку",
+            background: "#ff4a27",
+            onclick: cancelRequest
+        });
+        let acceptBtn = node({
+            tag: "button",
+            content: "Принять возврат",
+            background: "darkgreen",
+            onclick: acceptRequest
+        });
+        //end description
+        return node({
+            classList: "description",
+            childNodes: [label, br, desc, repairCost, cancelBtn, acceptBtn]
+        });
+    }
+
+    /**
+     *
+     * @return {Promise<Array<Object>>}
+     */
+    static getReturnRequestAJAX() {
+        return httpRequest({
+            url: "/service/returnRequests",
+            method: "GET",
+            responseType: "json"
+        }).then(response => {
+            if (!response) return null;
+            return response;
+        });
     }
 }
 
@@ -567,12 +902,11 @@ class Client extends Account {
         let userSidebar = elementClassId("ul", "user-sidebar",
             "submenu");
 
-        let profileBtn = Account.getSubMenuElement("Мой профиль", () => ContentManager.loadPageToUrl("/profile"));
-        let myOrdersBtn = Account.getSubMenuElement("Мои аренды", undefined);
+        let profileBtn = Account.getSubMenuElement("Мой профиль",
+            () => ContentManager.loadPageToUrl("/profile"));
         let exitBtn = Account.getSubMenuElement("Выход", logOut);
 
         userSidebar.appendChild(profileBtn);
-        userSidebar.appendChild(myOrdersBtn);
         userSidebar.appendChild(exitBtn);
 
         userMenu.appendChild(login);
@@ -612,13 +946,12 @@ class Administrator extends Account {
         let userSidebar = elementClassId("ul", "user-sidebar",
             "submenu");
 
-        let profileBtn = Account.getSubMenuElement("Мой профиль", () => ContentManager.loadPageToUrl("/profile"));
-        let returnRequestBtn = Account.getSubMenuElement("Заявки на возврат", undefined);
+        let profileBtn = Account.getSubMenuElement("Мой профиль",
+            () => ContentManager.loadPageToUrl("/profile"));
         let exitBtn = Account.getSubMenuElement("Выход", logOut);
 
 
         userSidebar.appendChild(profileBtn);
-        userSidebar.appendChild(returnRequestBtn);
         userSidebar.appendChild(exitBtn);
         exitBtn.addEventListener("click", logOut);
 

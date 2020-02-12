@@ -9,11 +9,11 @@
 
 #catalog-auto .car-item {
   transition: .8s ease;
-  height: 400px;
+  height: 460px;
   cursor: pointer;
   border-radius: 3px;
   overflow: hidden;
-  border: 1px solid whitesmoke;
+  border: 2px solid whitesmoke;
 }
 
 #catalog-auto .car-item .title {
@@ -43,17 +43,14 @@
 #catalog-auto .car-item .item-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 170px;
+  height: 200px;
   grid-gap: 5px;
-}
-
-#catalog-auto .car-item .item-content .column {
-  
 }
 
 .car-item .item-content .column .label {
   padding-left: 10px;
-  padding-top: 25px;
+  padding-top: 10px;
+  height: 30px;
   font-size: 13pt;
 }
 
@@ -78,6 +75,7 @@
 
 .filter-block {
   border-bottom: 8px white dotted;
+  cursor: pointer;
 }
 
 .filter-block #form-filter button {

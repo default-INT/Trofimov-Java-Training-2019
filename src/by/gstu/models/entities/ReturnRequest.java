@@ -1,6 +1,7 @@
 package by.gstu.models.entities;
 
 import by.gstu.models.dao.DAOFactory;
+import by.gstu.models.untils.ParserJSON;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -73,7 +74,8 @@ public class ReturnRequest extends Entity {
     public JSONObject toJSON() {
         JSONObject returnReqJson = super.toJSON();
 
-        returnReqJson.put("returnDate", returnDate);
+        returnReqJson.put("returnDate", ParserJSON.parseCalendar(returnDate));
+        returnReqJson.put("orderId", orderId);
         returnReqJson.put("order", getOrder().toJSON());
         returnReqJson.put("description", description);
         returnReqJson.put("returnMark", returnMark);

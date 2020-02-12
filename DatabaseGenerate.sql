@@ -364,6 +364,15 @@ BEGIN
    SELECT * FROM return_requests;
 END //
 
+CREATE PROCEDURE read_all_return_requests_for_client(
+    var_client_id INT
+)
+BEGIN
+    SELECT (id, return_requests.return_date, order_id, description, return_mark, repair_cost)
+    FROM return_requests INNER JOIN orders o on return_requests.order_id = o.id
+    WHERE o.client_id = var_client_id;
+END //
+
 CREATE PROCEDURE read_return_request(
     var_return_req_id INT
 )

@@ -7,9 +7,7 @@ import by.gstu.models.entities.Client;
 import by.gstu.models.entities.User;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 
 /**
  *

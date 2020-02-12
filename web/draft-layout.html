@@ -101,7 +101,7 @@ class="close" title="Close Modal">&times;</span>
                 <label><a href="">Заявки на возврат</a></label>
             </div>
             <div class="item-list">
-                <div class="item">
+                <div class="item return-request">
                     <div class="icon">
                         <img src="resources/img/ford-mustang.png" alt="">
                     </div>
@@ -125,100 +125,32 @@ class="close" title="Close Modal">&times;</span>
                                     08.02.2020 20:00
                                 </div>
                             </label>
-                            <button class="return-btn">
-                                Вернуть
-                            </button>
+                            <label>
+                                ФИО клиента:
+                                <div class="client">
+                                    Трофимов Е.В.
+                                </div>
+                            </label>
+
                         </div>
                     </div>
-                </div>
-                <div class="item">
-                    <div class="icon">
-                        <img src="resources/img/ford-mustang.png" alt="">
+                    <div class="car-info">
+                        <div class="title">Информация об автомобиле</div>
+                        <label>Номер: 4355 AE-4</label>
+                        <label>Двигатель: бензин</label>
+                        <label>КП: механика</label>
                     </div>
-                    <div class="content-item">
+                    <div class="return-form">
                         <div class="title">
-                            Ford Mustang
+                            Оценка состояния
                         </div>
-                        <div class="status">
-                            Остался 1 день аренды
-                        </div>
-                        <div class="description">
-                            <label>
-                                Дата аренды:
-                                <div class="order-date">
-                                    07.02.2020 15:07
-                                </div>
-                            </label>
-                            <label>
-                                Дата возврата:
-                                <div class="return-date">
-                                    08.02.2020 20:00
-                                </div>
-                            </label>
-                            <button class="return-btn">
-                                Вернуть
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="icon">
-                        <img src="resources/img/ford-mustang.png" alt="">
-                    </div>
-                    <div class="content-item">
-                        <div class="title">
-                            Ford Mustang
-                        </div>
-                        <div class="status">
-                            Остался 1 день аренды
-                        </div>
-                        <div class="description">
-                            <label>
-                                Дата аренды:
-                                <div class="order-date">
-                                    07.02.2020 15:07
-                                </div>
-                            </label>
-                            <label>
-                                Дата возврата:
-                                <div class="return-date">
-                                    08.02.2020 20:00
-                                </div>
-                            </label>
-                            <button class="return-btn">
-                                Вернуть
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="icon">
-                        <img src="resources/img/ford-mustang.png" alt="">
-                    </div>
-                    <div class="content-item">
-                        <div class="title">
-                            Ford Mustang
-                        </div>
-                        <div class="status">
-                            Остался 1 день аренды
-                        </div>
-                        <div class="description">
-                            <label>
-                                Дата аренды:
-                                <div class="order-date">
-                                    07.02.2020 15:07
-                                </div>
-                            </label>
-                            <label>
-                                Дата возврата:
-                                <div class="return-date">
-                                    08.02.2020 20:00
-                                </div>
-                            </label>
-                            <button class="return-btn">
-                                Вернуть
-                            </button>
-                        </div>
+                        <form class="description">
+                            <label>Описание неисправновстей: </label><br>
+                            <textarea name="description" cols="40" rows="4" placeholder="Неисправности"></textarea>
+                            <input type="number" name="repairCost" placeholder="Штраф в $">
+                            <button type="button" style="background: #ff4a27">Отклонить заявку</button>
+                            <button type="button" style="background: darkgreen">Принять возврат</button>
+                        </form>
                     </div>
                 </div>
             </div>

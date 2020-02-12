@@ -84,7 +84,8 @@ public class PageService {
 
         for (String page : accessPages) {
             if (servletPath.matches(page)) {
-                if (servletPath.contains("/profile") && request.getSession().getAttribute("authAccount") == null) return false;
+                if (servletPath.contains("/profile") && request.getSession().getAttribute("authAccount") == null)
+                    return false;
                 logger.info("Forward address '" + page +"' to '" + LAYOUT_PATH + "'.");
                 request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
                 return true;

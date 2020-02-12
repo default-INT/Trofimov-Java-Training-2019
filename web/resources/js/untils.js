@@ -194,7 +194,7 @@ function httpRequest(params) {
  * @param params {Object}
  * @return HTMLElement
  *
- * @version 1.0
+ * @version 1.6
  */
 function node(params) {
     let element;
@@ -214,7 +214,13 @@ function node(params) {
         else element.appendChild(params.childNodes);
     }
     if (!!params.src) element.src = params.src;
-    if (!!params.alt) element.alt = params.alt;
+    if (!!params.src) element.src = params.src;
+    if (!!params.name) element.name = params.name;
+    if (!!params.cols) element.cols = params.cols;
+    if (!!params.rows) element.rows = params.rows;
+    if (!!params.number) element.number = params.number;
+    if (!!params.background) element.style.background = params.background;
+    if (!!params.placeholder) element.placeholder = params.placeholder;
     if (!!params.onclick) element.addEventListener("click", params.onclick);
     if (!!params.onchange) element.addEventListener("change", params.onclick);
     return element;
