@@ -73,7 +73,8 @@ public class PageService {
      * @throws ServletException
      * @throws IOException
      */
-    public static boolean routeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static boolean routeRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String servletPath = request.getServletPath();
 
         for (String page : RESOURCES_PAGE) {
@@ -84,8 +85,10 @@ public class PageService {
 
         for (String page : accessPages) {
             if (servletPath.matches(page)) {
-                if (servletPath.contains("/profile") && request.getSession().getAttribute("authAccount") == null)
+                if (servletPath.contains("/profile") && request.getSession().getAttribute("authAccount") == null) {
+                    response.sendRedirect(NOT_FOUND_PAGE);
                     return false;
+                }
                 logger.info("Forward address '" + page +"' to '" + LAYOUT_PATH + "'.");
                 request.getRequestDispatcher(LAYOUT_PATH).forward(request, response);
                 return true;

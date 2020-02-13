@@ -4,12 +4,7 @@ import by.gstu.controllers.services.CarService;
 import by.gstu.controllers.services.OrderService;
 import by.gstu.controllers.services.ReturnRequestService;
 import by.gstu.controllers.services.UserService;
-import by.gstu.models.dao.CarDAO;
 import by.gstu.models.entities.Account;
-import by.gstu.models.entities.Administrator;
-import by.gstu.models.entities.Client;
-import by.gstu.models.entities.Order;
-import by.gstu.models.untils.ConfigurationManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,11 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Handel request.

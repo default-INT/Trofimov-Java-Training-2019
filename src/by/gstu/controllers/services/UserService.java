@@ -4,10 +4,8 @@ import by.gstu.models.dao.DAOFactory;
 import by.gstu.models.entities.Account;
 import by.gstu.models.entities.Administrator;
 import by.gstu.models.entities.Client;
-import by.gstu.models.entities.User;
 
 import javax.servlet.http.HttpSession;
-import java.util.Collection;
 
 /**
  *
@@ -22,7 +20,6 @@ public class UserService {
 
     private static UserService instance;
     private DAOFactory dao;
-    private Collection<User> users;
 
     private UserService() {
         dao = DAOFactory.getDAOFactory();
