@@ -6,10 +6,7 @@ import by.gstu.models.untils.ConfigurationManager;
 import by.gstu.models.untils.ConnectionPool;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -23,41 +20,40 @@ class MySqlClientDAO implements ClientDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlClientDAO.class);
 
-    private static final String DEFAULT_CREATE = "CALL add_client(?, ?, ?, ?, ?)";
-    private static final String DEFAULT_READ_ALL = "CALL read_all_clients()";
-    private static final String DEFAULT_UPDATE = "CALL edit_client(?, ?, ?, ?, ?)";
+    private static final String DEFAULT_CREATE = "{CALL add_client(?, ?, ?, ?, ?)}";
+    private static final String DEFAULT_READ_ALL = "{CALL read_all_clients()}";
+    private static final String DEFAULT_UPDATE = "{CALL edit_client(?, ?, ?, ?, ?)}";
 
     private static final String CREATE;
     private static final String READ_ALL;
     private static final String UPDATE;
 
     static {
-        ConfigurationManager configurateManager = ConfigurationManager.getInstance();
+        ConfigurationManager configuratorManager = ConfigurationManager.getInstance();
 
-        CREATE = configurateManager.getProperty("sql.Clients.create", DEFAULT_CREATE, "mysql");
-        READ_ALL = configurateManager.getProperty("sql.Clients.readAll", DEFAULT_READ_ALL, "mysql");
-        UPDATE = configurateManager.getProperty("sql.Clients.update", DEFAULT_UPDATE, "mysql");
+        CREATE = configuratorManager.getProperty("sql.Clients.create", DEFAULT_CREATE, "mysql");
+        READ_ALL = configuratorManager.getProperty("sql.Clients.readAll", DEFAULT_READ_ALL, "mysql");
+        UPDATE = configuratorManager.getProperty("sql.Clients.update", DEFAULT_UPDATE, "mysql");
     }
 
     @Override
     public boolean create(Client client) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(CREATE);
+            callStatement = connection.prepareCall(CREATE);
 
-            pStatement.setString(1, client.getLogin());
-            pStatement.setString(2, client.getPassword());
-            pStatement.setString(3, client.getEmail());
-            pStatement.setString(4, client.getFullName());
-            pStatement.setInt(5, client.getBirthdayYear());
+            callStatement.setString("var_login", client.getLogin());
+            callStatement.setString("var_password", client.getPassword());
+            callStatement.setString("var_email", client.getEmail());
+            callStatement.setString("var_full_name", client.getFullName());
+            callStatement.setInt("var_birthday_year", client.getBirthdayYear());
 
-            int k = pStatement.executeUpdate();
-            if (k > 0) return true;
-            return false;
+            int k = callStatement.executeUpdate();
+            return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
         } finally {
@@ -70,10 +66,10 @@ class MySqlClientDAO implements ClientDAO {
     public Collection<Client> readAll() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(READ_ALL);
+            statement = connection.prepareCall(READ_ALL);
             ResultSet resultSet = statement.executeQuery();
             Collection<Client> clients = new ArrayList<>();
             while (resultSet.next()) {
@@ -98,21 +94,21 @@ class MySqlClientDAO implements ClientDAO {
     public boolean update(Client client) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(UPDATE);
+            callStatement = connection.prepareCall(UPDATE);
 
-            pStatement.setInt(1, client.getId());
-            pStatement.setString(2, client.getLogin());
-            pStatement.setString(3, client.getPassword());
-            pStatement.setString(4, client.getEmail());
-            pStatement.setString(5, client.getFullName());
-            pStatement.setInt(6, client.getBirthdayYear());
+            callStatement.setInt("var_id", client.getId());
+            callStatement.setString("var_login", client.getLogin());
+            callStatement.setString("var_password", client.getPassword());
+            callStatement.setString("var_email", client.getEmail());
+            callStatement.setString("var_full_name", client.getFullName());
+            callStatement.setInt("var_birthday_year", client.getBirthdayYear());
 
-            int k = pStatement.executeUpdate();
-            return k > 0 ? true : false;
+            int k = callStatement.executeUpdate();
+            return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
         } finally {

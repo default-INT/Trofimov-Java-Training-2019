@@ -8,10 +8,7 @@ import by.gstu.models.untils.ConfigurationManager;
 import by.gstu.models.untils.ConnectionPool;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -25,14 +22,14 @@ class MySqlAccountDAO implements AccountDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlAccountDAO.class);
 
-    private static final String DEFAULT_CREATE = "CALL add_account(?, ?, ?, ?, ?, ?)";
-    private static final String DEFAULT_READ = "CALL read_account(?)";
-    private static final String DEFAULT_READ_ALL = " CALL read_all_accounts()";
-    private static final String DEFAULT_UPDATE = "CALL edit_account(?, ?, ?, ?)";
-    private static final String DEFAULT_DELETE = "CALL delete_account(?)";
+    private static final String DEFAULT_CREATE = "{CALL add_account(?, ?, ?, ?, ?, ?)}";
+    private static final String DEFAULT_READ = "{CALL read_account(?)}";
+    private static final String DEFAULT_READ_ALL = "{CALL read_all_accounts()}";
+    private static final String DEFAULT_UPDATE = "{CALL edit_account(?, ?, ?, ?)}";
+    private static final String DEFAULT_DELETE = "{CALL delete_account(?)}";
 
-    private static final String DEFAULT_LOG_IN = "CALL log_in(?, ?)";
-    private static final String DEFAULT_CHECK_LOGIN = "CALL check_login(?)";
+    private static final String DEFAULT_LOG_IN = "{CALL log_in(?, ?)}";
+    private static final String DEFAULT_CHECK_LOGIN = "{CALL check_login(?)}";
 
     private static final String CREATE;
     private static final String READ;
@@ -59,26 +56,25 @@ class MySqlAccountDAO implements AccountDAO {
     public boolean create(Account account) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(CREATE);
+            callStatement = connection.prepareCall(CREATE);
 
-            pStatement.setString(1, account.getLogin());
-            pStatement.setString(2, account.getPassword());
-            pStatement.setString(3, account.getEmail());
-            pStatement.setString(5, account.getFullName());
+            callStatement.setString("var_login", account.getLogin());
+            callStatement.setString("var_password", account.getPassword());
+            callStatement.setString("var_email", account.getEmail());
+            callStatement.setString("var_full_name", account.getFullName());
             if (account.getClass().equals(Client.class)) {
-                pStatement.setBoolean(4, false);
-                pStatement.setInt(6, ((Client) account).getBirthdayYear());
+                callStatement.setBoolean(4, false);
+                callStatement.setInt(6, ((Client) account).getBirthdayYear());
             } else if (account.getClass().equals(Administrator.class)) {
-                pStatement.setBoolean(4, true);
+                callStatement.setBoolean(4, true);
             }
 
-            int k = pStatement.executeUpdate();
-            if (k > 0) return true;
-            return false;
+            int k = callStatement.executeUpdate();
+            return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
         } finally {
@@ -91,10 +87,10 @@ class MySqlAccountDAO implements AccountDAO {
     public Collection<Account> readAll() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(READ_ALL);
+            statement = connection.prepareCall(READ_ALL);
             ResultSet resultSet = statement.executeQuery();
             Collection<Account> accounts = new ArrayList<>();
             while (resultSet.next()) {
@@ -124,11 +120,11 @@ class MySqlAccountDAO implements AccountDAO {
     public Account read(int id) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(READ);
-            statement.setInt(1, id);
+            statement = connection.prepareCall(READ);
+            statement.setInt("var_id", id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String login = resultSet.getString("login");
@@ -156,21 +152,20 @@ class MySqlAccountDAO implements AccountDAO {
     public boolean update(Account account) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(UPDATE);
+            callStatement = connection.prepareCall(UPDATE);
 
-            pStatement.setInt(1, account.getId());
-            pStatement.setString(2, account.getLogin());
-            pStatement.setString(3, account.getPassword());
-            pStatement.setString(4, account.getEmail());
-            pStatement.setString(5, account.getFullName());
+            callStatement.setInt("var_id", account.getId());
+            callStatement.setString("var_login", account.getLogin());
+            callStatement.setString("var_password", account.getPassword());
+            callStatement.setString("var_email", account.getEmail());
+            callStatement.setString("var_full_name", account.getFullName());
 
-            int k = pStatement.executeUpdate();
-            if (k > 0) return true;
-            return false;
+            int k = callStatement.executeUpdate();
+            return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
         } finally {
@@ -183,17 +178,16 @@ class MySqlAccountDAO implements AccountDAO {
     public boolean delete(int id) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(DELETE);
+            callStatement = connection.prepareCall(DELETE);
 
-            pStatement.setInt(1, id);
+            callStatement.setInt("var_id", id);
 
-            int k = pStatement.executeUpdate();
-            if (k > 0) return true;
-            return false;
+            int k = callStatement.executeUpdate();
+            return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
         } finally {
@@ -206,12 +200,12 @@ class MySqlAccountDAO implements AccountDAO {
     public Account logIn(String login, String password) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(LOG_IN);
-            statement.setString(1, login);
-            statement.setString(2, password);
+            statement = connection.prepareCall(LOG_IN);
+            statement.setString("var_login", login);
+            statement.setString("var_password", password);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -238,16 +232,16 @@ class MySqlAccountDAO implements AccountDAO {
     public boolean availableLogin(String login) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(CHECK_LOGIN);
+            statement = connection.prepareCall(CHECK_LOGIN);
             statement.setString(1, login);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int num = resultSet.getInt(1);
-                return num > 0 ? false : true;
+                return num <= 0;
             }
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);

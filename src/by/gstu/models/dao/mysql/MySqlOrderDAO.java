@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -63,12 +62,8 @@ class MySqlOrderDAO implements OrderDAO {
 
             callStatement = connection.prepareCall(CREATE);
 
-            //Date sqlDate = new Date(order.getOrderDate().getTime().getTime()); SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            //callStatement.setString("var_order_date", df.format(order.getOrderDate()));
-            //callStatement.setLong("var_order_date", order.getOrderDate().getTime().getTime());
             callStatement.setTimestamp("var_order_date",
                     new Timestamp(order.getOrderDate().getTime().getTime()), order.getOrderDate());
-            //callStatement.setDate("var_order_date", new Date(order.getOrderDate().getTime().getTime()));
             callStatement.setInt("var_rental_period", order.getPeriod());
             callStatement.setInt("var_client_id", order.getClientId());
             callStatement.setInt("var_car_id", order.getCarId());
@@ -176,7 +171,6 @@ class MySqlOrderDAO implements OrderDAO {
 
             callStatement.setTimestamp("var_return_date", new Timestamp(returnDate.getTime().getTime()),
                     returnDate);
-            //callStatement.setDate("var_return_date", new Date(returnDate.getTime().getTime()));
             callStatement.setInt("var_order_id", orderId);
 
             int k = callStatement.executeUpdate();
@@ -239,7 +233,6 @@ class MySqlOrderDAO implements OrderDAO {
             callStatement.setInt("var_order_id", order.getId());
             callStatement.setTimestamp("var_order_date",
                     new Timestamp(order.getOrderDate().getTime().getTime()), order.getReturnDate());
-            //callStatement.setDate("var_order_date", new Date(order.getOrderDate().getTime().getTime()));
             callStatement.setInt("var_rental_period", order.getPeriod());
             callStatement.setInt("var_client_id", order.getClientId());
             callStatement.setInt("var_car_id", order.getCarId());
@@ -261,15 +254,15 @@ class MySqlOrderDAO implements OrderDAO {
     public boolean delete(int id) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(DELETE);
+            callStatement = connection.prepareCall(DELETE);
 
-            pStatement.setInt(1, id);
+            callStatement.setInt("var_order_id", id);
 
-            int k = pStatement.executeUpdate();
+            int k = callStatement.executeUpdate();
             return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);

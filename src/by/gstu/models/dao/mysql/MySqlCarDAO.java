@@ -6,10 +6,7 @@ import by.gstu.models.untils.ConfigurationManager;
 import by.gstu.models.untils.ConnectionPool;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -23,11 +20,11 @@ class MySqlCarDAO implements CarDAO {
 
     private static final Logger logger = Logger.getLogger(MySqlCarDAO.class);
 
-    private static final String DEFAULT_CREATE = "CALL add_car(?, ?, ?, ?, ?, ?, ?)";
-    private static final String DEFAULT_READ = "CALL read_car(?)";
-    private static final String DEFAULT_READ_ALL = "CALL read_all_cars()";
-    private static final String DEFAULT_UPDATE = "CALL edit_car(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String DEFAULT_DELETE = "CALL delete_car(?)";
+    private static final String DEFAULT_CREATE = "{CALL add_car(?, ?, ?, ?, ?, ?, ?)}";
+    private static final String DEFAULT_READ = "{CALL read_car(?)}";
+    private static final String DEFAULT_READ_ALL = "{CALL read_all_cars()}";
+    private static final String DEFAULT_UPDATE = "{CALL edit_car(?, ?, ?, ?, ?, ?, ?, ?)}";
+    private static final String DEFAULT_DELETE = "{CALL delete_car(?)}";
 
     private static final String CREATE;
     private static final String READ;
@@ -36,12 +33,12 @@ class MySqlCarDAO implements CarDAO {
     private static final String DELETE;
 
     static {
-        ConfigurationManager configurateManager = ConfigurationManager.getInstance();
-        CREATE = configurateManager.getProperty("sql.Cars.create", DEFAULT_CREATE, "mysql");
-        READ = configurateManager.getProperty("sql.Cars.read", DEFAULT_READ, "mysql");
-        READ_ALL = configurateManager.getProperty("sql.Cars.readAll", DEFAULT_READ_ALL, "mysql");
-        UPDATE = configurateManager.getProperty("sql.Cars.update", DEFAULT_UPDATE, "mysql");
-        DELETE = configurateManager.getProperty("sql.Cars.delete", DEFAULT_DELETE, "mysql");
+        ConfigurationManager configuratorManager = ConfigurationManager.getInstance();
+        CREATE = configuratorManager.getProperty("sql.Cars.create", DEFAULT_CREATE, "mysql");
+        READ = configuratorManager.getProperty("sql.Cars.read", DEFAULT_READ, "mysql");
+        READ_ALL = configuratorManager.getProperty("sql.Cars.readAll", DEFAULT_READ_ALL, "mysql");
+        UPDATE = configuratorManager.getProperty("sql.Cars.update", DEFAULT_UPDATE, "mysql");
+        DELETE = configuratorManager.getProperty("sql.Cars.delete", DEFAULT_DELETE, "mysql");
     }
 
     public MySqlCarDAO() {
@@ -51,22 +48,21 @@ class MySqlCarDAO implements CarDAO {
     public boolean create(Car car) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
 
-            pStatement = connection.prepareStatement(CREATE);
-            pStatement.setString(1, car.getNumber());
-            pStatement.setString(2, car.getModel());
-            pStatement.setInt(3, car.getMileage());
-            pStatement.setInt(4, car.getYearOfIssue());
-            pStatement.setDouble(5, car.getPriceHour());
-            pStatement.setInt(6, car.getTransmissionId());
-            pStatement.setInt(7, car.getFuelTypeId());
+            callStatement = connection.prepareCall(CREATE);
+            callStatement.setString(1, car.getNumber());
+            callStatement.setString(2, car.getModel());
+            callStatement.setInt(3, car.getMileage());
+            callStatement.setInt(4, car.getYearOfIssue());
+            callStatement.setDouble(5, car.getPriceHour());
+            callStatement.setInt(6, car.getTransmissionId());
+            callStatement.setInt(7, car.getFuelTypeId());
 
-            int k = pStatement.executeUpdate();
-            if (k > 0) return true;
-            return false;
+            int k = callStatement.executeUpdate();
+            return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
         } finally {
@@ -79,10 +75,10 @@ class MySqlCarDAO implements CarDAO {
     public Collection<Car> readAll() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(READ_ALL);
+            statement = connection.prepareCall(READ_ALL);
             ResultSet resultSet = statement.executeQuery();
             Collection<Car> cars = new ArrayList<>();
             while (resultSet.next()) {
@@ -112,11 +108,11 @@ class MySqlCarDAO implements CarDAO {
     public Car read(int id) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement statement = null;
+        CallableStatement statement;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(READ);
-            statement.setInt(1, id);
+            statement = connection.prepareCall(READ);
+            statement.setInt("var_id", id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String number = resultSet.getString("number");
@@ -143,22 +139,21 @@ class MySqlCarDAO implements CarDAO {
     public boolean update(Car car) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
-            pStatement = connection.prepareStatement(UPDATE);
-            pStatement.setInt(1, car.getId());
-            pStatement.setString(2, car.getNumber());
-            pStatement.setString(3, car.getModel());
-            pStatement.setInt(4, car.getMileage());
-            pStatement.setInt(5, car.getYearOfIssue());
-            pStatement.setDouble(6, car.getPriceHour());
-            pStatement.setInt(7, car.getTransmissionId());
-            pStatement.setInt(8, car.getFuelTypeId());
+            callStatement = connection.prepareCall(UPDATE);
+            callStatement.setInt("var_id", car.getId());
+            callStatement.setString("var_number", car.getNumber());
+            callStatement.setString("var_model", car.getModel());
+            callStatement.setInt("var_mileage", car.getMileage());
+            callStatement.setInt("var_year_of_issue", car.getYearOfIssue());
+            callStatement.setDouble("var_price_hour", car.getPriceHour());
+            callStatement.setInt("var_transmission_id", car.getTransmissionId());
+            callStatement.setInt("var_fuel_type_id", car.getFuelTypeId());
 
-            int k = pStatement.executeUpdate();
-            if (k > 0) return true;
-            return false;
+            int k = callStatement.executeUpdate();
+            return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
         } finally {
@@ -171,15 +166,14 @@ class MySqlCarDAO implements CarDAO {
     public boolean delete(int id) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
-        PreparedStatement pStatement = null;
+        CallableStatement callStatement;
         try {
             connection = connectionPool.getConnection();
-            pStatement = connection.prepareStatement(DELETE);
-            pStatement.setInt(1, id);
+            callStatement = connection.prepareCall(DELETE);
+            callStatement.setInt("var_id", id);
 
-            int k = pStatement.executeUpdate();
-            if (k > 0) return true;
-            return false;
+            int k = callStatement.executeUpdate();
+            return k > 0;
         } catch (SQLException | InterruptedException e) {
             logger.error(e.getMessage(), e);
         } finally {
@@ -190,17 +184,17 @@ class MySqlCarDAO implements CarDAO {
 
     public static class MySqlTransmissionDAO implements CarDAO.CarEntityDAO<Car.Transmission> {
 
-        private static final String DEFAULT_READ_TRANSMISSION = "CALL read_transmission(?)";
-        private static final String DEFAULT_READ_ALL_TRANSMISSION = "CALL read_all_transmissions()";
+        private static final String DEFAULT_READ_TRANSMISSION = "{CALL read_transmission(?)}";
+        private static final String DEFAULT_READ_ALL_TRANSMISSION = "{CALL read_all_transmissions()}";
 
         private static final String READ_TRANSMISSION;
         private static final String READ_ALL_TRANSMISSION;
 
         static {
-            ConfigurationManager configurateManager = ConfigurationManager.getInstance();
-            READ_TRANSMISSION = configurateManager.getProperty("sql.Transmissions.read", DEFAULT_READ_TRANSMISSION,
+            ConfigurationManager configuratorManager = ConfigurationManager.getInstance();
+            READ_TRANSMISSION = configuratorManager.getProperty("sql.Transmissions.read", DEFAULT_READ_TRANSMISSION,
                     "mysql");
-            READ_ALL_TRANSMISSION = configurateManager.getProperty("sql.Transmissions.readAll",
+            READ_ALL_TRANSMISSION = configuratorManager.getProperty("sql.Transmissions.readAll",
                     DEFAULT_READ_ALL_TRANSMISSION, "mysql");
         }
 
@@ -208,10 +202,10 @@ class MySqlCarDAO implements CarDAO {
         public Collection<Car.Transmission> readAll() {
             ConnectionPool connectionPool = ConnectionPool.getInstance();
             Connection connection = null;
-            PreparedStatement statement = null;
+            CallableStatement statement;
             try {
                 connection = connectionPool.getConnection();
-                statement = connection.prepareStatement(READ_ALL_TRANSMISSION);
+                statement = connection.prepareCall(READ_ALL_TRANSMISSION);
                 ResultSet resultSet = statement.executeQuery();
                 Collection<Car.Transmission> transmissions = new ArrayList<>();
                 while (resultSet.next()) {
@@ -233,11 +227,11 @@ class MySqlCarDAO implements CarDAO {
         public Car.Transmission read(int id) {
             ConnectionPool connectionPool = ConnectionPool.getInstance();
             Connection connection = null;
-            PreparedStatement statement = null;
+            CallableStatement statement;
             try {
                 connection = connectionPool.getConnection();
-                statement = connection.prepareStatement(READ_TRANSMISSION);
-                statement.setInt(1, id);
+                statement = connection.prepareCall(READ_TRANSMISSION);
+                statement.setInt("var_id", id);
 
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
@@ -256,17 +250,17 @@ class MySqlCarDAO implements CarDAO {
 
     public static class MySqlFuelTypeDAO implements CarDAO.CarEntityDAO<Car.FuelType> {
 
-        private static final String DEFAULT_READ_FUEL_TYPE = "CALL read_all_fuel_types()";
-        private static final String DEFAULT_READ_ALL_FUEL_TYPE = "CALL read_fuel_type(?)";
+        private static final String DEFAULT_READ_FUEL_TYPE = "{CALL read_all_fuel_types()}";
+        private static final String DEFAULT_READ_ALL_FUEL_TYPE = "{CALL read_fuel_type(?)}";
 
         private static final String READ_FUEL_TYPE;
         private static final String READ_ALL_FUEL_TYPE;
 
         static {
-            ConfigurationManager configurateManager = ConfigurationManager.getInstance();
-            READ_FUEL_TYPE = configurateManager.getProperty("sql.FuelTypes.read", DEFAULT_READ_FUEL_TYPE,
+            ConfigurationManager configuratorManager = ConfigurationManager.getInstance();
+            READ_FUEL_TYPE = configuratorManager.getProperty("sql.FuelTypes.read", DEFAULT_READ_FUEL_TYPE,
                     "mysql");
-            READ_ALL_FUEL_TYPE = configurateManager.getProperty("sql.FuelTypes.readAll",
+            READ_ALL_FUEL_TYPE = configuratorManager.getProperty("sql.FuelTypes.readAll",
                     DEFAULT_READ_ALL_FUEL_TYPE, "mysql");
         }
 
@@ -274,10 +268,10 @@ class MySqlCarDAO implements CarDAO {
         public Collection<Car.FuelType> readAll() {
             ConnectionPool connectionPool = ConnectionPool.getInstance();
             Connection connection = null;
-            PreparedStatement statement = null;
+            CallableStatement statement;
             try {
                 connection = connectionPool.getConnection();
-                statement = connection.prepareStatement(READ_ALL_FUEL_TYPE);
+                statement = connection.prepareCall(READ_ALL_FUEL_TYPE);
                 ResultSet resultSet = statement.executeQuery();
                 Collection<Car.FuelType> fuelTypes = new ArrayList<>();
                 while (resultSet.next()) {
@@ -299,10 +293,10 @@ class MySqlCarDAO implements CarDAO {
         public Car.FuelType read(int id) {
             ConnectionPool connectionPool = ConnectionPool.getInstance();
             Connection connection = null;
-            PreparedStatement statement = null;
+            CallableStatement statement;
             try {
                 connection = connectionPool.getConnection();
-                statement = connection.prepareStatement(READ_FUEL_TYPE);
+                statement = connection.prepareCall(READ_FUEL_TYPE);
                 statement.setInt(1, id);
 
                 ResultSet resultSet = statement.executeQuery();
