@@ -3,6 +3,12 @@ package by.gstu.models.dao.mysql;
 import by.gstu.models.dao.*;
 import by.gstu.models.entities.Car;
 
+/**
+ * TODO: add description
+ *
+ * @version 1.1
+ * @author Evgeniy Trofimov
+ */
 public class MySqlDAOFactory extends DAOFactory {
 
     @Override

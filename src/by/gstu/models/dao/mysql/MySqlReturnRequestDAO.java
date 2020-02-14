@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  * Implements ReturnRequestDAO.
  *
  * @author Evgeniy Trofimov
- * @version 1.0
+ * @version 1.1
  */
 class MySqlReturnRequestDAO implements ReturnRequestDAO {
 

@@ -41,10 +41,6 @@ public class UserService {
         return authorization(account.getLogin(), account.getPassword());
     }
 
-    public Client registration(String login, String email, String password) {
-        return registration(login, email, password);
-    }
-
     public Client registration(Client client) {
         Client newClient = null;
         if (dao.getClientDAO().create(client)) newClient = (Client) authorization(client);

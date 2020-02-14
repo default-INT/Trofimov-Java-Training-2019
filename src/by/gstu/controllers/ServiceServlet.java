@@ -5,10 +5,10 @@ import by.gstu.controllers.services.OrderService;
 import by.gstu.controllers.services.ReturnRequestService;
 import by.gstu.controllers.services.UserService;
 import by.gstu.models.entities.Account;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,18 +26,20 @@ import java.text.ParseException;
  */
 @WebServlet(urlPatterns = "/service/*")
 public class ServiceServlet extends HttpServlet {
-    private CarService carService;
+
+    private static final Logger logger = Logger.getLogger(ServiceServlet.class);
+
     private OrderService orderService;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String servletPath = req.getPathInfo();
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
         if (servletPath.contains("/cars")) {
 
-            carService = CarService.getInstance();
+            CarService carService = CarService.getInstance();
 
             if (servletPath.matches("/cars/\\d+")) {
                 String[] partUrl = servletPath.split("/");
@@ -69,7 +71,7 @@ public class ServiceServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String servletPath = req.getPathInfo();
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -84,14 +86,14 @@ public class ServiceServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         String servletPath = req.getPathInfo();
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
         if (servletPath.contains("/orders")) {
             if (UserService.checkAccess(req.getSession()) == UserService.AccessUser.CLIENT) {
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 String line;
                 BufferedReader reader;
                 try {
@@ -107,7 +109,7 @@ public class ServiceServlet extends HttpServlet {
                             OrderService.parse(jsonObject.getString("returnDate"))
                     ).toString());
                 } catch (IOException | ParseException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage());
                 }
             }
         }

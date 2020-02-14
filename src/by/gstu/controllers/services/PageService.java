@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * The class routes the client request and returns the corresponding response.
@@ -67,11 +66,6 @@ public class PageService {
     /**
      * Page router (filter handler).
      *
-     * @param request
-     * @param response
-     * @return
-     * @throws ServletException
-     * @throws IOException
      */
     public static boolean routeRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -111,10 +105,6 @@ public class PageService {
     /**
      * Servlet router. Find page content in '/pages/' and return http response with content type - text/html.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
      */
     public static void servletRoute(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {

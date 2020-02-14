@@ -16,7 +16,7 @@ import java.util.Collection;
  * Implements AccountDAO.
  *
  * @author Evgeniy Trofimov
- * @version 2.0
+ * @version 2.1
  */
 class MySqlAccountDAO implements AccountDAO {
 

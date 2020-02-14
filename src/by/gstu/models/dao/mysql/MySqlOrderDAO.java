@@ -16,7 +16,7 @@ import java.util.*;
  * TODO: Date and time!
  *
  * @author Evgeniy Trofimov
- * @version 2.3
+ * @version 2.4
  */
 class MySqlOrderDAO implements OrderDAO {
 

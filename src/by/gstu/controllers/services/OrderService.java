@@ -1,11 +1,13 @@
 package by.gstu.controllers.services;
 
+import by.gstu.controllers.ServiceServlet;
 import by.gstu.models.dao.DAOFactory;
 import by.gstu.models.dao.OrderDAO;
 import by.gstu.models.entities.Car;
 import by.gstu.models.entities.Entity;
 import by.gstu.models.entities.Order;
 import by.gstu.models.untils.ParserJSON;
+import org.apache.log4j.Logger;
 import org.apache.log4j.helpers.ISO8601DateFormat;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OrderService {
+
+    private static final Logger logger = Logger.getLogger(OrderService.class);
 
     private static OrderService instance;
     private OrderDAO orderDAO;
@@ -86,7 +90,7 @@ public class OrderService {
                     price
             );
         } catch (IOException | ParseException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return null;
     }

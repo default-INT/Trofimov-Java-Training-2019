@@ -14,7 +14,7 @@ import java.util.Collection;
  * Implements ClientDAO.
  *
  * @author Evgeniy Trofimov
- * @version 2.0
+ * @version 2.1
  */
 class MySqlClientDAO implements ClientDAO {
 

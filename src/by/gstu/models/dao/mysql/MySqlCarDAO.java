@@ -14,7 +14,7 @@ import java.util.Collection;
  * Implements CarDAO.
  *
  * @author Evgeniy Trofimov
- * @version 2.0
+ * @version 2.1
  */
 class MySqlCarDAO implements CarDAO {
 

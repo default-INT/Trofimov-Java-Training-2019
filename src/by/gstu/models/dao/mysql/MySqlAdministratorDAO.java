@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * Implements AdministratorDAO.
  *
  * @author Evgeniy Trofimov
- * @version 2.0
+ * @version 2.1
  */
 class MySqlAdministratorDAO implements AdministratorDAO {
 
