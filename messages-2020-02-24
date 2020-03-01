@@ -1,0 +1,218 @@
+2020-02-24 20:50:56 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 20:50:57 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 20:50:58 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 20:50:58 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental_hib?serverTimezone=UTC]
+2020-02-24 20:50:58 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 20:50:58 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 20:50:58 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 20:51:00 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 20:51:01 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.car.Car column: fuel_type_id (should be mapped with insert="false" update="false")
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateCarDAO.readAll(HibernateCarDAO.java:37)
+2020-02-24 20:51:01 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:9)
+2020-02-24 20:52:33 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 20:52:34 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 20:52:36 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 20:52:36 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 20:52:36 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 20:52:36 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 20:52:36 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 20:52:37 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 20:52:38 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.car.Car column: fuel_type_id (should be mapped with insert="false" update="false")
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateCarDAO.readAll(HibernateCarDAO.java:37)
+2020-02-24 20:52:38 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:9)
+2020-02-24 21:27:07 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:27:19 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:27:20 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:27:20 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 21:27:20 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:27:20 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:27:20 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:27:22 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:27:23 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.car.Car column: fuel_type_id (should be mapped with insert="false" update="false")
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateCarDAO.readAll(HibernateCarDAO.java:37)
+2020-02-24 21:27:23 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:9)
+2020-02-24 21:31:17 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:31:18 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:31:20 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:31:20 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 21:31:20 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:31:20 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:31:20 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:31:22 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:31:23 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.car.Car column: fuel_type_id (should be mapped with insert="false" update="false")
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateClientDAO.readAll(HibernateClientDAO.java:34)
+2020-02-24 21:31:23 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:11)
+2020-02-24 21:33:36 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:33:37 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:33:38 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:33:38 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 21:33:38 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:33:38 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:33:38 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:33:43 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:33:48 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.car.Car column: fuel_type_id (should be mapped with insert="false" update="false")
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateClientDAO.readAll(HibernateClientDAO.java:34)
+2020-02-24 21:33:48 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:11)
+2020-02-24 21:34:03 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:34:04 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:34:05 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:34:05 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 21:34:05 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:34:05 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:34:05 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:34:06 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:34:07 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.car.Car column: transmission_id (should be mapped with insert="false" update="false")
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateClientDAO.readAll(HibernateClientDAO.java:34)
+2020-02-24 21:34:07 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:11)
+2020-02-24 21:34:43 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:34:44 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:34:45 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:34:45 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 21:34:46 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:34:46 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:34:46 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:34:47 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:34:48 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.ReturnRequest column: order_id (should be mapped with insert="false" update="false")
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateClientDAO.readAll(HibernateClientDAO.java:34)
+2020-02-24 21:34:48 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:11)
+2020-02-24 21:35:31 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:35:32 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:35:33 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:35:33 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 21:35:33 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:35:33 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:35:34 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:35:35 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:35:35 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.Order column: car_id (should be mapped with insert="false" update="false")
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateClientDAO.readAll(HibernateClientDAO.java:34)
+2020-02-24 21:35:35 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:11)
+2020-02-24 21:36:05 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:36:06 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:36:08 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:36:08 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 21:36:08 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:36:08 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:36:08 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:36:09 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:36:10 ERROR HibernateUtil:23 - Repeated column in mapping for entity: by.gstu.models.entities.Order column: client_id (should be mapped with insert="false" update="false")
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:862)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:880)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:902)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:634)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.mapping.RootClass.validate(RootClass.java:267)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:343)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:461)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:708)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:724)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - by.gstu.models.utils.HibernateUtil.<clinit>(HibernateUtil.java:21)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - by.gstu.models.dao.hibernate.HibernateClientDAO.readAll(HibernateClientDAO.java:34)
+2020-02-24 21:36:10 ERROR HibernateUtil:948 - HibernateTest.main(HibernateTest.java:11)
+2020-02-24 21:36:31 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:36:32 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:36:33 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:36:33 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC]
+2020-02-24 21:36:33 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:36:33 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:36:33 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:36:36 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:36:38 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5b40de43] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-02-24 21:36:47 ERROR HibernateClientDAO:37 - class org.hibernate.internal.SessionImpl cannot be cast to class java.util.Collection (org.hibernate.internal.SessionImpl is in unnamed module of loader 'app'; java.util.Collection is in module java.base of loader 'bootstrap')
+2020-02-24 21:37:33 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:37:34 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:37:36 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:37:36 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental_hib?serverTimezone=UTC]
+2020-02-24 21:37:36 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:37:36 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:37:36 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:37:38 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:37:45 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@ef718de] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-02-24 21:37:46 ERROR HibernateClientDAO:37 - class org.hibernate.internal.SessionImpl cannot be cast to class java.util.Collection (org.hibernate.internal.SessionImpl is in unnamed module of loader 'app'; java.util.Collection is in module java.base of loader 'bootstrap')
+2020-02-24 21:38:30 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-24 21:38:32 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-24 21:38:33 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-24 21:38:33 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental_hib?serverTimezone=UTC]
+2020-02-24 21:38:33 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-24 21:38:33 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-24 21:38:33 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-24 21:38:34 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-24 21:38:36 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@49fb0bbd] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.

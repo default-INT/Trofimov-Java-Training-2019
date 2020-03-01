@@ -1,0 +1,9 @@
+2020-02-26 11:50:50 INFO  Version:46 - HHH000412: Hibernate Core {5.4.9.Final}
+2020-02-26 11:50:52 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-02-26 11:50:53 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-02-26 11:50:53 INFO  pooling:115 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/cars_rental_hib?serverTimezone=UTC]
+2020-02-26 11:50:53 INFO  pooling:124 - HHH10001001: Connection properties: {password=****, user=root}
+2020-02-26 11:50:53 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2020-02-26 11:50:53 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 50 (min=1)
+2020-02-26 11:50:55 INFO  Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2020-02-26 11:50:58 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@712ac7e6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.

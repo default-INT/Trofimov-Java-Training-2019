@@ -1,0 +1,31 @@
+<content class="car-item">
+    <span id="carId">1</span>
+    <h1 id="carTitle">
+        Ford Mustang
+    </h1>
+    <div class="item-content">
+        <div id="imgBlock">
+            <img src="/resources/img/ford-mustang.png" alt="">
+        </div>
+        <div id="description">
+            <label>Номер автомобиля: <div id="number">4323 AE-3</div></label>
+            <label>Коробка передач: <div id="transmission">Механика</div></label>
+            <label>Тип двигателя: <div id="fuelType">Дизель</div></label>
+            <label>Год выпуска: <div id="yearOfIssue">2010</div></label>
+            <label>Пробег: <div id="mileage">432 324</div> км.</label>
+            <label>Цена в час: <div id="priceHour">3</div>$</label>
+            <label>Статус: <div id="status">Доступна для аренды</div></label>
+        </div>
+    </div>
+    <h1 id="formTitle">Форма для аренды</h1>
+    <form id="orderForm">
+        <label>Введите дату возврата</label><br>
+        <input type="date" name="dateReturn" onchange="calculatePrice()">
+        <input type="time" name="timeReturn" onchange="calculatePrice()"><br>
+        <label>Введите номер паспорта</label><br>
+        <input type="text" name="passportData" onchange="passportDataChange(this)" placeholder="HB3325143"><br>
+        <label>Стоимость аренды: <span id="rentalPrice">0</span>$</label><br>
+        <label id="msg"></label><br>
+        <button type="button" id="createOrderBtn" onclick="createOrder()">Взять в аренду</button>
+    </form>
+</content>

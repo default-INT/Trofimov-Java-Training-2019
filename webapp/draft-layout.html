@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Прокат автомобилей</title>
+    <link rel="stylesheet" href="resources/css/main.css">
+    <link rel="stylesheet" href="resources/css/window-dialog.css">
+    <link rel="stylesheet" href="resources/css/catalog-list.css">
+    <link rel="stylesheet" href="resources/css/item-page.css">
+    <link rel="stylesheet" href="resources/css/font-awesome.css">
+    <link rel="stylesheet" href="resources/css/profile.css">
+</head>
+<body>
+<header>
+    <h1>
+        DRAFT - ПРОКАТ АВТОМОБИЛЕЙ
+        <div id="user" class="menu">
+            <div id="login">Гость</div>
+            <ul class="submenu" id="user-sidebar">
+                <li onclick="document.getElementById('login-form').style.display='block'">Войти</li>
+                <li onclick="document.getElementById('registration-form').style.display='block'">Зарегистрироваться</li>
+            </ul>
+        </div>
+    </h1>
+    <hr>
+    <nav>
+        <ul>
+            <li><a class="link" href="javascript: ContentManager.loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
+            <li class="menu"><a class="link">СПИСОК АВТОМОБИЛЕЙ</a>
+                <ul class="submenu">
+                    <li><a class="link" href="javascript: ContentManager.loadPageToUrl('/free-car')">Свободные автомобили</a></li>
+                    <li><a class="link" href="javascript: ContentManager.loadPageToUrl('/cars')">Все автомобили</a></li>
+                </ul>
+
+            </li>
+            <li><a class="link" name="/about" href="javascript: ContentManager. loadPageToUrl('/about')">ОБ АВТОРЕ</a>
+
+            </li>
+        </ul>
+    </nav>
+
+</header>
+<div id="login-form" class="modal">
+  <span onclick="document.getElementById('login-form').style.display='none'"
+class="close" title="Close Modal">&times;</span>
+
+  <!-- Modal Content -->
+  <form class="modal-content animate" id="auth-form">
+    <div class="container">
+        <h1>Авторизация</h1>
+
+        <input type="text" placeholder="Введите логин" name="login" required><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
+        <label class="msg"></label>
+        <button type="button" id="login-button" onclick="logInUser()">ВОЙТИ</button>
+      
+    </div>
+  </form>
+</div> 
+<div id="registration-form" class="modal">
+  <span onclick="document.getElementById('registration-form').style.display='none'"
+class="close" title="Close Modal">&times;</span>
+
+  <form class="modal-content animate" method="POST" id="reg-form">
+    <div class="container">
+        <h1>Регистрация</h1>
+
+        <input type="text" placeholder="Введите логин" name="login" required><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
+        <input type="password" placeholder="Повторите пароль" name="retryPassword" required><br>
+        <input type="text" placeholder="Введите электронную почту" name="email" required><br>
+        <input type="text" placeholder="Введите ФИО" name="fullName" required><br>
+        <input type="number" placeholder="Введите год рождения" name="birthdayYear" required><br>
+        <label class="msg"></label>
+        <button type="button"  id="reg-button" onclick="signUpUser()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+    </div>
+  </form>
+</div> 
+<div class="wrapper-content">
+    <div id="wrapper">
+        <content>
+            <div class="profile-main-info">
+                <div class="profile-icon">
+                    <i class="fa fa-user-circle-o"></i>
+                </div>
+                <div class="profile-description">
+                    <div id="title">Логин</div>
+                    <div id="other-info">
+                        <label>ФИО: <span id="fullName">Трофимов Е.В.</span></label>
+                        <label>Статус: <span id="status">Клиент</span></label>
+                        <label>Почта: <span id="email">evgen.trofimov.2000@gmail.com</span></label>
+                        <label id="edit"><a href="">Редактировать</a></label>
+                    </div>
+
+                </div>
+            </div>
+        </content>
+        <content>
+            <div class="choice-list">
+                <label><a href="">Мои аренды</a></label>
+                <label><a href="">Заявки на возврат</a></label>
+            </div>
+            <div class="item-list">
+                <div class="item return-request">
+                    <div class="icon">
+                        <img src="resources/img/ford-mustang.png" alt="">
+                    </div>
+                    <div class="content-item">
+                        <div class="title">
+                            Ford Mustang
+                        </div>
+                        <div class="status">
+                            Остался 1 день аренды
+                        </div>
+                        <div class="description">
+                            <label>
+                                Дата аренды:
+                                <div class="order-date">
+                                    07.02.2020 15:07
+                                </div>
+                            </label>
+                            <label>
+                                Дата возврата:
+                                <div class="return-date">
+                                    08.02.2020 20:00
+                                </div>
+                            </label>
+                            <label>
+                                ФИО клиента:
+                                <div class="client">
+                                    Трофимов Е.В.
+                                </div>
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <div class="title">Информация об автомобиле</div>
+                        <label>Номер: 4355 AE-4</label>
+                        <label>Двигатель: бензин</label>
+                        <label>КП: механика</label>
+                    </div>
+                    <div class="return-form">
+                        <div class="title">
+                            Оценка состояния
+                        </div>
+                        <form class="description">
+                            <label>Описание неисправновстей: </label><br>
+                            <textarea name="description" cols="40" rows="4" placeholder="Неисправности"></textarea>
+                            <input type="number" name="repairCost" placeholder="Штраф в $">
+                            <button type="button" style="background: #ff4a27">Отклонить заявку</button>
+                            <button type="button" style="background: darkgreen">Принять возврат</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </content>
+    </div>
+    <div class="empty-line">
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div id="about">
+                © Евгений Трофимов ИТП-31<br>2020 г. <a href="https://www.gstu.by/">gstu.by</a>
+            </div>
+            <div id="time">
+            </div>
+        </div>
+    </footer>
+</div>
+<script type="text/javascript" src="resources/js/entities.js"></script>
+<script type="text/javascript" src="resources/js/untils.js"></script>
+<script type="text/javascript" src="resources/js/main.js"></script>
+<script type="text/javascript" src="resources/js/car-item.js"></script>
+</body>
+</html>

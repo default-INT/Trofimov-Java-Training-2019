@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">
+            jdbc:mysql://localhost:3306/cars_rental?serverTimezone=UTC
+        </property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">1806</property>
+        <property name="hibernate.show_sql">true</property>
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.connection.pool_size">50</property>
+
+        <mapping class="by.gstu.models.entities.car.FuelType" />
+        <mapping class="by.gstu.models.entities.car.Transmission" />
+        <mapping class="by.gstu.models.entities.car.Car" />
+        <mapping class="by.gstu.models.entities.Account" />
+        <mapping class="by.gstu.models.entities.Client" />
+        <mapping class="by.gstu.models.entities.Administrator" />
+        <mapping class="by.gstu.models.entities.Order" />
+        <mapping class="by.gstu.models.entities.ReturnRequest" />
+
+    </session-factory>
+</hibernate-configuration>

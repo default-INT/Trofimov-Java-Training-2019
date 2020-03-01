@@ -1,0 +1,198 @@
+/*
+ * start profile descript
+*/
+
+.profile-main-info {
+  height: 350px;
+  display: grid;
+  grid-template-columns: 	180px auto;
+}
+
+.profile-main-info *{
+  display: inline-block;
+  position: relative;
+}
+
+.profile-icon {
+  width: 180px;
+  height: 180px;
+  text-align: center;
+  font-size: 100pt;
+  margin-left: 20px;
+  margin-top: 20px;
+  color: #ad66d5;
+}
+
+.profile-description * {
+  font-size: 16pt;
+  width: 40%;
+}
+
+#other-info {
+  margin-top: 40px;
+  margin-left: 60px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 	1fr 1fr;
+  grid-row-gap: 20px;
+}
+
+#other-info label {
+  width: 100%;
+}
+
+.profile-main-info #title {
+  font-size: 70pt;
+  width: 100%;
+  margin-left: 60px;
+  padding-bottom: 20px;
+}
+
+#other-info #edit {
+  color: purple;
+  transition: .8s ease;
+}
+
+#other-info #edit:hover {
+  color: #ad66d5;
+}
+
+/*
+ * end profile descript
+ * --------------------------
+ * start profile course
+*/
+
+.choice-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 	1fr 1fr;
+  border-bottom: 4px whitesmoke solid;
+}
+
+.choice-list * {
+  text-align: center;
+  font-size: 26pt;
+  padding-top: 10px;
+  height: 60px;
+  border-right: 4px whitesmoke solid;
+  transition: .8s ease-in-out;
+}
+
+.choice-list label:hover {
+  background: #9F3ED5;
+  color: white;
+  
+  cursor: pointer;
+}
+
+.choice-list *:last-child {
+  border-right: none;
+}
+
+.item-list .item {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-gap: 10px;
+  height: 200px;
+  border-bottom: 4px solid whitesmoke;
+}
+
+.item-list .item.return-request {
+  height: 480px;
+  grid-template-rows: 160px auto;
+}
+
+.item-list .item:last-child {
+  border: none;
+}
+
+.item-list .item .title {
+  display: inline-block;
+  font-size: 28pt;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  padding-right: 15px;
+  border-bottom: 3px whitesmoke solid;
+}
+
+.item-list .item .icon {
+  overflow: hidden;
+}
+
+.item-list .item .icon img {
+  width: 290px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.item-list .item .description label {
+  display: block;
+  font-size: 18pt;
+  margin-bottom: 10px;
+}
+
+.item-list .item .description label * {
+  display: inline;
+}
+
+.item-list .item button {
+  font-size: 24pt;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.item-list .item .status {
+  display: inline;
+  float: right;
+  font-size: 11pt;
+  margin-right: 20px;
+  margin-top: 10px;
+  border-bottom: 2px solid green;
+  padding-bottom: 8px;
+}
+
+.item-list .car-info .title {
+  font-size: 18pt;
+  width: 80%;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+.item-list .car-info label {
+  display: block;
+  margin-left: 25px;
+  font-size: 14pt;
+  height: 35px;
+}
+
+.item-list .return-form .title {
+  font-size: 22pt;
+  width: 95%;
+}
+
+.item-list .return-form input {
+  display: inline;
+  width:  200px;
+  height: 50px;
+  padding-left: 10px;
+}
+
+.item-list .return-form .description label {
+  display: inline;
+}
+
+.item-list .return-form .description textarea {
+  margin-top: 15px;
+}
+
+.item-list .return-form .description button {
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+.item-list .return-form .field {
+  font-size: 16pt;
+  margin-top: 15px;
+}
