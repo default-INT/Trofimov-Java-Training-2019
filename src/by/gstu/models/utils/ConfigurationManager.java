@@ -1,9 +1,7 @@
-package by.gstu.models.untils;
+package by.gstu.models.utils;
 
 import org.apache.log4j.Logger;
 
-import javax.servlet.ServletContext;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;

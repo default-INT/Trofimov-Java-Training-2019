@@ -213,6 +213,7 @@ function node(params) {
             params.childNodes.forEach(node => element.appendChild(node));
         else element.appendChild(params.childNodes);
     }
+    if (!!params.borderColor) element.style.borderColor = params.borderColor;
     if (!!params.src) element.src = params.src;
     if (!!params.src) element.src = params.src;
     if (!!params.name) element.name = params.name;

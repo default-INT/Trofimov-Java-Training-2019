@@ -1,4 +1,4 @@
-package by.gstu.models.untils;
+package by.gstu.models.utils;
 
 import by.gstu.models.entities.Entity;
 import org.json.JSONArray;

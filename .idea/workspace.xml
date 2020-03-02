@@ -7,81 +7,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7330b0c-c2de-4b18-869b-061b9e00e5a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Trofimov-Java-Training-2019-master.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Trofimov_Java_Training_2019_master_Web_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DatabaseGenerate.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseGenerate.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/car-rental.iml" beforeDir="false" afterPath="$PROJECT_DIR$/car-rental.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/AccountServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/AccountServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/RouteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/ServiceServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/ServiceServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/filters/RouteFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/filters/RouteFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/CarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/CarService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/PageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/PageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/ReturnRequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/ReturnRequestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/AccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/AdministratorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/AdministratorDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/CarDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/CarDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/ClientDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/DAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/DAOFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/ReturnRequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/ReturnRequestDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlAccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlAccountDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlAdministratorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlAdministratorDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlCarDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlCarDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlClientDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlDAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlDAOFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlOrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlOrderDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlReturnRequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlReturnRequestDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/Administrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/ReturnRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/ReturnRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ConfigurationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/untils/ConfigurationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/untils/ConnectionPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ParserJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/untils/ParserJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/log4j.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/log4j.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/mysql.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/mysql.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/urls.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/urls.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ConfigurationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/utils/ConfigurationManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/utils/ConnectionPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ParserJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/utils/ParserJSON.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/draft-layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/draft-layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/notfound.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/notfound.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/car_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/car_item.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/car_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/car_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/cars.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/cars.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/free_car.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/free_car.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/main_content.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/main_content.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pages/user_car.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/pages/user_car.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/css/catalog-list.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/css/catalog-list.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/css/font-awesome.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/css/font-awesome.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/css/item-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/css/item-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/css/profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/css/window-dialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/css/window-dialog.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/fonts/fontawesome-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/fonts/fontawesome-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/js/car-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/car-item.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/resources/js/entities.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/entities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/js/filter-catalog.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/filter-catalog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/resources/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/resources/js/untils.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/untils.js" afterDir="false" />
     </list>
@@ -116,6 +62,29 @@
         <item name="cars_rental@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="cars_rental: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cars_rental@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cars_rental: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cars_rental@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cars_rental: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="orders: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cars_rental@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cars_rental: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="return_requests: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -246,7 +215,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Running" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
@@ -275,7 +244,7 @@
       <option name="presentableId" value="Default" />
       <updated>1583133040418</updated>
       <workItem from="1583133049803" duration="2015000" />
-      <workItem from="1583135284200" duration="1895000" />
+      <workItem from="1583135284200" duration="9431000" />
     </task>
     <servers />
   </component>
@@ -311,62 +280,94 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="580" y="174" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1583134764509" />
-    <state width="1069" height="222" key="GridCell.Tab.0.bottom" timestamp="1583137245680">
+    <state width="1069" height="224" key="GridCell.Tab.0.bottom" timestamp="1583181064557">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583137245680" />
-    <state width="1069" height="222" key="GridCell.Tab.0.center" timestamp="1583137245680">
+    <state width="1069" height="222" key="GridCell.Tab.0.bottom/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776821" />
+    <state width="1069" height="224" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583181064557" />
+    <state width="1069" height="224" key="GridCell.Tab.0.center" timestamp="1583181064554">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1583137245680" />
-    <state width="1069" height="222" key="GridCell.Tab.0.left" timestamp="1583137245679">
+    <state width="1069" height="222" key="GridCell.Tab.0.center/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776819" />
+    <state width="1069" height="224" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1583181064552" />
+    <state width="1069" height="224" key="GridCell.Tab.0.left" timestamp="1583181064548">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1583137245679" />
-    <state width="1069" height="222" key="GridCell.Tab.0.right" timestamp="1583137245680">
+    <state width="1069" height="222" key="GridCell.Tab.0.left/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776818" />
+    <state width="1069" height="224" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1583181064548" />
+    <state width="1069" height="224" key="GridCell.Tab.0.right" timestamp="1583181064556">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1583137245680" />
-    <state width="1069" height="222" key="GridCell.Tab.1.bottom" timestamp="1583137245681">
+    <state width="1069" height="222" key="GridCell.Tab.0.right/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776820" />
+    <state width="1069" height="224" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1583181064556" />
+    <state width="1069" height="224" key="GridCell.Tab.1.bottom" timestamp="1583181064559">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583137245681" />
-    <state width="1069" height="222" key="GridCell.Tab.1.center" timestamp="1583137245681">
+    <state width="1069" height="222" key="GridCell.Tab.1.bottom/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776822" />
+    <state width="1069" height="224" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583181064559" />
+    <state width="1069" height="224" key="GridCell.Tab.1.center" timestamp="1583181064558">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1583137245681" />
-    <state width="1069" height="222" key="GridCell.Tab.1.left" timestamp="1583137245681">
+    <state width="1069" height="222" key="GridCell.Tab.1.center/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776822" />
+    <state width="1069" height="224" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1583181064558" />
+    <state width="1069" height="224" key="GridCell.Tab.1.left" timestamp="1583181064557">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1583137245681" />
-    <state width="1069" height="222" key="GridCell.Tab.1.right" timestamp="1583137245681">
+    <state width="1069" height="222" key="GridCell.Tab.1.left/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776821" />
+    <state width="1069" height="224" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1583181064557" />
+    <state width="1069" height="224" key="GridCell.Tab.1.right" timestamp="1583181064559">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1583137245681" />
-    <state width="1069" height="222" key="GridCell.Tab.2.bottom" timestamp="1583137245683">
+    <state width="1069" height="222" key="GridCell.Tab.1.right/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776822" />
+    <state width="1069" height="224" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1583181064559" />
+    <state width="1069" height="224" key="GridCell.Tab.2.bottom" timestamp="1583181064561">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.2.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583137245683" />
-    <state width="1069" height="222" key="GridCell.Tab.2.center" timestamp="1583137245682">
+    <state width="1069" height="222" key="GridCell.Tab.2.bottom/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776824" />
+    <state width="1069" height="224" key="GridCell.Tab.2.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583181064561" />
+    <state width="1069" height="224" key="GridCell.Tab.2.center" timestamp="1583181064560">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.2.center/0.0.1600.860@0.0.1600.860" timestamp="1583137245682" />
-    <state width="1069" height="222" key="GridCell.Tab.2.left" timestamp="1583137245681">
+    <state width="1069" height="222" key="GridCell.Tab.2.center/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776823" />
+    <state width="1069" height="224" key="GridCell.Tab.2.center/0.0.1600.860@0.0.1600.860" timestamp="1583181064560" />
+    <state width="1069" height="224" key="GridCell.Tab.2.left" timestamp="1583181064560">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.2.left/0.0.1600.860@0.0.1600.860" timestamp="1583137245681" />
-    <state width="1069" height="222" key="GridCell.Tab.2.right" timestamp="1583137245682">
+    <state width="1069" height="222" key="GridCell.Tab.2.left/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776823" />
+    <state width="1069" height="224" key="GridCell.Tab.2.left/0.0.1600.860@0.0.1600.860" timestamp="1583181064560" />
+    <state width="1069" height="224" key="GridCell.Tab.2.right" timestamp="1583181064561">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1069" height="222" key="GridCell.Tab.2.right/0.0.1600.860@0.0.1600.860" timestamp="1583137245682" />
+    <state width="1069" height="222" key="GridCell.Tab.2.right/0.0.1600.860/1600.0.1920.1040@0.0.1600.860" timestamp="1583150776823" />
+    <state width="1069" height="224" key="GridCell.Tab.2.right/0.0.1600.860@0.0.1600.860" timestamp="1583181064561" />
+    <state width="1069" height="224" key="GridCell.Tab.3.bottom" timestamp="1583181064564">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1069" height="224" key="GridCell.Tab.3.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583181064564" />
+    <state width="1069" height="224" key="GridCell.Tab.3.center" timestamp="1583181064563">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1069" height="224" key="GridCell.Tab.3.center/0.0.1600.860@0.0.1600.860" timestamp="1583181064563" />
+    <state width="1069" height="224" key="GridCell.Tab.3.left" timestamp="1583181064563">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1069" height="224" key="GridCell.Tab.3.left/0.0.1600.860@0.0.1600.860" timestamp="1583181064563" />
+    <state width="1069" height="224" key="GridCell.Tab.3.right" timestamp="1583181064563">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1069" height="224" key="GridCell.Tab.3.right/0.0.1600.860@0.0.1600.860" timestamp="1583181064563" />
     <state x="280" y="7" key="SettingsEditor" timestamp="1583134766288">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="280" y="7" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1583134766288" />
-    <state x="584" y="322" width="431" height="225" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1583135783076">
+    <state x="584" y="322" width="431" height="225" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1583178768469">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="584" y="322" width="431" height="225" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1600.860@0.0.1600.860" timestamp="1583135783076" />
+    <state x="584" y="322" width="431" height="225" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1600.860@0.0.1600.860" timestamp="1583178768469" />
+    <state x="509" y="80" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1583171843645">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="509" y="80" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1600.860@0.0.1600.860" timestamp="1583171843645" />
     <state x="183" y="134" key="new project wizard" timestamp="1583134452546">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

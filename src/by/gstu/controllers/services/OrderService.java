@@ -1,14 +1,12 @@
 package by.gstu.controllers.services;
 
-import by.gstu.controllers.ServiceServlet;
 import by.gstu.models.dao.DAOFactory;
 import by.gstu.models.dao.OrderDAO;
 import by.gstu.models.entities.Car;
 import by.gstu.models.entities.Entity;
 import by.gstu.models.entities.Order;
-import by.gstu.models.untils.ParserJSON;
+import by.gstu.models.utils.ParserJSON;
 import org.apache.log4j.Logger;
-import org.apache.log4j.helpers.ISO8601DateFormat;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

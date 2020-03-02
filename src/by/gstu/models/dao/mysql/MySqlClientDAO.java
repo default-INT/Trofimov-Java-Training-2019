@@ -2,8 +2,8 @@ package by.gstu.models.dao.mysql;
 
 import by.gstu.models.dao.ClientDAO;
 import by.gstu.models.entities.Client;
-import by.gstu.models.untils.ConfigurationManager;
-import by.gstu.models.untils.ConnectionPool;
+import by.gstu.models.utils.ConfigurationManager;
+import by.gstu.models.utils.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

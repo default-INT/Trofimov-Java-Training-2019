@@ -278,8 +278,9 @@ class Order {
             (this.returnDate.getTime() - nowDate.getTime()) / 3600 / 1000);
         if (hourLeft < 0) {
             return  node({
-               classList: "status",
-               content: "Вы просрочили аренду на " + (-hourLeft) + " ч."
+                classList: "status",
+                content: "Вы просрочили аренду на " + (-hourLeft) + " ч.",
+                borderColor: "red"
             });
         }
         return node({

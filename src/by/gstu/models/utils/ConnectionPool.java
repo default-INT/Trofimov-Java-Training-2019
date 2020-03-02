@@ -1,4 +1,4 @@
-package by.gstu.models.untils;
+package by.gstu.models.utils;
 
 import org.apache.log4j.Logger;
 

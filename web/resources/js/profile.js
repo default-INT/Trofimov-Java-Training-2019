@@ -16,10 +16,12 @@ function loadProfile() {
         if (response.status === "client") {
             user = new Client(response);
             loadOrders();
+            //loadReturnRequest();
         } else if (response.status === "admin") {
             user = new Administrator(response);
             let itemList = document.querySelector("#wrapper .item-list");
             itemList.innerHTML = "";
+            loadReturnRequest();
         } else {
             ContentManager.loadPageToUrl("/main");
             return;
@@ -59,11 +61,18 @@ function loadReturnRequest() {
             // Get authAccount and take his status. Append element from this account.
             Account.authorizationAJAX()
                 .then(account => {
-                    let status = account.status;
-                    returnRequests.forEach(returnRequest => {
-                        itemList.appendChild(new ReturnRequest(returnRequest)
-                                .getItemNode(status));
-                    });
+                    if (account.status === "admin") {
+                        returnRequests.forEach(returnRequest => {
+                            itemList.appendChild(new ReturnRequest(returnRequest)
+                                .getItemNode(account.status));
+                        });
+                    } else if (account.status === "client") {
+                        returnRequests.forEach(returnRequest => {
+                            itemList.appendChild(new ReturnRequest(returnRequest)
+                                .getItemNode(account.status));
+                        });
+                    }
+
                 });
 
         });

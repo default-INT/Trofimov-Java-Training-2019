@@ -1,7 +1,7 @@
 package by.gstu.models.entities;
 
 import by.gstu.models.dao.DAOFactory;
-import by.gstu.models.untils.ParserJSON;
+import by.gstu.models.utils.ParserJSON;
 import org.json.JSONObject;
 
 import java.util.Calendar;

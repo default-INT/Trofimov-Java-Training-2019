@@ -2,7 +2,7 @@ package by.gstu.controllers.services;
 
 import by.gstu.models.dao.DAOFactory;
 import by.gstu.models.dao.ReturnRequestDAO;
-import by.gstu.models.untils.ParserJSON;
+import by.gstu.models.utils.ParserJSON;
 import org.json.JSONArray;
 
 import java.util.ArrayList;

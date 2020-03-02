@@ -1,6 +1,6 @@
 package by.gstu.models.entities;
 
-import by.gstu.models.untils.ParserJSON;
+import by.gstu.models.utils.ParserJSON;
 import org.json.JSONObject;
 
 /**

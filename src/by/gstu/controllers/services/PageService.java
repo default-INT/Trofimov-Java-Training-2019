@@ -1,6 +1,6 @@
 package by.gstu.controllers.services;
 
-import by.gstu.models.untils.ConfigurationManager;
+import by.gstu.models.utils.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

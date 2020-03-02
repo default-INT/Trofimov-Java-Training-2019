@@ -2,7 +2,7 @@ package by.gstu.controllers.services;
 
 import by.gstu.models.dao.CarDAO;
 import by.gstu.models.dao.DAOFactory;
-import by.gstu.models.untils.ParserJSON;
+import by.gstu.models.utils.ParserJSON;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

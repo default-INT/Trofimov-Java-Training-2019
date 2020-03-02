@@ -4,8 +4,8 @@ import by.gstu.models.dao.AccountDAO;
 import by.gstu.models.entities.Account;
 import by.gstu.models.entities.Administrator;
 import by.gstu.models.entities.Client;
-import by.gstu.models.untils.ConfigurationManager;
-import by.gstu.models.untils.ConnectionPool;
+import by.gstu.models.utils.ConfigurationManager;
+import by.gstu.models.utils.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
