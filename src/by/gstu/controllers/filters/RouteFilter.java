@@ -23,6 +23,4 @@ public class RouteFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
     }
-
-
 }

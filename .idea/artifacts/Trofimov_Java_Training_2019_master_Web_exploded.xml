@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="Trofimov-Java-Training-2019-master:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Trofimov_Java_Training_2019_master_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Trofimov-Java-Training-2019-master/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Trofimov-Java-Training-2019-master" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

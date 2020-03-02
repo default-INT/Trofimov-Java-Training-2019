@@ -10,4 +10,7 @@ public interface ReturnRequestDAO {
     ReturnRequest read(int id);
     boolean update(ReturnRequest returnRequest);
     boolean delete(int id);
+
+    Collection<ReturnRequest> readAllAvailable();
+    Collection<ReturnRequest> readAllForClient(int clientId);
 }

@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  * Implements ReturnRequestDAO.
  *
  * @author Evgeniy Trofimov
- * @version 1.1
+ * @version 1.2
  */
 class MySqlReturnRequestDAO implements ReturnRequestDAO {
 
@@ -27,12 +27,16 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
     private static final String DEFAULT_READ_ALL = "{CALL read_all_return_requests()}";
     private static final String DEFAULT_UPDATE = "{CALL edit_return_request(?, ?, ?, ?, ?)}";
     private static final String DEFAULT_DELETE = "{CALL delete_return_request(?)}";
+    private static final String DEFAULT_READ_ALL_FOR_CLIENT = "{CALL read_all_return_requests_for_client(?)}";
+    private static final String DEFAULT_READ_ALL_AVAILABLE = "{CALL read_all_available_return_requests()}";
 
     private static final String CREATE;
     private static final String READ;
     private static final String READ_ALL;
     private static final String UPDATE;
     private static final String DELETE;
+    private static final String READ_ALL_FOR_CLIENT;
+    private static final String READ_ALL_AVAILABLE;
 
     static {
         ConfigurationManager configuratorManager = ConfigurationManager.getInstance();
@@ -43,6 +47,10 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
                 "mysql");
         UPDATE = configuratorManager.getProperty("sql.ReturnRequests.update", DEFAULT_UPDATE, "mysql");
         DELETE = configuratorManager.getProperty("sql.ReturnRequests.delete", DEFAULT_DELETE, "mysql");
+        READ_ALL_FOR_CLIENT = configuratorManager
+                .getProperty("sql.ReturnRequests.readAllForClient", DEFAULT_READ_ALL_FOR_CLIENT, "mysql");
+        READ_ALL_AVAILABLE = configuratorManager
+                .getProperty("sql.ReturnRequests.readAllAvailable", DEFAULT_READ_ALL_AVAILABLE, "mysql");
     }
 
     @Override
@@ -183,5 +191,70 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
             connectionPool.closeConnection(connection);
         }
         return false;
+    }
+
+    @Override
+    public Collection<ReturnRequest> readAllAvailable() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        CallableStatement statement;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareCall(READ_ALL_AVAILABLE);
+            ResultSet resultSet = statement.executeQuery();
+            Collection<ReturnRequest> returnRequests = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                Date returnDate = resultSet.getDate("return_date");
+                int orderId = resultSet.getInt("order_id");
+                String description = resultSet.getString("description");
+                boolean returnMark = resultSet.getBoolean("return_mark");
+                double repairCost = resultSet.getDouble("repair_cost");
+
+                Calendar returnDateCal = new GregorianCalendar();
+                returnDateCal.setTime(returnDate);
+
+                returnRequests.add(new ReturnRequest(id, returnDateCal, orderId, description, returnMark, repairCost));
+            }
+            return returnRequests;
+        } catch (SQLException | InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+        return null;
+    }
+
+    @Override
+    public Collection<ReturnRequest> readAllForClient(int clientId) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        CallableStatement statement;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareCall(READ_ALL_FOR_CLIENT);
+            statement.setInt("var_client_id", clientId);
+            ResultSet resultSet = statement.executeQuery();
+            Collection<ReturnRequest> returnRequests = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                Date returnDate = resultSet.getDate("return_date");
+                int orderId = resultSet.getInt("order_id");
+                String description = resultSet.getString("description");
+                boolean returnMark = resultSet.getBoolean("return_mark");
+                double repairCost = resultSet.getDouble("repair_cost");
+
+                Calendar returnDateCal = new GregorianCalendar();
+                returnDateCal.setTime(returnDate);
+
+                returnRequests.add(new ReturnRequest(id, returnDateCal, orderId, description, returnMark, repairCost));
+            }
+            return returnRequests;
+        } catch (SQLException | InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+        return null;
     }
 }

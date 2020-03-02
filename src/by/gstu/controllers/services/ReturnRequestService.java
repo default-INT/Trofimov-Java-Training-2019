@@ -24,10 +24,10 @@ public class ReturnRequestService {
     }
 
     public JSONArray getAllReturnRequests(int clientId) {
-        return null;
+        return ParserJSON.toJSONArray(new ArrayList<>(returnRequestDAO.readAllForClient(clientId)));
     }
 
     public JSONArray getAllReturnRequests() {
-        return ParserJSON.toJSONArray(new ArrayList<>(returnRequestDAO.readAll()));
+        return ParserJSON.toJSONArray(new ArrayList<>(returnRequestDAO.readAllAvailable()));
     }
 }
