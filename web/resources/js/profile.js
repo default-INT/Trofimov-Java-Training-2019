@@ -96,8 +96,14 @@ function cancelRequest() {
 
 }
 
-function acceptRequest() {
-
+function acceptRequest(requestId) {
+    ReturnRequest.closeReturnRequest(requestId)
+        .then(result => {
+            if (result) {
+                let element = document.querySelector(".item-list #request" + requestId);
+                element.parentNode.removeChild(element);
+            } else console.log("Failed to delete item with id = " + requestId);
+        })
 }
 
 function choiceSection(section) {

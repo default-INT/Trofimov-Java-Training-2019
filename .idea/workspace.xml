@@ -8,28 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e7330b0c-c2de-4b18-869b-061b9e00e5a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseGenerate.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseGenerate.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/RouteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/CarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/CarService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/PageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/PageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/controllers/services/ReturnRequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/controllers/services/ReturnRequestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlAccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlAccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlAdministratorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlAdministratorDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlCarDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlCarDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlClientDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlOrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlOrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlReturnRequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/dao/mysql/MySqlReturnRequestDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/entities/ReturnRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/entities/ReturnRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ConfigurationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/utils/ConfigurationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/utils/ConnectionPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/by/gstu/models/untils/ParserJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/by/gstu/models/utils/ParserJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/draft-layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/draft-layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/js/entities.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/entities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/resources/js/untils.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/resources/js/untils.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,20 +190,6 @@
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:cars_rental@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:cars_rental@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@409b5213" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
             </expand>
             <select />
           </treeState>
@@ -245,6 +209,7 @@
       <updated>1583133040418</updated>
       <workItem from="1583133049803" duration="2015000" />
       <workItem from="1583135284200" duration="9431000" />
+      <workItem from="1583443817182" duration="622000" />
     </task>
     <servers />
   </component>
@@ -368,6 +333,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="509" y="80" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1600.860@0.0.1600.860" timestamp="1583171843645" />
+    <state x="507" y="257" key="com.intellij.ide.util.TipDialog" timestamp="1583443837506">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="507" y="257" key="com.intellij.ide.util.TipDialog/0.0.1600.860@0.0.1600.860" timestamp="1583443837506" />
     <state x="183" y="134" key="new project wizard" timestamp="1583134452546">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

@@ -442,6 +442,7 @@ class ReturnRequest {
         });
 
         return node({
+            id: "request" + this._id,
             classList: ["item", "return-request"],
             childNodes: [icon, contentItem, carInfo, returnForm]
         });
@@ -631,6 +632,17 @@ class ReturnRequest {
             responseType: "json"
         }).then(response => {
             if (!response) return null;
+            return response;
+        });
+    }
+
+    static closeReturnRequest(requestId) {
+        return httpRequest({
+            url: "/service/returnRequests/" + requestId,
+            method: "DELETE",
+            responseType: 'json'
+        }).then(response => {
+            if (!response) Error('Failed to get response from server');
             return response;
         });
     }
