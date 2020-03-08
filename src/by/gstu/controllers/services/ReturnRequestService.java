@@ -4,6 +4,7 @@ import by.gstu.models.dao.DAOFactory;
 import by.gstu.models.dao.ReturnRequestDAO;
 import by.gstu.models.utils.ParserJSON;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -29,5 +30,15 @@ public class ReturnRequestService {
 
     public JSONArray getAllReturnRequests() {
         return ParserJSON.toJSONArray(new ArrayList<>(returnRequestDAO.readAllAvailable()));
+    }
+
+    public JSONObject acceptRequest(int requestId) {
+        JSONObject msg = new JSONObject();
+        if (returnRequestDAO.closeReturnRequest(requestId)) {
+            msg.put("result", true);
+        } else {
+            msg.put("result", false);
+        }
+        return msg;
     }
 }

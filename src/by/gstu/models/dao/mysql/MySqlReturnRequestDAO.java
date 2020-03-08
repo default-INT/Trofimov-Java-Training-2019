@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  * Implements ReturnRequestDAO.
  *
  * @author Evgeniy Trofimov
- * @version 1.2
+ * @version 1.3
  */
 class MySqlReturnRequestDAO implements ReturnRequestDAO {
 
@@ -29,6 +29,7 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
     private static final String DEFAULT_DELETE = "{CALL delete_return_request(?)}";
     private static final String DEFAULT_READ_ALL_FOR_CLIENT = "{CALL read_all_return_requests_for_client(?)}";
     private static final String DEFAULT_READ_ALL_AVAILABLE = "{CALL read_all_available_return_requests()}";
+    private static final String DEFAULT_CLOSE_REQUEST = "{CALL close_return_request(?)}";
 
     private static final String CREATE;
     private static final String READ;
@@ -37,6 +38,7 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
     private static final String DELETE;
     private static final String READ_ALL_FOR_CLIENT;
     private static final String READ_ALL_AVAILABLE;
+    private static final String CLOSE_REQUEST;
 
     static {
         ConfigurationManager configuratorManager = ConfigurationManager.getInstance();
@@ -51,6 +53,8 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
                 .getProperty("sql.ReturnRequests.readAllForClient", DEFAULT_READ_ALL_FOR_CLIENT, "mysql");
         READ_ALL_AVAILABLE = configuratorManager
                 .getProperty("sql.ReturnRequests.readAllAvailable", DEFAULT_READ_ALL_AVAILABLE, "mysql");
+        CLOSE_REQUEST = configuratorManager
+                .getProperty("sql.ReturnRequests.closeRequest", DEFAULT_CLOSE_REQUEST);
     }
 
     @Override
@@ -256,5 +260,27 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
             connectionPool.closeConnection(connection);
         }
         return null;
+    }
+
+    @Override
+    public boolean closeReturnRequest(int returnRequestId) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        CallableStatement callStatement;
+        try {
+            connection = connectionPool.getConnection();
+
+            callStatement = connection.prepareCall(CLOSE_REQUEST);
+
+            callStatement.setInt("var_id", returnRequestId);
+
+            int k = callStatement.executeUpdate();
+            return k > 0;
+        } catch (SQLException | InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+        return false;
     }
 }

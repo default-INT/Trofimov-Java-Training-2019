@@ -385,6 +385,17 @@ BEGIN
     SELECT * FROM return_requests WHERE id = var_return_req_id;
 END //
 
+CREATE PROCEDURE close_return_request(
+    var_id INT
+)
+BEGIN
+    UPDATE return_requests SET
+       return_mark = true
+    WHERE id = var_id;
+    UPDATE cars SET available = true
+    WHERE id = (SELECT car_id FROM orders WHERE id = var_id);
+END //
+
 -- STORAGE PROCEDURE FROM transmission
 
 CREATE PROCEDURE read_all_transmissions()

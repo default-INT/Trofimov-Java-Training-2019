@@ -13,4 +13,5 @@ public interface ReturnRequestDAO {
 
     Collection<ReturnRequest> readAllAvailable();
     Collection<ReturnRequest> readAllForClient(int clientId);
+    boolean closeReturnRequest(int returnRequestId);
 }

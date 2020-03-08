@@ -195,6 +195,7 @@ class Order {
         return JSON.stringify({
                 id: this.id,
                 orderDate: this.orderDate,
+                returnDate: this.returnDate,
                 rentalPeriod: this.rentalPeriod,
                 carId: this.carId,
                 clientId: this.clientId,
@@ -612,7 +613,7 @@ class ReturnRequest {
             tag: "button",
             content: "Принять возврат",
             background: "darkgreen",
-            onclick: acceptRequest
+            onclick: () => acceptRequest(this._id)
         });
         //end description
         return node({

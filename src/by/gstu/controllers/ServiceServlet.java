@@ -5,10 +5,12 @@ import by.gstu.controllers.services.OrderService;
 import by.gstu.controllers.services.ReturnRequestService;
 import by.gstu.controllers.services.UserService;
 import by.gstu.models.entities.Account;
+import by.gstu.models.entities.ReturnRequest;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -111,6 +113,24 @@ public class ServiceServlet extends HttpServlet {
                 } catch (IOException | ParseException e) {
                     logger.error(e.getMessage());
                 }
+            }
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String servletPath = req.getPathInfo();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        if (servletPath.matches("/returnRequests/\\d+")) {
+            if (UserService.checkAccess(req.getSession()) == UserService.AccessUser.ADMIN) {
+                String[] partUrl = servletPath.split("/");
+                int id = Integer.parseInt(partUrl[partUrl.length - 1]);
+
+                ReturnRequestService returnRequestService = ReturnRequestService.getInstance();
+                resp.getWriter().write(returnRequestService.acceptRequest(id).toString());
+                logger.info("Return request accept!");
             }
         }
     }
