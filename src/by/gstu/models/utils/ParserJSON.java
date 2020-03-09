@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Description
@@ -40,7 +41,7 @@ public interface ParserJSON {
      */
     static String parseCalendar(Calendar calendar) {
         return calendar.get(Calendar.YEAR) + "-" + addZero(calendar.get(Calendar.MONTH) + 1) + "-" +
-                addZero(calendar.get(Calendar.DATE)) + "T" + addZero(calendar.get(Calendar.HOUR)) +
+                addZero(calendar.get(Calendar.DATE)) + "T" + addZero(calendar.getTime().getHours()) +
                 ":" + addZero(calendar.get(Calendar.MINUTE));
     }
 

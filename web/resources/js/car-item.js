@@ -70,6 +70,9 @@ function createOrder() {
     orderDate.setMilliseconds(0);
     orderDate.setSeconds(0);
 
+    returnDate.setMilliseconds(0);
+    returnDate.setSeconds(0);
+
     if (userData.status === "admin") {
         msg.style.color = "red";
         msg.innerHTML = "Администраторам нельзя брать автомобили в аренду!";
@@ -98,7 +101,7 @@ function createOrder() {
     let order = new Order({
         orderDate: orderDate,
         rentalPeriod: rentalPeriod,
-        returnDate: null,
+        returnDate: returnDate,
         carId: parseInt(document.getElementById("carId").innerText),
         clientId: userData.id,
         passportData: formData.get("passportData"),

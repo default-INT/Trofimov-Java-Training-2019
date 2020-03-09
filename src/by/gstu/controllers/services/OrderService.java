@@ -60,7 +60,7 @@ public class OrderService {
     }
 
     public static Order getOrderReq(HttpServletRequest request) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         String line;
         BufferedReader reader;
         try {
@@ -69,11 +69,18 @@ public class OrderService {
                 buffer.append(line);
             }
             JSONObject jsonObject =  new JSONObject(buffer.toString());
+
             Date orderDate = parse(jsonObject.getString("orderDate"));
             Calendar orderDateCal = new GregorianCalendar();
             orderDateCal.setTime(orderDate);
+
+            Date returnDate = parse(jsonObject.getString("returnDate"));
+            Calendar returnDateCal = new GregorianCalendar();
+            returnDateCal.setTime(returnDate);
+
             int carId = jsonObject.getInt("carId");
-            int rentalPeriod = jsonObject.getInt("rentalPeriod");
+            int rentalPeriod = (int) ((returnDateCal.getTimeInMillis()
+                    - orderDateCal.getTimeInMillis()) / 1000 / 3600);
 
             Car car = DAOFactory.getDAOFactory().getCarDAO().read(carId);
             double price = rentalPeriod * car.getPriceHour();
@@ -81,6 +88,7 @@ public class OrderService {
 
             return new Order(
                     orderDateCal,
+                    returnDateCal,
                     rentalPeriod,
                     carId,
                     clientId,
@@ -103,7 +111,7 @@ public class OrderService {
             int inset = 6;
 
             String s0 = input.substring( 0, input.length() - inset );
-            String s1 = input.substring( input.length() - inset, input.length() );
+            String s1 = input.substring( input.length() - inset);
 
             input = s0 + "GMT" + s1;
         }

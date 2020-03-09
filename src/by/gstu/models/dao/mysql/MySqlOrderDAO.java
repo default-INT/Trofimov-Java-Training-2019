@@ -65,6 +65,8 @@ class MySqlOrderDAO implements OrderDAO {
             callStatement.setTimestamp("var_order_date",
                     new Timestamp(order.getOrderDate().getTime().getTime()), order.getOrderDate());
             callStatement.setInt("var_rental_period", order.getPeriod());
+            callStatement.setTimestamp("var_return_date",
+                    new Timestamp(order.getReturnDate().getTime().getTime()), order.getReturnDate());
             callStatement.setInt("var_client_id", order.getClientId());
             callStatement.setInt("var_car_id", order.getCarId());
             callStatement.setString("var_passport_data", order.getPassportData());
@@ -92,9 +94,9 @@ class MySqlOrderDAO implements OrderDAO {
             Collection<Order> orders = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                Date orderDate = resultSet.getDate("order_date");
+                Timestamp orderDate = resultSet.getTimestamp("order_date");
                 int rentalPeriod = resultSet.getInt("rental_period");
-                Date returnDate = resultSet.getDate("return_date");
+                Timestamp returnDate = resultSet.getTimestamp("return_date");
                 int clientId = resultSet.getInt("client_id");
                 int carId = resultSet.getInt("car_id");
                 String passportData = resultSet.getString("passport_data");
@@ -194,9 +196,9 @@ class MySqlOrderDAO implements OrderDAO {
             statement.setInt("var_order_id", id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Date orderDate = resultSet.getDate("order_date");
+                Timestamp orderDate = resultSet.getTimestamp("order_date"); //.getDate("order_date");
                 int rentalPeriod = resultSet.getInt("rental_period");
-                Date returnDate = resultSet.getDate("return_date");
+                Timestamp returnDate = resultSet.getTimestamp("return_date"); //.getDate("return_date");
                 int clientId = resultSet.getInt("client_id");
                 int carId = resultSet.getInt("car_id");
                 String passportData = resultSet.getString("passport_data");

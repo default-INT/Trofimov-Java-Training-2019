@@ -111,7 +111,7 @@ class Car {
  * JSON object from the server and for generation HTML elements.
  *
  * @author Evgeniy Trofimov
- * @version 1.0
+ * @version 1.1
  */
 class Order {
 

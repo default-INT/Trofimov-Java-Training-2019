@@ -10,7 +10,7 @@ import java.util.Calendar;
  * Entity class.
  *
  * @author Evgeniy Trofimov
- * @version 2.1
+ * @version 2.2
  */
 public class Order extends Entity {
 
@@ -42,7 +42,7 @@ public class Order extends Entity {
 				 Car car, Client client, boolean closed) {
 		super(id);
 		this.orderDate = orderDate;
-		this.period = period;
+		setPeriod(period);
 		this.returnDate = returnDate;
 		this.passportData = phoneNumber;
 		this.price = price;
@@ -66,7 +66,8 @@ public class Order extends Entity {
 	public Order(int id, Calendar orderDate, int period, Calendar returnDate, int clientId, int carId,
 				 String passportData, double price, boolean closed) {
 		super(id);
-		this.orderDate = orderDate;
+		setOrderDate(orderDate);
+		setPeriod(period);
 		this.period = period;
 		this.returnDate = returnDate;
 		this.carId = carId;
@@ -87,6 +88,46 @@ public class Order extends Entity {
 	 */
 	public Order(Calendar orderDate, int rentalPeriod, int carId, int clientId, String passportData, double price) {
 		this.orderDate = orderDate;
+		setPeriod(period);
+		this.carId = carId;
+		this.clientId = clientId;
+		this.passportData = passportData;
+		this.price = price;
+	}
+
+	/**
+	 *
+	 * @param orderDate
+	 * @param returnDate
+	 * @param carId
+	 * @param clientId
+	 * @param passportData
+	 * @param price
+	 */
+	public Order(Calendar orderDate, Calendar returnDate, int carId, int clientId, String passportData, double price) {
+		if (returnDate.getTimeInMillis() - orderDate.getTimeInMillis() < 0)
+			throw new IllegalArgumentException("Дата возврата раньше даты заказа.");
+		this.orderDate = orderDate;
+		this.returnDate = returnDate;
+		this.carId = carId;
+		this.clientId = clientId;
+		this.passportData = passportData;
+		this.price = price;
+	}
+
+	/**
+	 *
+	 * @param orderDate
+	 * @param returnDate
+	 * @param rentalPeriod
+	 * @param carId
+	 * @param clientId
+	 * @param passportData
+	 * @param price
+	 */
+	public Order(Calendar orderDate, Calendar returnDate, int rentalPeriod, int carId, int clientId, String passportData, double price) {
+		this.orderDate = orderDate;
+		this.returnDate = returnDate;
 		this.period = rentalPeriod;
 		this.carId = carId;
 		this.clientId = clientId;
@@ -104,6 +145,7 @@ public class Order extends Entity {
 		return period;
 	}
 	public void setPeriod(int period) {
+		if (period < 0) throw new IllegalArgumentException("Дата возврата раньше даты заказа.");
 		this.period = period;
 	}
 	public Calendar getReturnDate() {

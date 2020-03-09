@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  * Implements ReturnRequestDAO.
  *
  * @author Evgeniy Trofimov
- * @version 1.3
+ * @version 1.4
  */
 class MySqlReturnRequestDAO implements ReturnRequestDAO {
 
@@ -96,7 +96,7 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
             Collection<ReturnRequest> returnRequests = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                Date returnDate = resultSet.getDate("return_date");
+                Timestamp returnDate = resultSet.getTimestamp("return_date");
                 int orderId = resultSet.getInt("order_id");
                 String description = resultSet.getString("description");
                 boolean returnMark = resultSet.getBoolean("return_mark");
@@ -127,8 +127,7 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
             statement.setInt("var_return_req_id", id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-
-                Date returnDate = resultSet.getDate("return_date");
+                Timestamp returnDate = resultSet.getTimestamp("return_date");
                 int orderId = resultSet.getInt("order_id");
                 String description = resultSet.getString("description");
                 boolean returnMark = resultSet.getBoolean("return_mark");
@@ -209,7 +208,7 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
             Collection<ReturnRequest> returnRequests = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                Date returnDate = resultSet.getDate("return_date");
+                Timestamp returnDate = resultSet.getTimestamp("return_date");
                 int orderId = resultSet.getInt("order_id");
                 String description = resultSet.getString("description");
                 boolean returnMark = resultSet.getBoolean("return_mark");
@@ -242,7 +241,7 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
             Collection<ReturnRequest> returnRequests = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                Date returnDate = resultSet.getDate("return_date");
+                Timestamp returnDate = resultSet.getTimestamp("return_date");
                 int orderId = resultSet.getInt("order_id");
                 String description = resultSet.getString("description");
                 boolean returnMark = resultSet.getBoolean("return_mark");
