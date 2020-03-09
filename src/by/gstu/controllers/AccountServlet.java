@@ -25,12 +25,30 @@ public class AccountServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String servletPath = request.getPathInfo();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Client user = userService.registration(getUserReq(request));
-        if (user != null) {
-            response.getWriter().write(user.toJSON().toString());
+        if (servletPath.contains("/auth")) {
+            Account logInAccount;
+            HttpSession session = request.getSession();
+
+            Client client = getLoginUserReq(request);
+
+            if (client.getLogin() == null && client.getPassword() == null) {
+                logInAccount = (Account) session.getAttribute("authAccount");
+            } else {
+                logInAccount = userService.authorization(client.getLogin(), client.getPassword());
+                session.setAttribute("authAccount", logInAccount);
+            }
+            if (logInAccount != null) {
+                response.getWriter().write(logInAccount.toJSON().toString());
+            }
+        } else {
+            Client user = userService.registration(getUserReq(request));
+            if (user != null) {
+                response.getWriter().write(user.toJSON().toString());
+            }
         }
     }
 
@@ -69,7 +87,7 @@ public class AccountServlet extends HttpServlet {
     }
 
     private static Client getUserReq(HttpServletRequest request) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         String line;
         BufferedReader reader;
         try {
@@ -81,6 +99,23 @@ public class AccountServlet extends HttpServlet {
             return new Client(jsonObject.getString("login"), jsonObject.getString("password"),
                     jsonObject.getString("email"), jsonObject.getString("fullName"),
                     jsonObject.getInt("birthdayYear"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static Client getLoginUserReq(HttpServletRequest request) {
+        StringBuilder buffer = new StringBuilder();
+        String line;
+        BufferedReader reader;
+        try {
+            reader = request.getReader();
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            JSONObject jsonObject =  new JSONObject(buffer.toString());
+            return new Client(jsonObject.getString("login"), jsonObject.getString("password"));
         } catch (IOException e) {
             e.printStackTrace();
         }

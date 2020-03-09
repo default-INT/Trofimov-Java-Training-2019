@@ -40,7 +40,14 @@ public class Client extends Account {
 		this.birthdayYear = birthdayYear;
 	}
 
-	public Client() {
+	/**
+	 *
+	 * @param login
+	 * @param password
+	 */
+	public Client(String login, String password) {
+		this.login = login;
+		this.password = password;
 	}
 
 	public Client(int id, String login, String email, String fullName, int birthdayYear) {

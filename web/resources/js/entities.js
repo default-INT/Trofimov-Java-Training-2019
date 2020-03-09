@@ -782,8 +782,15 @@ class Account {
         url.searchParams.set("login", login);
         url.searchParams.set("password", password);
 
-        return httpGetJson(url)
-            .then(account => {
+        return httpRequest({
+            url: '/account/auth',
+            method: 'POST',
+            responseType: 'json',
+            data: JSON.stringify({
+                login: login,
+                password: password
+            })
+        }).then(account => {
                 let user;
                 if (!account) {
                     console.log("HttpResponse define null or undefined.");
