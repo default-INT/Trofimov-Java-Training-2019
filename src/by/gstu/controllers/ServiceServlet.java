@@ -88,7 +88,7 @@ public class ServiceServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String servletPath = req.getPathInfo();
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -114,6 +114,22 @@ public class ServiceServlet extends HttpServlet {
                     logger.error(e.getMessage());
                 }
             }
+        } else if (servletPath.contains("/returnRequest")) {
+            ReturnRequestService returnRequestService = ReturnRequestService.getInstance();
+            if (UserService.checkAccess(req.getSession()) == UserService.AccessUser.ADMIN) {
+                JSONObject result = returnRequestService
+                        .cancelRequest(ReturnRequestService.parseRequestDescription(req));
+                resp.getWriter().write(result.toString());
+            }
+        } else if (servletPath.matches("/returnRequests/\\d+")) {
+            if (UserService.checkAccess(req.getSession()) == UserService.AccessUser.CLIENT) {
+                String[] partUrl = servletPath.split("/");
+                int id = Integer.parseInt(partUrl[partUrl.length - 1]);
+
+                ReturnRequestService returnRequestService = ReturnRequestService.getInstance();
+                resp.getWriter().write(returnRequestService.acceptRequest(id).toString());
+                logger.info("Return request accept!");
+            }
         }
     }
 
@@ -124,14 +140,12 @@ public class ServiceServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         if (servletPath.matches("/returnRequests/\\d+")) {
-            if (UserService.checkAccess(req.getSession()) == UserService.AccessUser.ADMIN) {
-                String[] partUrl = servletPath.split("/");
-                int id = Integer.parseInt(partUrl[partUrl.length - 1]);
+            String[] partUrl = servletPath.split("/");
+            int id = Integer.parseInt(partUrl[partUrl.length - 1]);
 
-                ReturnRequestService returnRequestService = ReturnRequestService.getInstance();
-                resp.getWriter().write(returnRequestService.acceptRequest(id).toString());
-                logger.info("Return request accept!");
-            }
+            ReturnRequestService returnRequestService = ReturnRequestService.getInstance();
+            resp.getWriter().write(returnRequestService.acceptRequest(id).toString());
+            logger.info("Return request accept!");
         }
     }
 }

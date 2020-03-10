@@ -564,7 +564,7 @@ class ReturnRequest {
             let payFineBtn = node({
                 tag: "button",
                 content: "Оплатить штраф",
-                onclick: payFine
+                onclick: () => payFine(this._id)
             });
             return node({
                 classList: "description",
@@ -607,7 +607,7 @@ class ReturnRequest {
             tag: "button",
             content: "Отклонить заявку",
             background: "#ff4a27",
-            onclick: cancelRequest
+            onclick: () => cancelRequest(this._id)
         });
         let acceptBtn = node({
             tag: "button",
@@ -642,6 +642,18 @@ class ReturnRequest {
             url: "/service/returnRequests/" + requestId,
             method: "DELETE",
             responseType: 'json'
+        }).then(response => {
+            if (!response) Error('Failed to get response from server');
+            return response;
+        });
+    }
+
+    static cancelRequestAJAX(returnRequest) {
+        return httpRequest({
+            url: "/service/returnRequest",
+            method: "PUT",
+            responseType: "json",
+            data: JSON.stringify(returnRequest)
         }).then(response => {
             if (!response) Error('Failed to get response from server');
             return response;

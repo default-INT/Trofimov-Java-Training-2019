@@ -366,7 +366,7 @@ END //
 
 CREATE PROCEDURE read_all_available_return_requests()
 BEGIN
-    SELECT * FROM return_requests WHERE return_mark = false;
+    SELECT * FROM return_requests WHERE return_mark = false AND repair_cost = 0;
 END //
 
 CREATE PROCEDURE read_all_return_requests_for_client(

@@ -78,8 +78,14 @@ function loadReturnRequest() {
         });
 }
 
-function payFine() {
-
+function payFine(requestId) {
+    ReturnRequest.closeReturnRequest(requestId)
+        .then(result => {
+            if (result) {
+                let element = document.querySelector(".item-list #request" + requestId);
+                element.parentNode.removeChild(element);
+            } else console.log("Failed to delete item with id = " + requestId);
+        }).catch(reject => console.log(reject));;
 }
 
 function closeOrder(orderId, date) {
@@ -92,8 +98,17 @@ function closeOrder(orderId, date) {
         }).catch(reject => console.log(reject));
 }
 
-function cancelRequest() {
-
+function cancelRequest(requestId) {
+    let element = document.querySelector(".item-list #request" + requestId);
+    ReturnRequest.cancelRequestAJAX({
+        id: requestId,
+        description: element.querySelector('.description textarea[name="description"]').value,
+        repairCost: element.querySelector('.description input[name="repairCost"]').value
+    }).then(result => {
+        if (result) {
+            element.parentNode.removeChild(element);
+        } else console.log("Failed to delete item with id = " + requestId);
+    });
 }
 
 function acceptRequest(requestId) {

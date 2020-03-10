@@ -32,6 +32,12 @@ public class ReturnRequest extends Entity {
         this.repairCost = repairCost;
     }
 
+    public ReturnRequest(int id, String description, double repairCost) {
+        super(id);
+        this.description = description;
+        this.repairCost = repairCost;
+    }
+
     public int getOrderId() {
         return orderId;
     }

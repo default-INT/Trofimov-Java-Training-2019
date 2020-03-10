@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  * Implements ReturnRequestDAO.
  *
  * @author Evgeniy Trofimov
- * @version 1.4
+ * @version 1.5
  */
 class MySqlReturnRequestDAO implements ReturnRequestDAO {
 
@@ -30,6 +30,7 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
     private static final String DEFAULT_READ_ALL_FOR_CLIENT = "{CALL read_all_return_requests_for_client(?)}";
     private static final String DEFAULT_READ_ALL_AVAILABLE = "{CALL read_all_available_return_requests()}";
     private static final String DEFAULT_CLOSE_REQUEST = "{CALL close_return_request(?)}";
+    private static final String DEFAULT_CANCEL_REQUEST = "{CALL cancel_return_request(?, ?, ?)}";
 
     private static final String CREATE;
     private static final String READ;
@@ -39,6 +40,7 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
     private static final String READ_ALL_FOR_CLIENT;
     private static final String READ_ALL_AVAILABLE;
     private static final String CLOSE_REQUEST;
+    private static final String CANCEL_REQUEST;
 
     static {
         ConfigurationManager configuratorManager = ConfigurationManager.getInstance();
@@ -55,6 +57,8 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
                 .getProperty("sql.ReturnRequests.readAllAvailable", DEFAULT_READ_ALL_AVAILABLE, "mysql");
         CLOSE_REQUEST = configuratorManager
                 .getProperty("sql.ReturnRequests.closeRequest", DEFAULT_CLOSE_REQUEST);
+        CANCEL_REQUEST = configuratorManager
+                .getProperty("sql.ReturnRequests.cancelRequest", DEFAULT_CANCEL_REQUEST);
     }
 
     @Override
@@ -272,6 +276,30 @@ class MySqlReturnRequestDAO implements ReturnRequestDAO {
             callStatement = connection.prepareCall(CLOSE_REQUEST);
 
             callStatement.setInt("var_id", returnRequestId);
+
+            int k = callStatement.executeUpdate();
+            return k > 0;
+        } catch (SQLException | InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            connectionPool.closeConnection(connection);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean cancelReturnRequest(ReturnRequest returnRequest) {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        CallableStatement callStatement;
+        try {
+            connection = connectionPool.getConnection();
+
+            callStatement = connection.prepareCall(CANCEL_REQUEST);
+
+            callStatement.setInt("var_id", returnRequest.getId());
+            callStatement.setString("var_description", returnRequest.getDescription());
+            callStatement.setDouble("var_repair_cost", returnRequest.getRepairCost());
 
             int k = callStatement.executeUpdate();
             return k > 0;
