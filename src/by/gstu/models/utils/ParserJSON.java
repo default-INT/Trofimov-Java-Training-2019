@@ -12,7 +12,7 @@ import java.util.Date;
  * Description
  *
  * @author Evgeniy Trofimov
- * @version 1.1
+ * @version 1.2
  */
 public interface ParserJSON {
     /**
@@ -26,7 +26,7 @@ public interface ParserJSON {
      * @param entities
      * @return
      */
-    static JSONArray toJSONArray(Collection<Entity> entities) {
+    static JSONArray toJSONArray(Collection<? extends Entity> entities) {
         JSONArray jsonEntities = new JSONArray();
         for (Entity entity : entities)
             jsonEntities.put(entity.toJSON());

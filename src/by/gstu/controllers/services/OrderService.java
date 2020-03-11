@@ -48,7 +48,7 @@ public class OrderService {
     public JSONArray clientOrders(int clientId) {
         Collection<Order> orders = orderDAO.readAll(clientId);
         if (orders == null) return null;
-        return ParserJSON.toJSONArray(new ArrayList<>(orders));
+        return ParserJSON.toJSONArray(orders);
     }
 
     public JSONObject closeOrder(int orderId, Date returnDate) {

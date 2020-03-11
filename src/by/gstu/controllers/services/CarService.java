@@ -29,7 +29,7 @@ public class CarService {
     }
 
     public JSONArray getAllCars() {
-        return ParserJSON.toJSONArray(new ArrayList<>(carDAO.readAll()));
+        return ParserJSON.toJSONArray(carDAO.readAll());
     }
 
     public JSONObject getCar(int id) {

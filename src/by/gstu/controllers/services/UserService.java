@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 /**
  *
  * @author  Evgeniy Trofimov
- * @version 0.1
+ * @version 1.0
  */
 public class UserService {
 

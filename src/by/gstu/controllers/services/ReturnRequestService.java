@@ -33,11 +33,11 @@ public class ReturnRequestService {
     }
 
     public JSONArray getAllReturnRequests(int clientId) {
-        return ParserJSON.toJSONArray(new ArrayList<>(returnRequestDAO.readAllForClient(clientId)));
+        return ParserJSON.toJSONArray(returnRequestDAO.readAllForClient(clientId));
     }
 
     public JSONArray getAllReturnRequests() {
-        return ParserJSON.toJSONArray(new ArrayList<>(returnRequestDAO.readAllAvailable()));
+        return ParserJSON.toJSONArray(returnRequestDAO.readAllAvailable());
     }
 
     public JSONObject acceptRequest(int requestId) {
