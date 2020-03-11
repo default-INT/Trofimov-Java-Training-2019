@@ -1,9 +1,5 @@
 "use strict";
 
-//let links = Array.from(document.getElementsByClassName("link"));
-
-let links = ["/main", "/cars", "/free-car", "/about", "/car-list"];
-
 const loginRegEx = /^[a-zA-z]{1}[a-zA-Z1-9_]{3,20}$/i;
 const passRegEx = /^[a-zA-z]{1}[a-zA-Z0-9_/!/@/#/$/%/&]{3,20}$/i;
 const emailRegEx = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
@@ -19,8 +15,11 @@ let userData = {
     status: null
 };
 
-// Get the modal
 let modals;
+
+window.onpopstate = () => {
+    ContentManager.loadPageToUrl(new URL(document.URL).pathname);
+};
 
 /**
  * Initialize variable and run start method.
@@ -71,7 +70,9 @@ class ContentManager {
         httpGetHtml("/route" + path)
             .then(content => {
                 document.getElementById("wrapper").innerHTML = content;
-                history.pushState(null, null, path);
+                if (new URL(document.URL).pathname !== path) {
+                    history.pushState(null, null, path);
+                }
                 ContentManager._definePage(path);
             }).catch(() => ContentManager.loadPageToUrl("/not-found"));
     }
@@ -155,34 +156,6 @@ function setUserMenu(authUser) {
         clearForms();
         loadPageOnStart();
     }
-}
-
-/**
- * Function will check been session on server. If user logIn early, then function set in
- * userData information about user. If session empty function will setting null in userData.
- *
- * @author Evgeniy Trofimov
- * @version 1.0
- */
-function getSessionAccount() {
-    let httpRequest = new XMLHttpRequest();
-    let urlPath = "/accounts/auth";
-    httpRequest.open("GET", urlPath);
-    httpRequest.response = "json";
-    httpRequest.send();
-
-    httpRequest.onload(function () {
-        if (httpRequest.status === 200) {
-            userData = httpRequest.response;
-            if (!userData) {
-                let user = document.getElementById("user");
-                user.login.innerHTML = "Гость";
-            }
-        } else {
-            console.log("Error send AJAX request to '" + urlPath + "'. " +
-                "Response status: " + httpRequest.status);
-        }
-    })
 }
 
 /**
