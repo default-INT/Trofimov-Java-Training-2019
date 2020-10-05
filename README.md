@@ -9,3 +9,4 @@
   <li>Task2 находится в ветви task2.</li>
   <li>Task3 находится в ветви task3.</li>
 </ul>
+В ветке webapp-hibernate-maven, находится версия проекта с слоем доступа с помощью ORM технологии Hibernate.
